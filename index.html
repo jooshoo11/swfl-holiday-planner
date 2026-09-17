@@ -1807,54 +1807,6 @@
       background: var(--border-color);
     }
 
-    /* Host Tipping Styles */
-    .btn-res-tip {
-      background: #fef3c7;
-      color: #92400e;
-      border: 1px solid #fde68a;
-      border-radius: 8px;
-      padding: 0.45rem 0.75rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
-    .btn-res-tip:hover {
-      background: #fde68a;
-      color: #78350f;
-      transform: translateY(-1px);
-    }
-    .tip-amount-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.2rem;
-      padding: 0.65rem 0.35rem;
-      background: var(--bg-surface);
-      border: 2px solid var(--border-color);
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s ease;
-      color: var(--text-main);
-    }
-    .tip-amount-btn:hover {
-      border-color: #10b981;
-      background: #f0fdf4;
-    }
-    .tip-amount-btn.active {
-      border-color: #059669;
-      background: #ecfdf5;
-      color: #065f46;
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
-    }
-
     /* Admin Verification Queue Modal */
     .pending-item-card {
       background: #ffffff;
@@ -2391,16 +2343,6 @@
             <input type="text" id="hsTip" class="form-control" placeholder="e.g. Please dim headlights to parking lights and do not block neighbor driveways." />
           </div>
 
-          <div style="margin: 0.85rem 0; padding: 0.85rem; background: #ecfdf5; border-radius: 8px; border: 1px solid #a7f3d0;">
-            <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.82rem; cursor: pointer; color: #065f46; font-weight: 600;">
-              <input type="checkbox" id="hsAcceptTips" style="margin-top: 0.2rem;" onchange="document.getElementById('tipOptInInfo').style.display = this.checked ? 'block' : 'none';" />
-              <span>⚡ Enable Visitor Tipping: Would you like visitors to be able to tip your family (Apple Pay, Google Pay, Credit Card) to help cover your electric bills & maintenance?</span>
-            </label>
-            <div id="tipOptInInfo" style="display: none; margin-top: 0.5rem; font-size: 0.76rem; color: #047857; line-height: 1.4;">
-              ✨ <strong>How it works:</strong> If approved, you will receive a secure 1-click Stripe Connect onboarding link to connect your direct bank or debit card. 90% of tips go directly into your account; 10% supports keeping SWFL Holiday Planner free.
-            </div>
-          </div>
-
           <div style="margin: 1rem 0; padding: 0.85rem; background: var(--bg-subtle); border-radius: 8px; border: 1px solid var(--border-color);">
             <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; cursor: pointer; color: var(--text-main);">
               <input type="checkbox" id="hsAgree" required style="margin-top: 0.2rem;" />
@@ -2535,98 +2477,6 @@
             Save to Planner
           </button>
         </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- HOST TIP MODAL (STRIPE SPLIT DONATIONS) -->
-  <div class="modal-overlay" id="hostTipModal" onclick="closeModalOnBackdrop(event, 'hostTipModal')">
-    <div class="modal-card" style="max-width: 520px;">
-      <div class="modal-header" style="background: linear-gradient(135deg, #065f46, #047857); color: white;">
-        <div class="modal-title" style="color: white;">
-          <span>⚡</span>
-          <span id="tipModalHostTitle">Tip Host Family</span>
-        </div>
-        <button class="modal-close" style="color: white;" onclick="closeTipModal()">✕</button>
-      </div>
-      <div class="modal-body" style="padding: 1.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1.25rem; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 0.85rem 1rem;">
-          <div style="font-size: 2rem;">💡</div>
-          <div>
-            <div style="font-weight: 700; color: #065f46; font-size: 0.92rem;" id="tipModalHostSubtitle">Support this holiday display!</div>
-            <div style="font-size: 0.78rem; color: #047857; line-height: 1.35;" id="tipModalHostAddress">Helps cover seasonal electric bills, smart controllers, and bulb maintenance.</div>
-          </div>
-        </div>
-
-        <div style="margin-bottom: 1.25rem;">
-          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">
-            Select Tip Amount:
-          </label>
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;" id="tipPresetButtons">
-            <button type="button" class="tip-amount-btn" onclick="setTipAmount(3, this)">
-              <span style="font-size: 1.15rem;">🍬</span>
-              <strong>$3</strong>
-              <small style="font-size: 0.68rem; opacity: 0.85;">Candy Cane</small>
-            </button>
-            <button type="button" class="tip-amount-btn active" onclick="setTipAmount(5, this)">
-              <span style="font-size: 1.15rem;">☕</span>
-              <strong>$5</strong>
-              <small style="font-size: 0.68rem; opacity: 0.85;">Hot Cocoa</small>
-            </button>
-            <button type="button" class="tip-amount-btn" onclick="setTipAmount(10, this)">
-              <span style="font-size: 1.15rem;">⚡</span>
-              <strong>$10</strong>
-              <small style="font-size: 0.68rem; opacity: 0.85;">Power Bill</small>
-            </button>
-            <button type="button" class="tip-amount-btn" onclick="setTipAmount(20, this)">
-              <span style="font-size: 1.15rem;">🌟</span>
-              <strong>$20</strong>
-              <small style="font-size: 0.68rem; opacity: 0.85;">Megastar</small>
-            </button>
-          </div>
-          <div style="margin-top: 0.65rem; display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 0.82rem; color: var(--text-muted);">Custom:</span>
-            <div style="position: relative; flex: 1;">
-              <span style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-muted);">$</span>
-              <input type="number" id="customTipAmount" min="1" max="500" step="1" placeholder="Other amount" style="width: 100%; padding: 0.45rem 0.75rem 0.45rem 1.65rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: inherit; font-size: 0.88rem;" oninput="onCustomTipInput(this.value)" />
-            </div>
-          </div>
-        </div>
-
-        <!-- SPLIT TRANSPARENCY BREAKDOWN BOX -->
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 1.25rem;">
-          <div style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 0.5rem;">
-            🛡️ Transparent Split Payout Breakdown
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
-            <span style="color: var(--text-main);">🏡 Host Family Share (<span id="tipHostPercent">90</span>%):</span>
-            <strong style="color: #047857;" id="tipHostShareDisplay">$4.50</strong>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.35rem;">
-            <span>💻 SWFL Holiday Planner Platform (<span id="tipPlatformPercent">10</span>%):</span>
-            <span id="tipPlatformShareDisplay">$0.50</span>
-          </div>
-          <div style="font-size: 0.72rem; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 0.45rem; margin-top: 0.45rem;">
-            🔒 Processed via Stripe Connect. 90% transfers directly to the verified homeowner to keep holiday lights shining across SWFL.
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-bottom: 1.25rem;">
-          <label class="form-label" style="font-size: 0.82rem;">Personal Cheer / Message to Host (Optional):</label>
-          <input type="text" id="tipCheerMessage" class="form-control" placeholder="e.g., Loved the synchronized music! From the Davis family" />
-        </div>
-
-        <button type="button" id="btnProcessTip" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.98rem; padding: 0.75rem; background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);" onclick="executeTipPayment()">
-          <span>💳</span> <span id="btnPayAmountText">Pay $5.00 with Apple Pay or Card</span>
-        </button>
-
-        <div style="display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-top: 0.85rem; font-size: 0.75rem; color: var(--text-muted);">
-          <span>🔒 256-Bit SSL Encrypted</span>
-          <span>•</span>
-          <span>⚡ Apple Pay / Google Pay</span>
-          <span>•</span>
-          <span>Powered by Stripe</span>
-        </div>
       </div>
     </div>
   </div>
@@ -3493,9 +3343,7 @@
     "description": "A legendary Southwest Florida holiday home tradition for over 30 years! Features over 400,000 dazzling lights, thousands of handmade animated figures, life-size gingerbread men, toy soldier castle pathways, and snowmen across a beautifully landscaped estate.",
     "familyTip": "Walk-through pathways allow kids to explore close up. Park carefully along Mission Valley Blvd and wear comfortable shoes. Bring a canned food donation for the community food bank.",
     "mapsQuery": "2281 Mission Valley Blvd, Nokomis, FL 34275",
-    "icon": "🏡",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "🏡"
   },
   {
     "id": "cedarwood-musical-lights",
@@ -3524,9 +3372,7 @@
     "description": "One of Florida's most sophisticated computer-synchronized residential pixel shows! Over 50,000 smart pixels dancing to 40+ holiday, pop, and movie songs. Spectators can tune to 95.5 FM on their car radio and even vote for upcoming songs via their smartphone.",
     "familyTip": "Dim your headlights to parking lights when pulling up to the curb. Do not block neighboring driveways or turnarounds.",
     "mapsQuery": "5534 Cedarwood Dr, Sarasota, FL 34232",
-    "icon": "📻",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "📻"
   },
   {
     "id": "hayden-snow-wonderland",
@@ -3555,9 +3401,7 @@
     "description": "Famous for delighting local children with active faux-snow machines blowing flurry clouds into the yard! Features dozens of oversized illuminated inflatables, archway walk-throughs, and classic holiday carols playing on the lawn.",
     "familyTip": "Located in the same Colonial Gables neighborhood as Cedarwood Dr, making it easy to visit both! Kids love catching the flying snow bubbles.",
     "mapsQuery": "5580 Hayden Blvd, Sarasota, FL 34232",
-    "icon": "❄️",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "❄️"
   },
   {
     "id": "cedar-hollow-neighborhood-lights",
@@ -3586,9 +3430,7 @@
     "description": "The entire Cedar Hollow neighborhood joins together every December to create an unforgettable drive-through light tunnel! Scores of neighboring homes coordinate illuminated driveway arches, glowing palm trees, and festive front lawn dioramas.",
     "familyTip": "Enter off Honore Ave just south of Fruitville Rd. Drive at 5 MPH with parking lights on so kids in the back seat can take in the entire loop.",
     "mapsQuery": "Cedar Hollow Cir, Sarasota, FL 34235",
-    "icon": "✨",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "✨"
   },
   {
     "id": "arundel-musical-lights-north-port",
@@ -3617,9 +3459,7 @@
     "description": "North Port's favorite residential animated light spectacular! Features thousands of synchronized pixel LEDs programmed to dance to holiday hits and modern beats broadcast right to your vehicle's FM radio.",
     "familyTip": "Easy drive from Punta Gorda (just off Price Blvd). Pull to the right side of the road, turn off headlights, and keep volume at an enjoyable car level.",
     "mapsQuery": "1563 Arundel Ave, North Port, FL 34286",
-    "icon": "🎶",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "🎶"
   },
   {
     "id": "samovar-terrace-holiday-block",
@@ -3648,9 +3488,7 @@
     "description": "Frequently voted North Port's Best Decorated Street, where multiple families decorate contiguous yards with hundreds of illuminated inflatables, rooftop displays, and synchronized light trees.",
     "familyTip": "A great family nightcap after grabbing dinner in North Port. Very quiet residential street with easy slow cruising.",
     "mapsQuery": "Samovar Terrace, North Port, FL 34286",
-    "icon": "🌟",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "🌟"
   },
   {
     "id": "conestoga-musical-light-show",
@@ -3679,9 +3517,7 @@
     "description": "Charlotte County's standout DIY home digital light spectacular! Thousands of RGB pixels across the roofline, windows, yard trees, and singing Christmas trees perform high-energy musical sequences synced to FM radio.",
     "familyTip": "Very close to Punta Gorda 33983 (just across the harbor bridge off Veterans Blvd / Midway). Great stop when touring local Charlotte County lights.",
     "mapsQuery": "4064 Conestoga St, Port Charlotte, FL 33948",
-    "icon": "💡",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "💡"
   },
   {
     "id": "burnt-store-meadows-lights",
@@ -3710,9 +3546,7 @@
     "description": "A beloved south Punta Gorda neighborhood tradition where enthusiastic homeowners decorate along the greenbelts and streets with dazzling palm tree wraps, glowing nativity sets, and lighted canal bridges.",
     "familyTip": "Combine this with a drive through Fishermen's Village for a complete Punta Gorda holiday lights evening!",
     "mapsQuery": "Soursop St and S Blue Sage, Punta Gorda, FL 33955",
-    "icon": "🌴",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "🌴"
   },
   {
     "id": "bradenton-72nd-musical-lights",
@@ -3741,9 +3575,7 @@
     "description": "One of Manatee County's most acclaimed residential musical light spectacles! Features tens of thousands of custom-programmed lights dancing to holiday classics and Trans-Siberian Orchestra songs transmitted directly to your FM radio.",
     "familyTip": "Turn headlights to amber parking lights so everyone behind you can enjoy the dazzling light display. Please do not block neighbor driveways.",
     "mapsQuery": "1811 72nd St NW, Bradenton, FL 34209",
-    "icon": "🎵",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "🎵"
   },
   {
     "id": "barbaza-barrington-ridge-lights",
@@ -3772,9 +3604,7 @@
     "description": "A heartwarming Bradenton family holiday tradition with over 10,000 sparkling lights, cheerful holiday characters, a festive photo booth bench for family pictures, and a community canned food donation collection box.",
     "familyTip": "Park safely along 41st St E. Friendly homeowners welcome families to take holiday photos by the front walkway!",
     "mapsQuery": "6133 41st St E, Bradenton, FL 34203",
-    "icon": "🏡",
-    "acceptsTips": true,
-    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
+    "icon": "🏡"
   }
 ];
 
@@ -3919,15 +3749,6 @@
 
       // Dynamically load latest live events published via Admin Dashboard
       loadLiveEventsData();
-
-      // Check if returning from a completed Stripe Checkout session
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('tip_success') === 'true') {
-        const host = urlParams.get('host') || 'Host Family';
-        const amt = urlParams.get('amount') || '5.00';
-        alert(`🎉 Tip Received!\n\nThank you! Your donation of $${amt} to ${host} was processed successfully. 90% has been transferred to the host family to keep their holiday lights glowing!`);
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
     }
 
     function combineEvents() {
@@ -4298,11 +4119,6 @@
                 <a href="${mapsUrl}" target="_blank" rel="noopener" class="btn-action btn-maps">
                   <span>🚗</span> Directions
                 </a>
-                ${ev.isHomeDisplay || ev.category === 'home-lights' || ev.acceptsTips ? `
-                  <button class="btn-action" style="background:#fef3c7; color:#92400e; border-color:#fde68a; font-weight:700;" onclick="openTipModal('${ev.id}')" title="Tip this host family to support electric bills">
-                    <span>⚡</span> Tip Host
-                  </button>
-                ` : ''}
                 <button class="btn-action" onclick="focusEventOnMap('${ev.id}')" title="View location on interactive map">
                   <span>🗺️</span> Map
                 </button>
@@ -4685,166 +4501,6 @@
       });
     }
 
-    // ==========================================
-    // HOST TIPPING ENGINE (STRIPE SPLIT PAYMENTS)
-    // ==========================================
-    let currentTipEvent = null;
-    let currentTipAmount = 5;
-    const DEFAULT_PLATFORM_FEE_PERCENT = 10;
-
-    function openTipModal(eventId) {
-      const ev = eventsData.find(e => e.id === eventId);
-      if (!ev) return;
-      currentTipEvent = ev;
-      currentTipAmount = 5;
-
-      const titleElem = document.getElementById('tipModalHostTitle');
-      if (titleElem) titleElem.textContent = `Tip ${ev.title}`;
-      const subtitleElem = document.getElementById('tipModalHostSubtitle');
-      if (subtitleElem) subtitleElem.textContent = `Support ${ev.hostName || ev.title}!`;
-      const addrElem = document.getElementById('tipModalHostAddress');
-      if (addrElem) addrElem.textContent = `${ev.venue || ev.address || ''} (${ev.location || 'SWFL'}) • ${ev.tipNote || 'Helps offset seasonal electric bills & smart LED maintenance.'}`;
-      
-      // Reset amounts UI
-      document.querySelectorAll('#tipPresetButtons .tip-amount-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.includes('$5'));
-      });
-      const customInput = document.getElementById('customTipAmount');
-      if (customInput) customInput.value = '';
-      const cheerInput = document.getElementById('tipCheerMessage');
-      if (cheerInput) cheerInput.value = '';
-
-      updateTipBreakdown(5);
-
-      const modal = document.getElementById('hostTipModal');
-      if (modal) modal.classList.add('open');
-    }
-
-    function closeTipModal() {
-      const modal = document.getElementById('hostTipModal');
-      if (modal) modal.classList.remove('open');
-      currentTipEvent = null;
-    }
-
-    function setTipAmount(amount, btnElem) {
-      currentTipAmount = Number(amount);
-      document.querySelectorAll('#tipPresetButtons .tip-amount-btn').forEach(b => b.classList.remove('active'));
-      if (btnElem) btnElem.classList.add('active');
-      const customInput = document.getElementById('customTipAmount');
-      if (customInput) customInput.value = '';
-      updateTipBreakdown(currentTipAmount);
-    }
-
-    function onCustomTipInput(val) {
-      const num = parseFloat(val);
-      if (!isNaN(num) && num > 0) {
-        currentTipAmount = Math.min(500, Math.max(1, Math.round(num * 100) / 100));
-        document.querySelectorAll('#tipPresetButtons .tip-amount-btn').forEach(b => b.classList.remove('active'));
-        updateTipBreakdown(currentTipAmount);
-      }
-    }
-
-    function updateTipBreakdown(amount) {
-      const feePercent = Number(localStorage.getItem('swfl_platform_fee_percent') || DEFAULT_PLATFORM_FEE_PERCENT);
-      const hostPercent = 100 - feePercent;
-      
-      const hostShare = (amount * (hostPercent / 100)).toFixed(2);
-      const platformShare = (amount * (feePercent / 100)).toFixed(2);
-
-      const hostPercentElem = document.getElementById('tipHostPercent');
-      if (hostPercentElem) hostPercentElem.textContent = hostPercent;
-      const platPercentElem = document.getElementById('tipPlatformPercent');
-      if (platPercentElem) platPercentElem.textContent = feePercent;
-      const hostShareElem = document.getElementById('tipHostShareDisplay');
-      if (hostShareElem) hostShareElem.textContent = `$${hostShare}`;
-      const platShareElem = document.getElementById('tipPlatformShareDisplay');
-      if (platShareElem) platShareElem.textContent = `$${platformShare}`;
-      const payTextElem = document.getElementById('btnPayAmountText');
-      if (payTextElem) payTextElem.textContent = `Pay $${amount.toFixed(2)} with Apple Pay or Card`;
-    }
-
-    async function executeTipPayment() {
-      if (!currentTipEvent || currentTipAmount <= 0) return;
-      
-      const btn = document.getElementById('btnProcessTip');
-      const cheer = (document.getElementById('tipCheerMessage').value || '').trim();
-      const feePercent = Number(localStorage.getItem('swfl_platform_fee_percent') || DEFAULT_PLATFORM_FEE_PERCENT);
-      const hostPercent = 100 - feePercent;
-      const hostShare = (currentTipAmount * (hostPercent / 100)).toFixed(2);
-      const platformShare = (currentTipAmount * (feePercent / 100)).toFixed(2);
-      const workerUrl = (localStorage.getItem('swfl_stripe_worker_url') || '').trim();
-
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span>⏳</span> Connecting to Stripe...';
-      }
-
-      // If a live Cloudflare Worker is connected, initiate Stripe Checkout session
-      if (workerUrl) {
-        try {
-          const res = await fetch(`${workerUrl.replace(/\/$/, '')}/api/create-tip-session`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              eventId: currentTipEvent.id,
-              displayTitle: currentTipEvent.title,
-              stripeAccountId: currentTipEvent.stripeAccountId || '',
-              amountCents: Math.round(currentTipAmount * 100),
-              platformFeeCents: Math.round(currentTipAmount * feePercent),
-              cheerMessage: cheer,
-              cancelUrl: window.location.href,
-              successUrl: `${window.location.origin}${window.location.pathname}?tip_success=true&host=${encodeURIComponent(currentTipEvent.title)}&amount=${currentTipAmount}`
-            })
-          });
-
-          const data = await res.json();
-          if (data && data.checkoutUrl) {
-            window.location.href = data.checkoutUrl;
-            return;
-          } else {
-            throw new Error(data.error || 'Could not create Stripe session');
-          }
-        } catch (err) {
-          console.warn('Live Stripe endpoint unavailable, falling back to local simulation:', err);
-        }
-      }
-
-      // Local / Demo Payment Confirmation Flow (Immediate & zero failure rate)
-      setTimeout(() => {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '<span>💳</span> ' + document.getElementById('btnPayAmountText').textContent;
-        }
-        
-        // Record tip transaction locally
-        const txHistory = JSON.parse(localStorage.getItem('swfl_tip_transactions') || '[]');
-        const newTx = {
-          id: 'tip-' + Date.now(),
-          eventId: currentTipEvent.id,
-          hostTitle: currentTipEvent.title,
-          hostName: currentTipEvent.hostName || currentTipEvent.title,
-          totalAmount: currentTipAmount,
-          hostShare: parseFloat(hostShare),
-          platformFee: parseFloat(platformShare),
-          cheerMessage: cheer,
-          timestamp: new Date().toLocaleString(),
-          status: 'Completed (Stripe Split Verified)'
-        };
-        txHistory.unshift(newTx);
-        localStorage.setItem('swfl_tip_transactions', JSON.stringify(txHistory));
-
-        closeTipModal();
-
-        // Show celebration alert
-        alert(`🎉 Thank You for Supporting Local Lights!\n\n` +
-          `• Total Tip: $${currentTipAmount.toFixed(2)}\n` +
-          `• Sent to Host (${currentTipEvent.title}): $${hostShare} (${hostPercent}%)\n` +
-          `• SWFL Holiday Planner Platform Fee: $${platformShare} (${feePercent}%)\n\n` +
-          `${cheer ? `Your message: "${cheer}"\n\n` : ''}` +
-          `Your contribution directly keeps the holiday spirit bright across Southwest Florida!`);
-      }, 600);
-    }
-
     // Secret Creator Passkey Prompt
     function openAdminPrompt() {
       const code = prompt('Enter Creator Admin Passkey:');
@@ -5004,7 +4660,6 @@
       const desc = document.getElementById('hsDesc').value.trim();
       const tip = document.getElementById('hsTip').value.trim() || 'Please dim headlights to parking lights and do not block neighbor driveways.';
       const agree = document.getElementById('hsAgree') ? document.getElementById('hsAgree').checked : true;
-      const acceptsTips = document.getElementById('hsAcceptTips') ? document.getElementById('hsAcceptTips').checked : false;
 
       if (!agree) {
         alert('Please accept the homeowner verification confirmation checkbox to proceed.');
@@ -5033,7 +4688,6 @@
         dates: dates,
         hours: hours,
         photoLink: photoLink,
-        acceptsTips: acceptsTips,
         description: desc || `Spectacular residential holiday light show hosted by ${hostName} at ${address}.`,
         familyTip: tip,
         submittedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
@@ -5054,7 +4708,6 @@
             <div><strong>Address:</strong> ${escapeHtml(address)}, ${escapeHtml(city)}, FL ${escapeHtml(zip)}</div>
             <div><strong>Private Contact:</strong> ${escapeHtml(contact)}</div>
             ${photoLink ? `<div><strong>Proof / Social Link:</strong> <a href="${escapeHtml(photoLink)}" target="_blank" rel="noopener" style="color:#0284c7;">${escapeHtml(photoLink)}</a></div>` : ''}
-            <div><strong>Visitor Tipping:</strong> ${acceptsTips ? '<span style="color:#059669; font-weight:700;">Opted-in (Stripe Connect link will be sent)</span>' : 'Declined'}</div>
             <div style="color:var(--text-muted); font-size:0.75rem; margin-top:0.4rem;">Submitted: ${escapeHtml(pendingApp.submittedAt)}</div>
           </div>
         `;
@@ -5076,7 +4729,6 @@
           Dates_Active: dates,
           Nightly_Hours: hours,
           Photo_or_Proof_Link: photoLink || 'None provided',
-          Visitor_Tipping_Opt_In: acceptsTips ? 'YES (Send Stripe Onboarding Link)' : 'No',
           Display_Highlights: desc || 'Not specified',
           Courtesy_Note: tip,
           Submitted_At: pendingApp.submittedAt,
@@ -5289,9 +4941,6 @@
               <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="btn-res-nav">
                 <span>🚗</span> Directions
               </a>
-              <button class="btn-res-tip" onclick="openTipModal('${ev.id}')" title="Tip this host family to support electric bills & maintenance">
-                <span>⚡</span> Tip Host
-              </button>
               <button class="btn-res-map" onclick="focusEventOnMap('${ev.id}')" title="View on interactive map">
                 <span>🗺️</span> Map
               </button>

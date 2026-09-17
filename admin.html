@@ -458,9 +458,6 @@
       <button class="tab-btn" onclick="switchTab('manage')">
         <span>📋</span> Directory Manager (<span id="totalEventsBadge">40</span>)
       </button>
-      <button class="tab-btn" onclick="switchTab('tips')">
-        <span>⚡</span> Tipping & Payouts <span class="tab-badge" id="tipsBadge" style="background:#10b981;">0</span>
-      </button>
       <button class="tab-btn" onclick="switchTab('inbox')">
         <span>📬</span> Messages & Inquiries <span class="tab-badge" id="inboxBadge" style="background:#0284c7;">0</span>
       </button>
@@ -632,121 +629,6 @@
       </div>
     </section>
 
-    <!-- TAB: TIPPING & STRIPE PAYOUTS -->
-    <section id="tab-tips" class="tab-content">
-      <div style="margin-bottom:1.5rem;">
-        <h2 style="font-size:1.35rem; font-weight:800; display:flex; align-items:center; gap:0.5rem;">
-          <span>⚡</span> Host Families Tipping & Stripe Connect
-        </h2>
-        <p style="font-size:0.88rem; color:var(--text-muted); margin-top:0.25rem;">
-          Facilitate visitor tips for host families to help cover electric bills and animatronics maintenance. Platform takes an automated cut (e.g. 10%) via Stripe Connect.
-        </p>
-      </div>
-
-      <!-- METRIC CARDS -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:1.75rem;">
-        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:12px; padding:1.25rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">💰 Total Tips Raised</div>
-          <div style="font-size:1.85rem; font-weight:800; color:#10b981; margin-top:0.35rem;" id="statTotalTips">$0.00</div>
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">From local visitors & fans</div>
-        </div>
-        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:12px; padding:1.25rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">🏡 Host Families Paid (90%)</div>
-          <div style="font-size:1.85rem; font-weight:800; color:#38bdf8; margin-top:0.35rem;" id="statHostTotal">$0.00</div>
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">Direct to verified homeowners</div>
-        </div>
-        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:12px; padding:1.25rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">💻 Platform Revenue (10%)</div>
-          <div style="font-size:1.85rem; font-weight:800; color:#f59e0b; margin-top:0.35rem;" id="statPlatformRevenue">$0.00</div>
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">Supports guide operations</div>
-        </div>
-        <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:12px; padding:1.25rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">🌟 Participating Shows</div>
-          <div style="font-size:1.85rem; font-weight:800; color:#e2e8f0; margin-top:0.35rem;" id="statParticipatingShows">0</div>
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">Tipping enabled residential homes</div>
-        </div>
-      </div>
-
-      <!-- STRIPE CONNECT SETTINGS & SPLIT CONFIG -->
-      <div class="form-card" style="margin-bottom:1.75rem;">
-        <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;">
-          <span>⚙️</span> Platform Fee & Stripe Configuration
-        </h3>
-        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem;">
-          Configure your platform fee percentage and backend Cloudflare Worker endpoint for live Apple Pay / card processing.
-        </p>
-        <form onsubmit="saveTippingSettings(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">Platform Fee Percentage (%) *</label>
-              <input type="number" id="tipFeePercent" class="form-control" min="1" max="50" step="1" value="10" required />
-              <small style="font-size:0.72rem; color:var(--text-muted);">Default: 10% (Host receives 90%, you receive 10%)</small>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Stripe Publishable Key</label>
-              <input type="text" id="stripePubKey" class="form-control" placeholder="pk_live_... or pk_test_..." />
-              <small style="font-size:0.72rem; color:var(--text-muted);">From Stripe Dashboard → API keys</small>
-            </div>
-            <div class="form-group" style="grid-column:1/-1;">
-              <label class="form-label">Cloudflare Worker / Serverless API URL (Optional)</label>
-              <input type="url" id="stripeWorkerUrl" class="form-control" placeholder="e.g. https://swfl-tips.myworker.workers.dev" />
-              <small style="font-size:0.72rem; color:var(--text-muted);">Leave empty to use built-in instant Demo/Simulation mode. See <code>stripe-worker.js</code> in repo for 2-minute free setup.</small>
-            </div>
-          </div>
-          <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; margin-top:1rem;">
-            <button type="submit" class="btn btn-primary">
-              💾 Save Tipping Settings
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="simulateTestTip()">
-              🧪 Simulate $10 Test Tip
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- PARTICIPATING HOME SHOWS TABLE -->
-      <div class="form-card" style="margin-bottom:1.75rem;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
-          <div>
-            <h3 style="font-size:1.1rem; font-weight:800;">🏡 Residential Displays & Stripe Connect Status</h3>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.2rem;">Enable or disable tipping for each home and link their Stripe Connected Account ID (<code>acct_...</code>).</p>
-          </div>
-        </div>
-        <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:left;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--border-color); color:var(--text-muted); font-size:0.75rem; text-transform:uppercase;">
-                <th style="padding:0.75rem;">Display / Host</th>
-                <th style="padding:0.75rem;">Town</th>
-                <th style="padding:0.75rem;">Tipping</th>
-                <th style="padding:0.75rem;">Stripe Account ID</th>
-                <th style="padding:0.75rem; text-align:right;">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tippingHostsTableBody">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- RECENT TIP TRANSACTIONS LOG -->
-      <div class="form-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
-          <div>
-            <h3 style="font-size:1.1rem; font-weight:800;">📜 Tip Transactions Ledger</h3>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.2rem;">All recorded visitor donations with 90/10 split breakdown.</p>
-          </div>
-          <button class="btn btn-secondary" onclick="clearTipHistory()" style="font-size:0.78rem;">
-            🧹 Clear Test Transactions
-          </button>
-        </div>
-        <div id="tipTransactionsContainer">
-          <!-- Rendered via JS -->
-        </div>
-      </div>
-    </section>
-
     <!-- TAB 5: GITHUB SETTINGS -->
     <section id="tab-settings" class="tab-content">
       <div class="form-card" style="max-width:780px;">
@@ -866,22 +748,6 @@
         <div class="form-group">
           <label class="form-label">Family / Spectator Tip</label>
           <input type="text" id="editTip" class="form-control" />
-        </div>
-        <div style="background: var(--bg-base); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem; margin-top: 1rem;">
-          <label style="display:flex; align-items:center; gap:0.5rem; font-weight:700; color:#10b981; cursor:pointer;">
-            <input type="checkbox" id="editAcceptsTips" />
-            <span>⚡ Enable Visitor Tipping (Stripe Connect)</span>
-          </label>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-top:0.6rem;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label" style="font-size:0.78rem;">Stripe Connected Account ID</label>
-              <input type="text" id="editStripeAccountId" class="form-control" placeholder="acct_1xxxxxxxxxxxxxxx" />
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label class="form-label" style="font-size:0.78rem;">Electric Fund / Tip Note</label>
-              <input type="text" id="editTipNote" class="form-control" placeholder="e.g. Helps cover electric bills & maintenance" />
-            </div>
-          </div>
         </div>
         <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
           <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
@@ -1047,7 +913,6 @@
       renderQueue();
       renderManageList();
       renderInbox();
-      renderTippingTab();
       updateBadges();
       updateSyncBanner();
     }
@@ -1108,7 +973,6 @@
             <div>
               <div class="card-top-row">
                 <span class="badge-pill badge-home">🏡 Home Submission</span>
-                ${app.acceptsTips ? '<span class="badge-pill" style="background:#065f46; color:#6ee7b7; border:1px solid #059669;">⚡ Tips Opt-in</span>' : ''}
                 <span style="font-size:0.75rem; color:var(--text-muted);">Submitted: ${escapeHtml(app.submittedAt || 'Recently')}</span>
               </div>
               <h3 class="card-title">${escapeHtml(app.title)}</h3>
@@ -1119,7 +983,6 @@
                 <div><strong>📞 Private Contact:</strong> ${escapeHtml(app.contact || 'None')}</div>
                 <div><strong>📻 FM Radio:</strong> ${escapeHtml(app.radioSync || 'No radio specified')}</div>
                 <div><strong>⏰ Hours & Dates:</strong> ${escapeHtml(app.hours || '6:00 PM – 10:00 PM')} • ${escapeHtml(app.dates || 'December')}</div>
-                <div><strong>⚡ Visitor Tipping:</strong> ${app.acceptsTips ? '<span style="color:#10b981; font-weight:700;">Opted-in (Send Stripe Onboarding Link)</span>' : '<span style="color:var(--text-muted);">Declined</span>'}</div>
                 ${app.photoLink ? `<div><strong>🔗 Proof Link:</strong> <a href="${escapeHtml(app.photoLink)}" target="_blank" rel="noopener" style="color:var(--brand-blue); text-decoration:underline;">View Photo / Video Proof ↗</a></div>` : '<div style="color:#f87171;">⚠️ No photo link provided — Street View verification recommended</div>'}
               </div>
 
@@ -1175,9 +1038,6 @@
         isFree: true,
         kidFriendly: true,
         strollerFriendly: true,
-        acceptsTips: app.acceptsTips || false,
-        stripeAccountId: '',
-        tipNote: 'Helps cover electric bills & maintenance',
         description: app.description || `Spectacular residential holiday light show hosted at ${app.address}.`,
         familyTip: app.familyTip || 'Please dim headlights to parking lights and do not block neighbor driveways.',
         mapsQuery: `${app.address}, ${app.city}, FL ${app.zip || ''}`,
@@ -1359,9 +1219,6 @@
       document.getElementById('editRadio').value = ev.radioSync || '';
       document.getElementById('editDesc').value = ev.description || '';
       document.getElementById('editTip').value = ev.familyTip || '';
-      document.getElementById('editAcceptsTips').checked = ev.acceptsTips === true;
-      document.getElementById('editStripeAccountId').value = ev.stripeAccountId || '';
-      document.getElementById('editTipNote').value = ev.tipNote || '';
 
       document.getElementById('editModal').classList.add('open');
     }
@@ -1385,9 +1242,6 @@
       ev.radioSync = document.getElementById('editRadio').value.trim();
       ev.description = document.getElementById('editDesc').value.trim();
       ev.familyTip = document.getElementById('editTip').value.trim();
-      ev.acceptsTips = document.getElementById('editAcceptsTips').checked;
-      ev.stripeAccountId = document.getElementById('editStripeAccountId').value.trim();
-      ev.tipNote = document.getElementById('editTipNote').value.trim();
 
       hasUnsavedChanges = true;
       unsavedCount++;
@@ -1453,218 +1307,7 @@
       showToast('Messages cleared.');
     }
 
-    // ==========================================
-    // TAB: TIPPING & STRIPE PAYOUTS MANAGEMENT
-    // ==========================================
-    function renderTippingTab() {
-      const txHistory = JSON.parse(localStorage.getItem('swfl_tip_transactions') || '[]');
-      const feePercent = Number(localStorage.getItem('swfl_platform_fee_percent') || 10);
-      
-      // Compute financial stats
-      const totalAmount = txHistory.reduce((sum, t) => sum + (Number(t.totalAmount) || 0), 0);
-      const hostTotal = txHistory.reduce((sum, t) => sum + (Number(t.hostShare) || 0), 0);
-      const platformTotal = txHistory.reduce((sum, t) => sum + (Number(t.platformFee) || 0), 0);
-
-      const homeShows = events.filter(e => e.isHomeDisplay || e.category === 'home-lights');
-      const activeTippingCount = homeShows.filter(e => e.acceptsTips === true).length;
-
-      const statTipsElem = document.getElementById('statTotalTips');
-      if (statTipsElem) statTipsElem.textContent = `$${totalAmount.toFixed(2)}`;
-      const statHostElem = document.getElementById('statHostTotal');
-      if (statHostElem) statHostElem.textContent = `$${hostTotal.toFixed(2)}`;
-      const statPlatElem = document.getElementById('statPlatformRevenue');
-      if (statPlatElem) statPlatElem.textContent = `$${platformTotal.toFixed(2)}`;
-      const statShowsElem = document.getElementById('statParticipatingShows');
-      if (statShowsElem) statShowsElem.textContent = activeTippingCount;
-      const tipsBadgeElem = document.getElementById('tipsBadge');
-      if (tipsBadgeElem) tipsBadgeElem.textContent = txHistory.length;
-
-      // Populate Settings inputs
-      const feeInput = document.getElementById('tipFeePercent');
-      if (feeInput && (!feeInput.value || feeInput.value === '10')) {
-        feeInput.value = localStorage.getItem('swfl_platform_fee_percent') || 10;
-      }
-      const pubKeyInput = document.getElementById('stripePubKey');
-      if (pubKeyInput && !pubKeyInput.value) {
-        pubKeyInput.value = localStorage.getItem('swfl_stripe_pub_key') || '';
-      }
-      const workerInput = document.getElementById('stripeWorkerUrl');
-      if (workerInput && !workerInput.value) {
-        workerInput.value = localStorage.getItem('swfl_stripe_worker_url') || '';
-      }
-
-      // Render Home Shows table
-      const tbody = document.getElementById('tippingHostsTableBody');
-      if (tbody) {
-        if (homeShows.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:1.5rem; color:var(--text-muted);">No residential home displays found.</td></tr>`;
-        } else {
-          tbody.innerHTML = homeShows.map(ev => {
-            const isEnabled = ev.acceptsTips === true;
-            const acctId = ev.stripeAccountId || '';
-
-            return `
-              <tr style="border-bottom:1px solid var(--border-color);">
-                <td style="padding:0.75rem;">
-                  <strong style="color:#fff;">${escapeHtml(ev.title)}</strong>
-                  <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(ev.address || ev.venue || '')}</div>
-                </td>
-                <td style="padding:0.75rem; color:var(--text-muted);">${escapeHtml(ev.location)}</td>
-                <td style="padding:0.75rem;">
-                  <button type="button" class="badge-pill" style="cursor:pointer; border:none; ${isEnabled ? 'background:#065f46; color:#6ee7b7;' : 'background:#334155; color:#94a3b8;'}" onclick="toggleHostTipping('${ev.id}')">
-                    ${isEnabled ? '✅ Enabled' : '⏸️ Disabled'}
-                  </button>
-                </td>
-                <td style="padding:0.75rem;">
-                  <div style="display:flex; align-items:center; gap:0.35rem;">
-                    <input type="text" id="acct-${ev.id}" value="${escapeHtml(acctId)}" placeholder="acct_1xxxxxxxxxxxxxxx" style="background:var(--bg-base); border:1px solid var(--border-color); color:#fff; padding:0.35rem 0.5rem; border-radius:6px; font-size:0.78rem; width:160px; font-family:monospace;" />
-                    <button type="button" class="btn btn-secondary" style="padding:0.3rem 0.5rem; font-size:0.72rem;" onclick="saveHostStripeAccount('${ev.id}')">Save</button>
-                  </div>
-                </td>
-                <td style="padding:0.75rem; text-align:right;">
-                  <button type="button" class="btn btn-secondary" style="padding:0.35rem 0.6rem; font-size:0.75rem;" onclick="copyHostOnboardingLink('${ev.id}')" title="Copy Stripe Express onboarding link to email to host">
-                    🔗 Copy Link
-                  </button>
-                </td>
-              </tr>
-            `;
-          }).join('');
-        }
-      }
-
-      // Render Transactions Ledger
-      const txContainer = document.getElementById('tipTransactionsContainer');
-      if (txContainer) {
-        if (txHistory.length === 0) {
-          txContainer.innerHTML = `
-            <div style="text-align:center; padding:2rem 1rem; color:var(--text-muted); font-size:0.85rem;">
-              <p>No tips recorded yet. Visitors can tip via the "⚡ Tip Host" button on any residential display.</p>
-              <button type="button" class="btn btn-secondary" style="margin-top:0.75rem; font-size:0.78rem;" onclick="simulateTestTip()">
-                🧪 Test Tip Flow ($10 Demo)
-              </button>
-            </div>
-          `;
-        } else {
-          txContainer.innerHTML = `
-            <table style="width:100%; border-collapse:collapse; font-size:0.82rem; text-align:left;">
-              <thead>
-                <tr style="border-bottom:1px solid var(--border-color); color:var(--text-muted); font-size:0.72rem; text-transform:uppercase;">
-                  <th style="padding:0.65rem;">Date</th>
-                  <th style="padding:0.65rem;">Host / Display</th>
-                  <th style="padding:0.65rem;">Total Tip</th>
-                  <th style="padding:0.65rem; color:#38bdf8;">Host Share (90%)</th>
-                  <th style="padding:0.65rem; color:#f59e0b;">Platform Fee (10%)</th>
-                  <th style="padding:0.65rem;">Cheer Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${txHistory.map(tx => `
-                  <tr style="border-bottom:1px solid var(--border-color);">
-                    <td style="padding:0.65rem; color:var(--text-muted);">${escapeHtml(tx.timestamp || '')}</td>
-                    <td style="padding:0.65rem; font-weight:700; color:#fff;">${escapeHtml(tx.hostTitle || 'Host')}</td>
-                    <td style="padding:0.65rem; font-weight:800; color:#10b981;">$${Number(tx.totalAmount).toFixed(2)}</td>
-                    <td style="padding:0.65rem; color:#38bdf8; font-weight:600;">$${Number(tx.hostShare).toFixed(2)}</td>
-                    <td style="padding:0.65rem; color:#f59e0b; font-weight:600;">$${Number(tx.platformFee).toFixed(2)}</td>
-                    <td style="padding:0.65rem; font-style:italic; color:var(--text-muted);">${escapeHtml(tx.cheerMessage || '—')}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          `;
-        }
-      }
-    }
-
-    function toggleHostTipping(eventId) {
-      const ev = events.find(e => e.id === eventId);
-      if (!ev) return;
-      ev.acceptsTips = !ev.acceptsTips;
-      hasUnsavedChanges = true;
-      unsavedCount++;
-      renderAll();
-      showToast(`${ev.acceptsTips ? '⚡ Tipping enabled' : '⏸️ Tipping disabled'} for "${ev.title}". Remember to commit to GitHub!`);
-    }
-
-    function saveHostStripeAccount(eventId) {
-      const ev = events.find(e => e.id === eventId);
-      if (!ev) return;
-      const input = document.getElementById(`acct-${eventId}`);
-      if (!input) return;
-      ev.stripeAccountId = input.value.trim();
-      hasUnsavedChanges = true;
-      unsavedCount++;
-      updateSyncBanner();
-      showToast(`Stripe Account ID saved for "${ev.title}".`);
-    }
-
-    function copyHostOnboardingLink(eventId) {
-      const ev = events.find(e => e.id === eventId);
-      const host = ev ? ev.title : 'Host';
-      const workerUrl = (localStorage.getItem('swfl_stripe_worker_url') || '').trim();
-      let link = '';
-      if (workerUrl) {
-        link = `${workerUrl.replace(/\/$/, '')}/api/create-onboarding-link?eventId=${encodeURIComponent(eventId)}&host=${encodeURIComponent(host)}`;
-      } else {
-        link = `https://connect.stripe.com/express/oauth/authorize?client_id=ca_placeholder&state=${encodeURIComponent(eventId)}`;
-      }
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(link).then(() => {
-          alert(`🔗 Stripe Express Onboarding Link copied to clipboard!\n\nSend this link to the homeowner (${host}) so they can connect their bank or debit card directly on Stripe.`);
-        });
-      } else {
-        prompt('Copy Stripe Onboarding Link for homeowner:', link);
-      }
-    }
-
-    function saveTippingSettings(e) {
-      e.preventDefault();
-      const fee = document.getElementById('tipFeePercent').value;
-      const pubKey = document.getElementById('stripePubKey').value.trim();
-      const worker = document.getElementById('stripeWorkerUrl').value.trim();
-
-      localStorage.setItem('swfl_platform_fee_percent', fee);
-      localStorage.setItem('swfl_stripe_pub_key', pubKey);
-      localStorage.setItem('swfl_stripe_worker_url', worker);
-
-      showToast('✅ Tipping and Stripe settings saved successfully.');
-      renderAll();
-    }
-
-    function simulateTestTip() {
-      const homeShows = events.filter(e => e.isHomeDisplay || e.category === 'home-lights');
-      const target = homeShows[0] || { id: 'test-host', title: "Enander's Winter Wonderland" };
-      const feePercent = Number(localStorage.getItem('swfl_platform_fee_percent') || 10);
-      const hostPercent = 100 - feePercent;
-
-      const txHistory = JSON.parse(localStorage.getItem('swfl_tip_transactions') || '[]');
-      const testTx = {
-        id: 'tip-' + Date.now(),
-        eventId: target.id,
-        hostTitle: target.title,
-        hostName: target.hostName || target.title,
-        totalAmount: 10.00,
-        hostShare: 10.00 * (hostPercent / 100),
-        platformFee: 10.00 * (feePercent / 100),
-        cheerMessage: 'Loved the music sync! Beautiful display from the Miller family!',
-        timestamp: new Date().toLocaleString(),
-        status: 'Completed (Stripe Split Verified)'
-      };
-      txHistory.unshift(testTx);
-      localStorage.setItem('swfl_tip_transactions', JSON.stringify(txHistory));
-
-      renderAll();
-      showToast(`🧪 Test $10 tip simulated for "${target.title}"! ($${(10 * hostPercent / 100).toFixed(2)} host / $${(10 * feePercent / 100).toFixed(2)} platform)`);
-    }
-
-    function clearTipHistory() {
-      if (!confirm('Clear all test tip transactions?')) return;
-      localStorage.removeItem('swfl_tip_transactions');
-      renderAll();
-      showToast('🧹 Tip transactions cleared.');
-    }
-
-    // TAB 5: GITHUB AUTO-PUBLISHER ENGINE
+    // TAB: GITHUB AUTO-PUBLISHER ENGINE
     function loadStoredSettings() {
       const savedToken = localStorage.getItem('swfl_gh_token') || '';
       document.getElementById('ghTokenInput').value = savedToken;
