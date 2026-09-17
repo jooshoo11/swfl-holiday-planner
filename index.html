@@ -196,6 +196,34 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
+    .theme-btn-fx {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .theme-btn-fx:hover {
+      background: rgba(255, 255, 255, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .theme-btn-fx.off {
+      opacity: 0.65;
+      background: rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.65);
+    }
+
     .hero-title {
       font-size: clamp(2rem, 4.2vw, 3.2rem);
       font-weight: 700;
@@ -1311,6 +1339,8 @@
   </style>
 </head>
 <body>
+  <!-- Ambient Seasonal Particle Effects Canvas -->
+  <canvas id="ambientCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40;"></canvas>
 
   <!-- Header Banner -->
   <header>
@@ -1329,6 +1359,9 @@
             <button class="theme-btn" onclick="setTheme('winter')">❄️ Winter</button>
             <button class="theme-btn" onclick="setTheme('coastal')">🌴 Coastal</button>
           </div>
+          <button id="toggleFxBtn" class="theme-btn-fx" onclick="toggleAmbientEffects()" title="Toggle Falling Seasonal Effects">
+            <span id="fxIcon">✨</span> <span id="fxText">Effects On</span>
+          </button>
         </div>
       </div>
 
@@ -2956,6 +2989,11 @@
       applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
       updateSavedCount();
       renderCalendar();
+
+      // Initialize saved visual theme & ambient seasonal particle animation
+      const savedTheme = localStorage.getItem('swfl_theme') || 'autumn';
+      setTheme(savedTheme);
+      initAmbientSystem(savedTheme);
     }
 
     function combineEvents() {
@@ -3786,6 +3824,331 @@
       URL.revokeObjectURL(url);
     }
 
+    // ==========================================
+    // AMBIENT SEASONAL PARTICLE EFFECTS ENGINE
+    // ==========================================
+    let ambientCanvas = null;
+    let ambientCtx = null;
+    let ambientAnimId = null;
+    let ambientParticles = [];
+    let ambientFxEnabled = true;
+    let currentAmbientTheme = 'autumn';
+
+    function createAmbientParticle(theme, isInit = false) {
+      const width = window.innerWidth || document.documentElement.clientWidth || 800;
+      const height = window.innerHeight || document.documentElement.clientHeight || 600;
+
+      if (theme === 'autumn') {
+        // Falling Golden/Crimson/Amber Autumn Leaves
+        const leafColors = [
+          '#ea580c', // vivid pumpkin orange
+          '#d97706', // warm amber gold
+          '#b45309', // deep rust
+          '#dc2626', // maple crimson
+          '#ca8a04', // golden yellow
+          '#9a3412'  // rich burnt sienna
+        ];
+        return {
+          type: 'autumn',
+          x: Math.random() * width,
+          y: isInit ? Math.random() * height : -35,
+          size: 9 + Math.random() * 9,
+          speedY: 0.85 + Math.random() * 1.3,
+          speedX: (Math.random() - 0.5) * 0.7,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.04,
+          swayAngle: Math.random() * Math.PI * 2,
+          swaySpeed: 0.02 + Math.random() * 0.02,
+          swayAmp: 0.9 + Math.random() * 1.4,
+          color: leafColors[Math.floor(Math.random() * leafColors.length)],
+          opacity: 0.6 + Math.random() * 0.35,
+          flip: Math.random() * Math.PI,
+          flipSpeed: 0.03 + Math.random() * 0.035
+        };
+      } else if (theme === 'winter') {
+        // Soft Drifting Snowflakes & Delicate Star Crystals
+        const isCrystal = Math.random() < 0.25;
+        return {
+          type: 'winter',
+          x: Math.random() * width,
+          y: isInit ? Math.random() * height : -15,
+          size: isCrystal ? 3.5 + Math.random() * 3.5 : 1.5 + Math.random() * 3,
+          speedY: 0.65 + Math.random() * 1.15,
+          speedX: (Math.random() - 0.5) * 0.4,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.025,
+          swayAngle: Math.random() * Math.PI * 2,
+          swaySpeed: 0.015 + Math.random() * 0.02,
+          swayAmp: 0.6 + Math.random() * 1.0,
+          opacity: 0.45 + Math.random() * 0.45,
+          isCrystal: isCrystal
+        };
+      } else {
+        // Coastal Festive Sparkles & Harbor Bokeh Fairy Lights
+        const coastalColors = [
+          'rgba(56, 189, 248, 0.8)',   // light sky turquoise
+          'rgba(45, 212, 191, 0.85)',  // Gulf aqua
+          'rgba(251, 191, 36, 0.9)',   // warm golden harbor light
+          'rgba(52, 211, 153, 0.8)',   // festive palm emerald
+          'rgba(255, 255, 255, 0.9)'   // sparkling diamond
+        ];
+        return {
+          type: 'coastal',
+          x: Math.random() * width,
+          y: isInit ? Math.random() * height : height + 25,
+          size: 2.5 + Math.random() * 4,
+          speedY: -(0.35 + Math.random() * 0.65), // gently floats upward
+          speedX: (Math.random() - 0.5) * 0.5,
+          swayAngle: Math.random() * Math.PI * 2,
+          swaySpeed: 0.02 + Math.random() * 0.025,
+          swayAmp: 0.5 + Math.random() * 0.8,
+          color: coastalColors[Math.floor(Math.random() * coastalColors.length)],
+          opacity: 0.35 + Math.random() * 0.5,
+          twinkleAngle: Math.random() * Math.PI * 2,
+          twinkleSpeed: 0.04 + Math.random() * 0.05,
+          isStar: Math.random() < 0.4
+        };
+      }
+    }
+
+    function initAmbientSystem(theme = 'autumn') {
+      currentAmbientTheme = theme;
+      ambientCanvas = document.getElementById('ambientCanvas');
+      if (!ambientCanvas) {
+        ambientCanvas = document.createElement('canvas');
+        ambientCanvas.id = 'ambientCanvas';
+        ambientCanvas.style.position = 'fixed';
+        ambientCanvas.style.top = '0';
+        ambientCanvas.style.left = '0';
+        ambientCanvas.style.width = '100vw';
+        ambientCanvas.style.height = '100vh';
+        ambientCanvas.style.pointerEvents = 'none';
+        ambientCanvas.style.zIndex = '40';
+        document.body.prepend(ambientCanvas);
+      }
+      ambientCtx = ambientCanvas.getContext('2d');
+      resizeAmbientCanvas();
+      window.removeEventListener('resize', resizeAmbientCanvas);
+      window.addEventListener('resize', resizeAmbientCanvas);
+
+      // Check saved user preference or system reduced motion
+      const savedFx = localStorage.getItem('swfl_ambient_fx');
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (savedFx !== null) {
+        ambientFxEnabled = savedFx === 'true';
+      } else if (prefersReducedMotion) {
+        ambientFxEnabled = false;
+      } else {
+        ambientFxEnabled = true;
+      }
+      updateFxButtonUI();
+
+      if (ambientFxEnabled) {
+        seedAmbientParticles(currentAmbientTheme);
+        startAmbientLoop();
+      }
+    }
+
+    function resizeAmbientCanvas() {
+      if (!ambientCanvas) return;
+      ambientCanvas.width = window.innerWidth || 800;
+      ambientCanvas.height = window.innerHeight || 600;
+    }
+
+    function seedAmbientParticles(theme) {
+      const isMobile = (window.innerWidth || 800) < 768;
+      const count = isMobile ? 22 : 44;
+      ambientParticles = [];
+      for (let i = 0; i < count; i++) {
+        ambientParticles.push(createAmbientParticle(theme, true));
+      }
+    }
+
+    function setAmbientTheme(theme) {
+      currentAmbientTheme = theme;
+      if (!ambientCanvas) {
+        initAmbientSystem(theme);
+        return;
+      }
+      if (ambientFxEnabled) {
+        seedAmbientParticles(theme);
+        if (!ambientAnimId) startAmbientLoop();
+      }
+    }
+
+    function toggleAmbientEffects() {
+      ambientFxEnabled = !ambientFxEnabled;
+      localStorage.setItem('swfl_ambient_fx', ambientFxEnabled ? 'true' : 'false');
+      updateFxButtonUI();
+      if (ambientFxEnabled) {
+        seedAmbientParticles(currentAmbientTheme);
+        startAmbientLoop();
+      } else {
+        stopAmbientLoop();
+        if (ambientCtx && ambientCanvas) {
+          ambientCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
+        }
+      }
+    }
+
+    function updateFxButtonUI() {
+      const btn = document.getElementById('toggleFxBtn');
+      const text = document.getElementById('fxText');
+      if (!btn || !text) return;
+      if (ambientFxEnabled) {
+        btn.classList.remove('off');
+        btn.title = "Ambient seasonal effects are ON. Click to pause.";
+        text.textContent = "Effects On";
+      } else {
+        btn.classList.add('off');
+        btn.title = "Ambient seasonal effects are paused. Click to enable.";
+        text.textContent = "Effects Off";
+      }
+    }
+
+    function startAmbientLoop() {
+      if (ambientAnimId) cancelAnimationFrame(ambientAnimId);
+      function loop() {
+        if (!ambientFxEnabled) return;
+        renderAmbientFrame();
+        ambientAnimId = requestAnimationFrame(loop);
+      }
+      ambientAnimId = requestAnimationFrame(loop);
+    }
+
+    function stopAmbientLoop() {
+      if (ambientAnimId) {
+        cancelAnimationFrame(ambientAnimId);
+        ambientAnimId = null;
+      }
+    }
+
+    function renderAmbientFrame() {
+      if (!ambientCtx || !ambientCanvas) return;
+      const width = ambientCanvas.width;
+      const height = ambientCanvas.height;
+      ambientCtx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < ambientParticles.length; i++) {
+        const p = ambientParticles[i];
+        if (p.type === 'autumn') {
+          // Physics
+          p.swayAngle += p.swaySpeed;
+          p.flip += p.flipSpeed;
+          p.x += p.speedX + Math.sin(p.swayAngle) * p.swayAmp;
+          p.y += p.speedY;
+          p.rotation += p.rotSpeed;
+
+          // Boundary wrap
+          if (p.y > height + 40) {
+            ambientParticles[i] = createAmbientParticle('autumn', false);
+            continue;
+          }
+          if (p.x < -30) p.x = width + 25;
+          if (p.x > width + 30) p.x = -25;
+
+          // Draw Leaf with 3D tumble flutter
+          ambientCtx.save();
+          ambientCtx.translate(p.x, p.y);
+          ambientCtx.rotate(p.rotation);
+          ambientCtx.scale(1, Math.cos(p.flip));
+          ambientCtx.beginPath();
+          ambientCtx.moveTo(0, -p.size);
+          ambientCtx.quadraticCurveTo(p.size * 0.72, -p.size * 0.2, 0, p.size);
+          ambientCtx.quadraticCurveTo(-p.size * 0.72, -p.size * 0.2, 0, -p.size);
+          ambientCtx.fillStyle = p.color;
+          ambientCtx.globalAlpha = p.opacity;
+          ambientCtx.fill();
+          // Leaf central vein
+          ambientCtx.beginPath();
+          ambientCtx.moveTo(0, -p.size * 0.75);
+          ambientCtx.lineTo(0, p.size * 0.85);
+          ambientCtx.strokeStyle = 'rgba(0, 0, 0, 0.16)';
+          ambientCtx.lineWidth = 0.9;
+          ambientCtx.stroke();
+          ambientCtx.restore();
+
+        } else if (p.type === 'winter') {
+          // Physics
+          p.swayAngle += p.swaySpeed;
+          p.x += p.speedX + Math.sin(p.swayAngle) * p.swayAmp;
+          p.y += p.speedY;
+          p.rotation += p.rotSpeed;
+
+          if (p.y > height + 20) {
+            ambientParticles[i] = createAmbientParticle('winter', false);
+            continue;
+          }
+          if (p.x < -20) p.x = width + 20;
+          if (p.x > width + 20) p.x = -20;
+
+          // Draw Snow
+          ambientCtx.save();
+          ambientCtx.translate(p.x, p.y);
+          ambientCtx.fillStyle = '#ffffff';
+          ambientCtx.globalAlpha = p.opacity;
+
+          if (p.isCrystal) {
+            ambientCtx.rotate(p.rotation);
+            ambientCtx.strokeStyle = 'rgba(255, 255, 255, ' + p.opacity + ')';
+            ambientCtx.lineWidth = 1.2;
+            for (let k = 0; k < 3; k++) {
+              ambientCtx.beginPath();
+              ambientCtx.moveTo(0, -p.size);
+              ambientCtx.lineTo(0, p.size);
+              ambientCtx.stroke();
+              ambientCtx.rotate(Math.PI / 3);
+            }
+          } else {
+            ambientCtx.beginPath();
+            ambientCtx.arc(0, 0, p.size, 0, Math.PI * 2);
+            ambientCtx.shadowBlur = p.size > 2.5 ? 5 : 0;
+            ambientCtx.shadowColor = '#ffffff';
+            ambientCtx.fill();
+          }
+          ambientCtx.restore();
+
+        } else if (p.type === 'coastal') {
+          // Physics
+          p.swayAngle += p.swaySpeed;
+          p.twinkleAngle += p.twinkleSpeed;
+          p.x += p.speedX + Math.sin(p.swayAngle) * p.swayAmp;
+          p.y += p.speedY; // gently rises upward
+
+          if (p.y < -30) {
+            ambientParticles[i] = createAmbientParticle('coastal', false);
+            continue;
+          }
+          if (p.x < -20) p.x = width + 20;
+          if (p.x > width + 20) p.x = -20;
+
+          // Draw Bokeh / Twinkling Sparkle
+          ambientCtx.save();
+          ambientCtx.translate(p.x, p.y);
+          const currentAlpha = Math.max(0.12, p.opacity * (0.55 + 0.45 * Math.sin(p.twinkleAngle)));
+          ambientCtx.globalAlpha = currentAlpha;
+
+          const radGrad = ambientCtx.createRadialGradient(0, 0, 0, 0, 0, p.size * 2.2);
+          radGrad.addColorStop(0, p.color);
+          radGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          ambientCtx.fillStyle = radGrad;
+          ambientCtx.beginPath();
+          ambientCtx.arc(0, 0, p.size * 2.2, 0, Math.PI * 2);
+          ambientCtx.fill();
+
+          if (p.isStar) {
+            ambientCtx.strokeStyle = 'rgba(255, 255, 255, ' + currentAlpha + ')';
+            ambientCtx.lineWidth = 1;
+            ambientCtx.beginPath();
+            ambientCtx.moveTo(-p.size * 1.5, 0); ambientCtx.lineTo(p.size * 1.5, 0);
+            ambientCtx.moveTo(0, -p.size * 1.5); ambientCtx.lineTo(0, p.size * 1.5);
+            ambientCtx.stroke();
+          }
+          ambientCtx.restore();
+        }
+      }
+    }
+
     // Theme Picker
     function setTheme(theme) {
       document.body.className = '';
@@ -3798,6 +4161,8 @@
           btn.classList.add('active');
         }
       });
+      localStorage.setItem('swfl_theme', theme);
+      setAmbientTheme(theme);
     }
 
     // Run on load

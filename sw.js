@@ -1,5 +1,5 @@
 // Service Worker for SWFL Holiday & Festivities Planner
-const CACHE_NAME = 'swfl-holidays-v1';
+const CACHE_NAME = 'swfl-holidays-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
