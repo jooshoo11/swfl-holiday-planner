@@ -858,7 +858,9 @@
     "description": "A legendary Southwest Florida holiday home tradition for over 30 years! Features over 400,000 dazzling lights, thousands of handmade animated figures, life-size gingerbread men, toy soldier castle pathways, and snowmen across a beautifully landscaped estate.",
     "familyTip": "Walk-through pathways allow kids to explore close up. Park carefully along Mission Valley Blvd and wear comfortable shoes. Bring a canned food donation for the community food bank.",
     "mapsQuery": "2281 Mission Valley Blvd, Nokomis, FL 34275",
-    "icon": "🏡"
+    "icon": "🏡",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "cedarwood-musical-lights",
@@ -887,7 +889,9 @@
     "description": "One of Florida's most sophisticated computer-synchronized residential pixel shows! Over 50,000 smart pixels dancing to 40+ holiday, pop, and movie songs. Spectators can tune to 95.5 FM on their car radio and even vote for upcoming songs via their smartphone.",
     "familyTip": "Dim your headlights to parking lights when pulling up to the curb. Do not block neighboring driveways or turnarounds.",
     "mapsQuery": "5534 Cedarwood Dr, Sarasota, FL 34232",
-    "icon": "📻"
+    "icon": "📻",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "hayden-snow-wonderland",
@@ -916,7 +920,9 @@
     "description": "Famous for delighting local children with active faux-snow machines blowing flurry clouds into the yard! Features dozens of oversized illuminated inflatables, archway walk-throughs, and classic holiday carols playing on the lawn.",
     "familyTip": "Located in the same Colonial Gables neighborhood as Cedarwood Dr, making it easy to visit both! Kids love catching the flying snow bubbles.",
     "mapsQuery": "5580 Hayden Blvd, Sarasota, FL 34232",
-    "icon": "❄️"
+    "icon": "❄️",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "cedar-hollow-neighborhood-lights",
@@ -945,7 +951,9 @@
     "description": "The entire Cedar Hollow neighborhood joins together every December to create an unforgettable drive-through light tunnel! Scores of neighboring homes coordinate illuminated driveway arches, glowing palm trees, and festive front lawn dioramas.",
     "familyTip": "Enter off Honore Ave just south of Fruitville Rd. Drive at 5 MPH with parking lights on so kids in the back seat can take in the entire loop.",
     "mapsQuery": "Cedar Hollow Cir, Sarasota, FL 34235",
-    "icon": "✨"
+    "icon": "✨",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "arundel-musical-lights-north-port",
@@ -974,7 +982,9 @@
     "description": "North Port's favorite residential animated light spectacular! Features thousands of synchronized pixel LEDs programmed to dance to holiday hits and modern beats broadcast right to your vehicle's FM radio.",
     "familyTip": "Easy drive from Punta Gorda (just off Price Blvd). Pull to the right side of the road, turn off headlights, and keep volume at an enjoyable car level.",
     "mapsQuery": "1563 Arundel Ave, North Port, FL 34286",
-    "icon": "🎶"
+    "icon": "🎶",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "samovar-terrace-holiday-block",
@@ -1003,7 +1013,9 @@
     "description": "Frequently voted North Port's Best Decorated Street, where multiple families decorate contiguous yards with hundreds of illuminated inflatables, rooftop displays, and synchronized light trees.",
     "familyTip": "A great family nightcap after grabbing dinner in North Port. Very quiet residential street with easy slow cruising.",
     "mapsQuery": "Samovar Terrace, North Port, FL 34286",
-    "icon": "🌟"
+    "icon": "🌟",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "conestoga-musical-light-show",
@@ -1032,7 +1044,9 @@
     "description": "Charlotte County's standout DIY home digital light spectacular! Thousands of RGB pixels across the roofline, windows, yard trees, and singing Christmas trees perform high-energy musical sequences synced to FM radio.",
     "familyTip": "Very close to Punta Gorda 33983 (just across the harbor bridge off Veterans Blvd / Midway). Great stop when touring local Charlotte County lights.",
     "mapsQuery": "4064 Conestoga St, Port Charlotte, FL 33948",
-    "icon": "💡"
+    "icon": "💡",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "burnt-store-meadows-lights",
@@ -1061,7 +1075,9 @@
     "description": "A beloved south Punta Gorda neighborhood tradition where enthusiastic homeowners decorate along the greenbelts and streets with dazzling palm tree wraps, glowing nativity sets, and lighted canal bridges.",
     "familyTip": "Combine this with a drive through Fishermen's Village for a complete Punta Gorda holiday lights evening!",
     "mapsQuery": "Soursop St and S Blue Sage, Punta Gorda, FL 33955",
-    "icon": "🌴"
+    "icon": "🌴",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "bradenton-72nd-musical-lights",
@@ -1090,7 +1106,9 @@
     "description": "One of Manatee County's most acclaimed residential musical light spectacles! Features tens of thousands of custom-programmed lights dancing to holiday classics and Trans-Siberian Orchestra songs transmitted directly to your FM radio.",
     "familyTip": "Turn headlights to amber parking lights so everyone behind you can enjoy the dazzling light display. Please do not block neighbor driveways.",
     "mapsQuery": "1811 72nd St NW, Bradenton, FL 34209",
-    "icon": "🎵"
+    "icon": "🎵",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   },
   {
     "id": "barbaza-barrington-ridge-lights",
@@ -1119,6 +1137,8 @@
     "description": "A heartwarming Bradenton family holiday tradition with over 10,000 sparkling lights, cheerful holiday characters, a festive photo booth bench for family pictures, and a community canned food donation collection box.",
     "familyTip": "Park safely along 41st St E. Friendly homeowners welcome families to take holiday photos by the front walkway!",
     "mapsQuery": "6133 41st St E, Bradenton, FL 34203",
-    "icon": "🏡"
+    "icon": "🏡",
+    "acceptsTips": true,
+    "tipNote": "Helps offset seasonal electric bills & smart LED maintenance"
   }
 ]
