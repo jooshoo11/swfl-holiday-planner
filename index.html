@@ -196,32 +196,67 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
-    .theme-btn-fx {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #ffffff;
-      padding: 0.35rem 0.8rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
+    .fx-picker {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(8px);
+      gap: 0.25rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.2rem 0.35rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    .theme-btn-fx:hover {
-      background: rgba(255, 255, 255, 0.24);
-      transform: translateY(-1px);
+    .fx-picker-label {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 700;
+      padding: 0 0.35rem 0 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
-    .theme-btn-fx.off {
-      opacity: 0.65;
-      background: rgba(0, 0, 0, 0.15);
-      border-color: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.65);
+    .fx-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 0.3rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .fx-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .fx-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Subtle Background Mode: Elegant Frosted Glass Cards */
+    body.fx-subtle-mode .radar-banner,
+    body.fx-subtle-mode .community-light-banner,
+    body.fx-subtle-mode .control-panel,
+    body.fx-subtle-mode .event-card,
+    body.fx-subtle-mode .calendar-container {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.94);
+      position: relative;
+      z-index: 2;
+    }
+
+    body.theme-winter.fx-subtle-mode .radar-banner,
+    body.theme-winter.fx-subtle-mode .community-light-banner,
+    body.theme-winter.fx-subtle-mode .control-panel,
+    body.theme-winter.fx-subtle-mode .event-card,
+    body.theme-winter.fx-subtle-mode .calendar-container {
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .hero-title {
@@ -284,6 +319,8 @@
       margin: 0 auto;
       padding: 2rem 1.5rem;
       flex: 1;
+      position: relative;
+      z-index: 2;
     }
 
     /* DYNAMIC RADAR & LOCATION FINDER */
@@ -1340,7 +1377,7 @@
 </head>
 <body>
   <!-- Ambient Seasonal Particle Effects Canvas -->
-  <canvas id="ambientCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40;"></canvas>
+  <canvas id="ambientCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
 
   <!-- Header Banner -->
   <header>
@@ -1359,9 +1396,12 @@
             <button class="theme-btn" onclick="setTheme('winter')">❄️ Winter</button>
             <button class="theme-btn" onclick="setTheme('coastal')">🌴 Coastal</button>
           </div>
-          <button id="toggleFxBtn" class="theme-btn-fx" onclick="toggleAmbientEffects()" title="Toggle Falling Seasonal Effects">
-            <span id="fxIcon">✨</span> <span id="fxText">Effects On</span>
-          </button>
+          <div class="fx-picker" title="Atmospheric seasonal effects mode">
+            <span class="fx-picker-label">Effects:</span>
+            <button class="fx-btn active" data-fx="subtle" onclick="setFxMode('subtle')" title="Subtle background effects behind cards">☁️ Subtle</button>
+            <button class="fx-btn" data-fx="festive" onclick="setFxMode('festive')" title="Lively foreground holiday flurry">🎉 Flurry</button>
+            <button class="fx-btn" data-fx="off" onclick="setFxMode('off')" title="Turn off animations">Off</button>
+          </div>
         </div>
       </div>
 
@@ -3826,17 +3866,21 @@
 
     // ==========================================
     // AMBIENT SEASONAL PARTICLE EFFECTS ENGINE
+    // Modes: 'subtle' (Background watercolor drift behind cards)
+    //        'festive' (Foreground lively holiday flurry)
+    //        'off' (Disabled)
     // ==========================================
     let ambientCanvas = null;
     let ambientCtx = null;
     let ambientAnimId = null;
     let ambientParticles = [];
-    let ambientFxEnabled = true;
+    let ambientFxMode = 'subtle'; // Default to subtle background!
     let currentAmbientTheme = 'autumn';
 
     function createAmbientParticle(theme, isInit = false) {
       const width = window.innerWidth || document.documentElement.clientWidth || 800;
       const height = window.innerHeight || document.documentElement.clientHeight || 600;
+      const isSubtle = ambientFxMode === 'subtle';
 
       if (theme === 'autumn') {
         // Falling Golden/Crimson/Amber Autumn Leaves
@@ -3848,39 +3892,51 @@
           '#ca8a04', // golden yellow
           '#9a3412'  // rich burnt sienna
         ];
+        const size = isSubtle ? (6 + Math.random() * 6) : (9 + Math.random() * 9);
+        const speedY = isSubtle ? (0.4 + Math.random() * 0.45) : (0.85 + Math.random() * 1.3);
+        const speedX = isSubtle ? ((Math.random() - 0.5) * 0.35) : ((Math.random() - 0.5) * 0.7);
+        const opacity = isSubtle ? (0.22 + Math.random() * 0.20) : (0.60 + Math.random() * 0.35);
+
         return {
           type: 'autumn',
           x: Math.random() * width,
           y: isInit ? Math.random() * height : -35,
-          size: 9 + Math.random() * 9,
-          speedY: 0.85 + Math.random() * 1.3,
-          speedX: (Math.random() - 0.5) * 0.7,
+          size: size,
+          speedY: speedY,
+          speedX: speedX,
           rotation: Math.random() * Math.PI * 2,
-          rotSpeed: (Math.random() - 0.5) * 0.04,
+          rotSpeed: (Math.random() - 0.5) * (isSubtle ? 0.02 : 0.04),
           swayAngle: Math.random() * Math.PI * 2,
-          swaySpeed: 0.02 + Math.random() * 0.02,
-          swayAmp: 0.9 + Math.random() * 1.4,
+          swaySpeed: 0.015 + Math.random() * (isSubtle ? 0.015 : 0.02),
+          swayAmp: isSubtle ? (0.5 + Math.random() * 0.7) : (0.9 + Math.random() * 1.4),
           color: leafColors[Math.floor(Math.random() * leafColors.length)],
-          opacity: 0.6 + Math.random() * 0.35,
+          opacity: opacity,
           flip: Math.random() * Math.PI,
-          flipSpeed: 0.03 + Math.random() * 0.035
+          flipSpeed: isSubtle ? (0.018 + Math.random() * 0.02) : (0.03 + Math.random() * 0.035)
         };
       } else if (theme === 'winter') {
         // Soft Drifting Snowflakes & Delicate Star Crystals
-        const isCrystal = Math.random() < 0.25;
+        const isCrystal = isSubtle ? (Math.random() < 0.15) : (Math.random() < 0.25);
+        const size = isSubtle 
+          ? (isCrystal ? 2.2 + Math.random() * 2.0 : 1.2 + Math.random() * 2.0)
+          : (isCrystal ? 3.5 + Math.random() * 3.5 : 1.5 + Math.random() * 3.0);
+        const speedY = isSubtle ? (0.35 + Math.random() * 0.45) : (0.65 + Math.random() * 1.15);
+        const speedX = isSubtle ? ((Math.random() - 0.5) * 0.25) : ((Math.random() - 0.5) * 0.4);
+        const opacity = isSubtle ? (0.22 + Math.random() * 0.25) : (0.45 + Math.random() * 0.45);
+
         return {
           type: 'winter',
           x: Math.random() * width,
           y: isInit ? Math.random() * height : -15,
-          size: isCrystal ? 3.5 + Math.random() * 3.5 : 1.5 + Math.random() * 3,
-          speedY: 0.65 + Math.random() * 1.15,
-          speedX: (Math.random() - 0.5) * 0.4,
+          size: size,
+          speedY: speedY,
+          speedX: speedX,
           rotation: Math.random() * Math.PI * 2,
           rotSpeed: (Math.random() - 0.5) * 0.025,
           swayAngle: Math.random() * Math.PI * 2,
-          swaySpeed: 0.015 + Math.random() * 0.02,
-          swayAmp: 0.6 + Math.random() * 1.0,
-          opacity: 0.45 + Math.random() * 0.45,
+          swaySpeed: 0.012 + Math.random() * 0.018,
+          swayAmp: isSubtle ? (0.4 + Math.random() * 0.6) : (0.6 + Math.random() * 1.0),
+          opacity: opacity,
           isCrystal: isCrystal
         };
       } else {
@@ -3892,21 +3948,26 @@
           'rgba(52, 211, 153, 0.8)',   // festive palm emerald
           'rgba(255, 255, 255, 0.9)'   // sparkling diamond
         ];
+        const size = isSubtle ? (2.0 + Math.random() * 3.5) : (2.5 + Math.random() * 4.5);
+        const speedY = isSubtle ? -(0.2 + Math.random() * 0.35) : -(0.35 + Math.random() * 0.65);
+        const speedX = isSubtle ? ((Math.random() - 0.5) * 0.3) : ((Math.random() - 0.5) * 0.5);
+        const opacity = isSubtle ? (0.16 + Math.random() * 0.22) : (0.35 + Math.random() * 0.5);
+
         return {
           type: 'coastal',
           x: Math.random() * width,
           y: isInit ? Math.random() * height : height + 25,
-          size: 2.5 + Math.random() * 4,
-          speedY: -(0.35 + Math.random() * 0.65), // gently floats upward
-          speedX: (Math.random() - 0.5) * 0.5,
+          size: size,
+          speedY: speedY,
+          speedX: speedX,
           swayAngle: Math.random() * Math.PI * 2,
-          swaySpeed: 0.02 + Math.random() * 0.025,
-          swayAmp: 0.5 + Math.random() * 0.8,
+          swaySpeed: 0.015 + Math.random() * 0.02,
+          swayAmp: isSubtle ? (0.35 + Math.random() * 0.5) : (0.5 + Math.random() * 0.8),
           color: coastalColors[Math.floor(Math.random() * coastalColors.length)],
-          opacity: 0.35 + Math.random() * 0.5,
+          opacity: opacity,
           twinkleAngle: Math.random() * Math.PI * 2,
-          twinkleSpeed: 0.04 + Math.random() * 0.05,
-          isStar: Math.random() < 0.4
+          twinkleSpeed: isSubtle ? (0.025 + Math.random() * 0.03) : (0.04 + Math.random() * 0.05),
+          isStar: isSubtle ? (Math.random() < 0.2) : (Math.random() < 0.4)
         };
       }
     }
@@ -3923,7 +3984,7 @@
         ambientCanvas.style.width = '100vw';
         ambientCanvas.style.height = '100vh';
         ambientCanvas.style.pointerEvents = 'none';
-        ambientCanvas.style.zIndex = '40';
+        ambientCanvas.style.zIndex = '1';
         document.body.prepend(ambientCanvas);
       }
       ambientCtx = ambientCanvas.getContext('2d');
@@ -3932,21 +3993,17 @@
       window.addEventListener('resize', resizeAmbientCanvas);
 
       // Check saved user preference or system reduced motion
-      const savedFx = localStorage.getItem('swfl_ambient_fx');
+      const savedMode = localStorage.getItem('swfl_ambient_fx_mode');
       const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (savedFx !== null) {
-        ambientFxEnabled = savedFx === 'true';
+      if (savedMode) {
+        ambientFxMode = savedMode;
       } else if (prefersReducedMotion) {
-        ambientFxEnabled = false;
+        ambientFxMode = 'off';
       } else {
-        ambientFxEnabled = true;
+        ambientFxMode = 'subtle'; // Default to subtle background!
       }
-      updateFxButtonUI();
 
-      if (ambientFxEnabled) {
-        seedAmbientParticles(currentAmbientTheme);
-        startAmbientLoop();
-      }
+      setFxMode(ambientFxMode);
     }
 
     function resizeAmbientCanvas() {
@@ -3957,7 +4014,13 @@
 
     function seedAmbientParticles(theme) {
       const isMobile = (window.innerWidth || 800) < 768;
-      const count = isMobile ? 22 : 44;
+      const isSubtle = ambientFxMode === 'subtle';
+      let count = 20;
+      if (isSubtle) {
+        count = isMobile ? 12 : 22;
+      } else {
+        count = isMobile ? 22 : 44;
+      }
       ambientParticles = [];
       for (let i = 0; i < count; i++) {
         ambientParticles.push(createAmbientParticle(theme, true));
@@ -3970,20 +4033,37 @@
         initAmbientSystem(theme);
         return;
       }
-      if (ambientFxEnabled) {
+      if (ambientFxMode !== 'off') {
         seedAmbientParticles(theme);
         if (!ambientAnimId) startAmbientLoop();
       }
     }
 
-    function toggleAmbientEffects() {
-      ambientFxEnabled = !ambientFxEnabled;
-      localStorage.setItem('swfl_ambient_fx', ambientFxEnabled ? 'true' : 'false');
-      updateFxButtonUI();
-      if (ambientFxEnabled) {
+    function setFxMode(mode) {
+      ambientFxMode = mode;
+      localStorage.setItem('swfl_ambient_fx_mode', mode);
+      updateFxPickerUI();
+
+      if (!ambientCanvas) return;
+
+      if (mode === 'subtle') {
+        // Subtle background layer behind cards
+        ambientCanvas.style.zIndex = '1';
+        document.body.classList.add('fx-subtle-mode');
+        document.body.classList.remove('fx-festive-mode');
         seedAmbientParticles(currentAmbientTheme);
-        startAmbientLoop();
+        if (!ambientAnimId) startAmbientLoop();
+      } else if (mode === 'festive') {
+        // Lively foreground holiday flurry
+        ambientCanvas.style.zIndex = '45';
+        document.body.classList.add('fx-festive-mode');
+        document.body.classList.remove('fx-subtle-mode');
+        seedAmbientParticles(currentAmbientTheme);
+        if (!ambientAnimId) startAmbientLoop();
       } else {
+        // Disabled / Off
+        ambientCanvas.style.zIndex = '0';
+        document.body.classList.remove('fx-subtle-mode', 'fx-festive-mode');
         stopAmbientLoop();
         if (ambientCtx && ambientCanvas) {
           ambientCtx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
@@ -3991,25 +4071,19 @@
       }
     }
 
-    function updateFxButtonUI() {
-      const btn = document.getElementById('toggleFxBtn');
-      const text = document.getElementById('fxText');
-      if (!btn || !text) return;
-      if (ambientFxEnabled) {
-        btn.classList.remove('off');
-        btn.title = "Ambient seasonal effects are ON. Click to pause.";
-        text.textContent = "Effects On";
-      } else {
-        btn.classList.add('off');
-        btn.title = "Ambient seasonal effects are paused. Click to enable.";
-        text.textContent = "Effects Off";
-      }
+    function updateFxPickerUI() {
+      document.querySelectorAll('.fx-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-fx') === ambientFxMode) {
+          btn.classList.add('active');
+        }
+      });
     }
 
     function startAmbientLoop() {
       if (ambientAnimId) cancelAnimationFrame(ambientAnimId);
       function loop() {
-        if (!ambientFxEnabled) return;
+        if (ambientFxMode === 'off') return;
         renderAmbientFrame();
         ambientAnimId = requestAnimationFrame(loop);
       }
@@ -4027,6 +4101,7 @@
       if (!ambientCtx || !ambientCanvas) return;
       const width = ambientCanvas.width;
       const height = ambientCanvas.height;
+      const isSubtle = ambientFxMode === 'subtle';
       ambientCtx.clearRect(0, 0, width, height);
 
       for (let i = 0; i < ambientParticles.length; i++) {
@@ -4063,8 +4138,8 @@
           ambientCtx.beginPath();
           ambientCtx.moveTo(0, -p.size * 0.75);
           ambientCtx.lineTo(0, p.size * 0.85);
-          ambientCtx.strokeStyle = 'rgba(0, 0, 0, 0.16)';
-          ambientCtx.lineWidth = 0.9;
+          ambientCtx.strokeStyle = isSubtle ? 'rgba(0, 0, 0, 0.08)' : 'rgba(0, 0, 0, 0.16)';
+          ambientCtx.lineWidth = isSubtle ? 0.6 : 0.9;
           ambientCtx.stroke();
           ambientCtx.restore();
 
@@ -4091,7 +4166,7 @@
           if (p.isCrystal) {
             ambientCtx.rotate(p.rotation);
             ambientCtx.strokeStyle = 'rgba(255, 255, 255, ' + p.opacity + ')';
-            ambientCtx.lineWidth = 1.2;
+            ambientCtx.lineWidth = isSubtle ? 0.8 : 1.2;
             for (let k = 0; k < 3; k++) {
               ambientCtx.beginPath();
               ambientCtx.moveTo(0, -p.size);
@@ -4102,8 +4177,10 @@
           } else {
             ambientCtx.beginPath();
             ambientCtx.arc(0, 0, p.size, 0, Math.PI * 2);
-            ambientCtx.shadowBlur = p.size > 2.5 ? 5 : 0;
-            ambientCtx.shadowColor = '#ffffff';
+            if (!isSubtle && p.size > 2.5) {
+              ambientCtx.shadowBlur = 5;
+              ambientCtx.shadowColor = '#ffffff';
+            }
             ambientCtx.fill();
           }
           ambientCtx.restore();
@@ -4125,7 +4202,7 @@
           // Draw Bokeh / Twinkling Sparkle
           ambientCtx.save();
           ambientCtx.translate(p.x, p.y);
-          const currentAlpha = Math.max(0.12, p.opacity * (0.55 + 0.45 * Math.sin(p.twinkleAngle)));
+          const currentAlpha = Math.max(0.08, p.opacity * (0.55 + 0.45 * Math.sin(p.twinkleAngle)));
           ambientCtx.globalAlpha = currentAlpha;
 
           const radGrad = ambientCtx.createRadialGradient(0, 0, 0, 0, 0, p.size * 2.2);
@@ -4138,7 +4215,7 @@
 
           if (p.isStar) {
             ambientCtx.strokeStyle = 'rgba(255, 255, 255, ' + currentAlpha + ')';
-            ambientCtx.lineWidth = 1;
+            ambientCtx.lineWidth = isSubtle ? 0.8 : 1;
             ambientCtx.beginPath();
             ambientCtx.moveTo(-p.size * 1.5, 0); ambientCtx.lineTo(p.size * 1.5, 0);
             ambientCtx.moveTo(0, -p.size * 1.5); ambientCtx.lineTo(0, p.size * 1.5);
@@ -4154,6 +4231,11 @@
       document.body.className = '';
       if (theme !== 'autumn') {
         document.body.classList.add(`theme-${theme}`);
+      }
+      if (ambientFxMode === 'subtle') {
+        document.body.classList.add('fx-subtle-mode');
+      } else if (ambientFxMode === 'festive') {
+        document.body.classList.add('fx-festive-mode');
       }
       document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.classList.remove('active');
