@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Holiday & Festivities Planner | Punta Gorda, North Port & Venice</title>
+  <title>Holiday & Festivities Planner | SWFL: Punta Gorda, Sarasota, Venice, North Port & Bradenton</title>
   
   <!-- Progressive Web App (PWA) Meta & Icons -->
   <link rel="manifest" href="manifest.json">
@@ -30,8 +30,6 @@
       --border-color: #e5e0d3;
       --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
       --card-shadow-hover: 0 10px 25px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
-      --tag-closest: #15803d;
-      --tag-closest-bg: #dcfce7;
       --accent-glow: rgba(234, 88, 12, 0.12);
     }
 
@@ -47,8 +45,6 @@
       --border-color: #cbd5e1;
       --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
       --card-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.12);
-      --tag-closest: #0284c7;
-      --tag-closest-bg: #e0f2fe;
       --accent-glow: rgba(21, 128, 61, 0.12);
     }
 
@@ -64,8 +60,6 @@
       --border-color: #bbf7d0;
       --card-shadow: 0 4px 20px -2px rgba(6, 78, 59, 0.06);
       --card-shadow-hover: 0 10px 25px -4px rgba(6, 78, 59, 0.12);
-      --tag-closest: #059669;
-      --tag-closest-bg: #d1fae5;
       --accent-glow: rgba(2, 132, 199, 0.12);
     }
 
@@ -94,7 +88,7 @@
     header {
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 2.25rem 1.5rem 2rem;
       position: relative;
       overflow: hidden;
     }
@@ -136,7 +130,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .location-badge {
@@ -151,6 +145,27 @@
       font-weight: 600;
       letter-spacing: 0.02em;
       border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-install {
+      background: #ea580c;
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-install:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.45);
     }
 
     .theme-picker {
@@ -182,24 +197,24 @@
     }
 
     .hero-title {
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
       letter-spacing: -0.02em;
     }
 
     .hero-subtitle {
       font-size: 1.05rem;
       color: #cbd5e1;
-      max-width: 650px;
-      margin-bottom: 2rem;
+      max-width: 750px;
+      margin-bottom: 1.75rem;
     }
 
     /* Countdown Bar */
     .countdown-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 0.75rem;
       margin-top: 1rem;
     }
@@ -243,23 +258,29 @@
       flex: 1;
     }
 
-    /* Proximity Radar Banner */
+    /* DYNAMIC RADAR & LOCATION FINDER */
     .radar-banner {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.25rem 1.5rem;
+      border-radius: 18px;
+      padding: 1.5rem;
       margin-bottom: 2rem;
       box-shadow: var(--card-shadow);
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .radar-top-row {
+      display: flex;
       justify-content: space-between;
-      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
     }
 
     .radar-info h3 {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -268,11 +289,132 @@
     }
 
     .radar-info p {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
-      margin-top: 0.2rem;
+      margin-top: 0.25rem;
     }
 
+    /* ZIP Input Bar */
+    .zip-input-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .zip-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .zip-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.25rem 0.35rem 0.25rem 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .zip-input-wrapper:focus-within {
+      border-color: var(--brand-accent);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .zip-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      width: 140px;
+      font-family: inherit;
+    }
+
+    .btn-zip-apply {
+      background: var(--brand-accent);
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-zip-apply:hover {
+      opacity: 0.92;
+    }
+
+    .btn-gps {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s;
+    }
+
+    .btn-gps:hover {
+      background: #0369a1;
+    }
+
+    /* Preset Location Pills */
+    .quick-locations {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .quick-loc-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .loc-preset-btn {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .loc-preset-btn:hover {
+      border-color: var(--brand-accent);
+      color: var(--brand-accent);
+    }
+
+    .loc-preset-btn.active {
+      background: var(--brand-accent);
+      border-color: var(--brand-accent);
+      color: #ffffff;
+    }
+
+    /* Radar Tiers Summary */
     .radar-tiers {
       display: flex;
       flex-wrap: wrap;
@@ -302,17 +444,23 @@
       color: #713f12;
     }
 
-    .tier-venice {
+    .tier-mid {
       background: #e0f2fe;
       border-color: #7dd3fc;
       color: #0369a1;
+    }
+
+    .tier-far {
+      background: #f3e8ff;
+      border-color: #d8b4fe;
+      color: #6b21a8;
     }
 
     /* Controls & Filter Section */
     .control-panel {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 1.5rem;
       margin-bottom: 2rem;
       box-shadow: var(--card-shadow);
@@ -540,7 +688,7 @@
     .proximity-badge {
       font-size: 0.75rem;
       font-weight: 700;
-      padding: 0.3rem 0.65rem;
+      padding: 0.35rem 0.7rem;
       border-radius: 6px;
       letter-spacing: 0.02em;
       display: inline-flex;
@@ -800,6 +948,18 @@
       border-left-color: #0284c7;
     }
 
+    .cal-event-chip.chip-sarasota {
+      background: #f3e8ff;
+      color: #6b21a8;
+      border-left-color: #9333ea;
+    }
+
+    .cal-event-chip.chip-bradenton {
+      background: #ffedd5;
+      color: #9a3412;
+      border-left-color: #ea580c;
+    }
+
     .cal-day-details {
       margin-top: 1.5rem;
       padding: 1.25rem;
@@ -1026,26 +1186,16 @@
       .view-toggles {
         justify-content: space-between;
       }
-    }
-
-    .btn-install {
-      background: #ea580c;
-      color: #ffffff;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.35rem 0.85rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
-      transition: all 0.2s;
-    }
-    .btn-install:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.45);
+      .radar-top-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .zip-input-container {
+        width: 100%;
+      }
+      .zip-input-wrapper {
+        flex: 1;
+      }
     }
   </style>
 </head>
@@ -1055,9 +1205,9 @@
   <header>
     <div class="header-content">
       <div class="top-bar">
-        <div class="location-badge">
+        <div class="location-badge" id="headerLocationBadge">
           <span>📍</span>
-          <span>Home: Punta Gorda, FL (33983) • Family in North Port & Venice</span>
+          <span>Home Base: Punta Gorda (33983) • Family in North Port, Venice, Sarasota & Bradenton</span>
         </div>
         <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
           <button id="installAppBtn" class="btn-install" style="display:none;" onclick="triggerInstallPrompt()">
@@ -1073,7 +1223,7 @@
 
       <h1 class="hero-title font-serif">Holiday & Festivities Planner</h1>
       <p class="hero-subtitle">
-        Your family guide to 2026 fall festivals, pumpkin patches, holiday lights, Christmas boat parades, and Santa visits across Punta Gorda, Port Charlotte, North Port, and Venice.
+        Your interactive guide to 2026 fall festivals, pumpkin patches, holiday lights, Christmas boat parades, and Santa visits across Punta Gorda, North Port, Venice, Sarasota, and Bradenton.
       </p>
 
       <!-- Holiday Countdowns -->
@@ -1105,17 +1255,46 @@
   <!-- Main Content -->
   <main>
 
-    <!-- Proximity Radar Banner -->
+    <!-- DYNAMIC LOCATION FINDER & PROXIMITY RADAR -->
     <div class="radar-banner">
-      <div class="radar-info">
-        <h3>🧭 Proximity Radar (Centered on 33983)</h3>
-        <p>Events prioritized by driving distance from home, with easy meet-up spots for family in North Port & Venice.</p>
+      <div class="radar-top-row">
+        <div class="radar-info">
+          <h3>🧭 Location Radar & Distance Finder</h3>
+          <p id="currentLocationText">Currently showing driving distances from: <strong>Punta Gorda, FL (33983)</strong></p>
+        </div>
+
+        <!-- Custom ZIP Code / Town Input -->
+        <div class="zip-input-container">
+          <label for="zipInput" class="zip-label">Enter Your ZIP / Town:</label>
+          <div class="zip-input-wrapper">
+            <input 
+              type="text" 
+              id="zipInput" 
+              class="zip-input" 
+              placeholder="e.g. 33983, 34236..." 
+              value="33983"
+              onkeydown="if(event.key==='Enter') setCustomZip(this.value)"
+            />
+            <button class="btn-zip-apply" onclick="setCustomZip(document.getElementById('zipInput').value)">Set</button>
+            <button class="btn-gps" onclick="useGeolocation()" title="Use Current Phone / Browser GPS">🎯 GPS</button>
+          </div>
+        </div>
       </div>
-      <div class="radar-tiers">
-        <span class="radar-pill tier-closest">📍 Punta Gorda & PC (0–9 mi • 8–15 min)</span>
-        <span class="radar-pill tier-near">🚗 North Port (14–17 mi • 18–22 min)</span>
-        <span class="radar-pill tier-near">🎡 Wellen Park (18–21 mi • 22–25 min)</span>
-        <span class="radar-pill tier-venice">🏖️ Venice (25–28 mi • 30–35 min)</span>
+
+      <!-- Quick Preset Location Buttons -->
+      <div class="quick-locations">
+        <span class="quick-loc-label">Quick Town Presets:</span>
+        <button class="loc-preset-btn active" data-zip="33983" onclick="applyPresetLocation('33983')">📍 Punta Gorda (33983)</button>
+        <button class="loc-preset-btn" data-zip="34286" onclick="applyPresetLocation('34286')">🚗 North Port (34286)</button>
+        <button class="loc-preset-btn" data-zip="34293" onclick="applyPresetLocation('34293')">🎡 Wellen Park (34293)</button>
+        <button class="loc-preset-btn" data-zip="34285" onclick="applyPresetLocation('34285')">🏖️ Venice (34285)</button>
+        <button class="loc-preset-btn" data-zip="34236" onclick="applyPresetLocation('34236')">🌴 Sarasota (34236)</button>
+        <button class="loc-preset-btn" data-zip="34205" onclick="applyPresetLocation('34205')">⛵ Bradenton (34205)</button>
+      </div>
+
+      <!-- Dynamic Proximity Radar Summary Tiers -->
+      <div class="radar-tiers" id="radarTiersContainer">
+        <!-- Dynamic Tiers injected via JS -->
       </div>
     </div>
 
@@ -1129,7 +1308,7 @@
             type="text"
             id="searchInput"
             class="search-input"
-            placeholder="Search festivities (e.g., 'boat parade', 'pumpkin', 'santa', 'laishley')..."
+            placeholder="Search festivities (e.g. 'boat parade', 'selby', 'hunsader', 'lights', 'santa')..."
             oninput="handleSearch(this.value)"
           />
         </div>
@@ -1149,15 +1328,17 @@
         </div>
       </div>
 
-      <!-- Location Tabs -->
+      <!-- Location Filter Tabs -->
       <div class="filter-group">
-        <span class="filter-label">Filter by Area / Proximity:</span>
+        <span class="filter-label">Filter by Area:</span>
         <div class="filter-chips" id="locationChips">
-          <button class="chip active" data-filter="all" onclick="setLocationFilter('all')">🌟 All Areas</button>
-          <button class="chip" data-filter="closest" onclick="setLocationFilter('closest')">📍 Punta Gorda & Port Charlotte (Closest)</button>
-          <button class="chip" data-filter="north-port" onclick="setLocationFilter('north-port')">🚗 North Port (~20 min)</button>
-          <button class="chip" data-filter="wellen-park" onclick="setLocationFilter('wellen-park')">🎡 Wellen Park (~22 min)</button>
-          <button class="chip" data-filter="venice" onclick="setLocationFilter('venice')">🏖️ Venice (~30 min)</button>
+          <button class="chip active" data-filter="all" onclick="setLocationFilter('all')">🌟 All Areas (30 Events)</button>
+          <button class="chip" data-filter="closest" onclick="setLocationFilter('closest')">📍 Punta Gorda & PC</button>
+          <button class="chip" data-filter="north-port" onclick="setLocationFilter('north-port')">🚗 North Port</button>
+          <button class="chip" data-filter="wellen-park" onclick="setLocationFilter('wellen-park')">🎡 Wellen Park</button>
+          <button class="chip" data-filter="venice" onclick="setLocationFilter('venice')">🏖️ Venice</button>
+          <button class="chip" data-filter="sarasota" onclick="setLocationFilter('sarasota')">🌴 Sarasota</button>
+          <button class="chip" data-filter="bradenton" onclick="setLocationFilter('bradenton')">⛵ Bradenton</button>
         </div>
       </div>
 
@@ -1198,12 +1379,12 @@
 
     <!-- Results Status Bar -->
     <div class="results-bar">
-      <div class="results-count" id="resultsSummary">Showing all 21 festivities</div>
+      <div class="results-count" id="resultsSummary">Showing all 30 festivities</div>
       <div class="sort-control">
         <span>Sort by:</span>
         <select id="sortSelect" class="sort-select" onchange="handleSortChange(this.value)">
-          <option value="distance">Distance from 33983 (Closest First)</option>
-          <option value="date" selected>Date (Chronological)</option>
+          <option value="distance" selected>Distance from My Location (Closest First)</option>
+          <option value="date">Date (Chronological)</option>
           <option value="name">Event Name (A-Z)</option>
         </select>
       </div>
@@ -1280,11 +1461,13 @@
           <div class="form-group">
             <label class="form-label">Town / Location *</label>
             <select id="custLocation" class="form-control" required>
-              <option value="Punta Gorda">Punta Gorda (Closest)</option>
+              <option value="Punta Gorda">Punta Gorda</option>
               <option value="Port Charlotte">Port Charlotte</option>
               <option value="North Port">North Port</option>
               <option value="Wellen Park">Wellen Park</option>
               <option value="Venice">Venice</option>
+              <option value="Sarasota">Sarasota</option>
+              <option value="Bradenton">Bradenton</option>
               <option value="Other">Other SWFL Location</option>
             </select>
           </div>
@@ -1313,564 +1496,914 @@
   </div>
 
   <script>
-    // Embedded Database of Punta Gorda, Port Charlotte, North Port & Venice Festivities
+    // Embedded Database of 30 Festivities Across SWFL
     const FESTIVITIES = [
-      {
-        id: "prana-farms-pumpkin-fest",
-        title: "Prana Farms Annual Pumpkin Festival",
-        location: "Punta Gorda",
-        venue: "Prana Farms",
-        address: "6026 Sweden Blvd, Punta Gorda, FL 33982",
-        distanceMiles: 7,
-        driveTime: "12 mins",
-        proximityTier: "closest",
-        season: "fall",
-        category: "pumpkin-patches",
-        categoryLabel: "Pumpkin Patches & Farms",
-        startDate: "2026-10-15",
-        endDate: "2026-10-25",
-        dateDisplay: "Oct 15 – Oct 25, 2026 (Thurs–Sun)",
-        timeDisplay: "10:00 AM – 5:00 PM",
-        cost: "$12 Admission (Kids under 2 Free)",
-        isFree: false,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Punta Gorda's premier family autumn tradition featuring thousands of farm-fresh pumpkins, walk-through butterfly encounters, friendly farm animal petting zoo, inflatables, barrel train rides, and rustic fall photo setups.",
-        familyTip: "Wear closed-toe shoes for the farm paths. Mornings around 10:00 AM have the lightest crowds and best photo lighting!",
-        mapsQuery: "Prana Farms, 6026 Sweden Blvd, Punta Gorda, FL 33982",
-        icon: "🎃"
-      },
-      {
-        id: "pg-city-fall-festival",
-        title: "City of Punta Gorda Fall Festival",
-        location: "Punta Gorda",
-        venue: "Laishley Park",
-        address: "100 Nesbit St, Punta Gorda, FL 33950",
-        distanceMiles: 5,
-        driveTime: "8 mins",
-        proximityTier: "closest",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Trick-or-Treat & Festivals",
-        startDate: "2026-10-17",
-        endDate: "2026-10-17",
-        dateDisplay: "Saturday, Oct 17, 2026",
-        timeDisplay: "12:00 PM – 4:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "A wholesome waterfront autumn festival on Charlotte Harbor with trick-or-treating stations, inflatables, lawn games, live kids DJ entertainment, food trucks, and a costume contest with prizes by age group.",
-        familyTip: "Parking is available along Nesbit St and near the marina. Bring candy buckets and sunscreen since it's an afternoon outdoor event on the lawn.",
-        mapsQuery: "Laishley Park, 100 Nesbit St, Punta Gorda, FL 33950",
-        icon: "👻"
-      },
-      {
-        id: "halloween-notte-fairgrounds",
-        title: "Halloween Notte: Family Fun & Haunts",
-        location: "Port Charlotte",
-        venue: "Charlotte County Fairgrounds",
-        address: "2333 El Jobean Rd, Port Charlotte, FL 33948",
-        distanceMiles: 9,
-        driveTime: "14 mins",
-        proximityTier: "closest",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Trick-or-Treat & Spooky Fun",
-        startDate: "2026-10-16",
-        endDate: "2026-10-31",
-        dateDisplay: "Oct 16–18, 23–25, & 29–31, 2026",
-        timeDisplay: "6:00 PM – 10:00 PM",
-        cost: "$15 General Admission (Kids 3 & under Free)",
-        isFree: false,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Charlotte County's flagship Halloween attraction with a dual experience: a friendly daytime-style carnival midway with pumpkin patches, bounce houses, petting zoo, safe trick-or-treat booths, alongside separately enclosed spooky walk-through haunted zones for braver kids and teens.",
-        familyTip: "Families with toddlers and younger kids should stick to the illuminated family midway area. Arrive right at 6:00 PM when gates open.",
-        mapsQuery: "Charlotte County Fairgrounds, 2333 El Jobean Rd, Port Charlotte, FL 33948",
-        icon: "🎪"
-      },
-      {
-        id: "venice-nights-halloween",
-        title: "Venice Nights Market & Music (Halloween Edition)",
-        location: "Venice",
-        venue: "Maxine Barritt Park",
-        address: "1800 Harbor Dr S, Venice, FL 34285",
-        distanceMiles: 27,
-        driveTime: "32 mins",
-        proximityTier: "venice",
-        season: "fall",
-        category: "concerts",
-        categoryLabel: "Markets & Evening Festivals",
-        startDate: "2026-10-17",
-        endDate: "2026-10-17",
-        dateDisplay: "Saturday, Oct 17, 2026",
-        timeDisplay: "5:00 PM – 10:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Coastal evening celebration right on the Gulf of Mexico featuring a costumed pet parade, youth costume promenade, live bands, artisan craft vendors, and 20+ local food trucks against a scenic Gulf sunset.",
-        familyTip: "Great excuse to visit Venice family! Bring beach chairs and blankets to sit on the grass lawn while listening to the band.",
-        mapsQuery: "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
-        icon: "🐾"
-      },
-      {
-        id: "north-port-trick-or-treat",
-        title: "North Port Trick-or-Treat & Pumpkin Trail",
-        location: "North Port",
-        venue: "George Mullen Activity Center / City Center Green",
-        address: "4956 City Center Blvd, North Port, FL 34286",
-        distanceMiles: 16,
-        driveTime: "20 mins",
-        proximityTier: "north-port",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Trick-or-Treat & Festivals",
-        startDate: "2026-10-23",
-        endDate: "2026-10-23",
-        dateDisplay: "Friday, Oct 23, 2026",
-        timeDisplay: "5:00 PM – 8:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "North Port's most beloved family Halloween night! Features the famous illuminated Pumpkin Trail with dozens of local business booths handing out candy, a DJ-led Monster Mash dance pit, costume contests, and food vendors.",
-        familyTip: "Very popular event! Parking fills up quickly at City Center; carpool with North Port family or arrive 20 minutes before 5:00 PM.",
-        mapsQuery: "George Mullen Activity Center, 4956 City Center Blvd, North Port, FL",
-        icon: "🍬"
-      },
-      {
-        id: "babcock-ranch-halloween",
-        title: "Babcock Ranch Halloween Nights",
-        location: "Punta Gorda",
-        venue: "Founder's Square",
-        address: "42850 Crescent Loop, Babcock Ranch, FL 33982",
-        distanceMiles: 18,
-        driveTime: "22 mins",
-        proximityTier: "closest",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Trick-or-Treat & Festivals",
-        startDate: "2026-10-24",
-        endDate: "2026-10-24",
-        dateDisplay: "Saturday, Oct 24, 2026",
-        timeDisplay: "6:00 PM – 9:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "A festive solar-town Halloween celebration featuring an extravagant decorated golf cart parade, lakeside trick-or-treating stations, spooky maze fun, food trucks, and music around Founder's Square boardwalk.",
-        familyTip: "The golf cart parade is a massive crowd pleaser for toddlers and kids. Grab a spot along Crescent Loop around 5:45 PM.",
-        mapsQuery: "Founder's Square, 42850 Crescent Loop, Babcock Ranch, FL",
-        icon: "🛺"
-      },
-      {
-        id: "wellen-park-spooktacular",
-        title: "Wellen Park Spooktacular",
-        location: "Wellen Park",
-        venue: "Downtown Wellen",
-        address: "19745 Wellen Pkwy, Venice, FL 34293",
-        distanceMiles: 21,
-        driveTime: "24 mins",
-        proximityTier: "wellen-park",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Trick-or-Treat & Community",
-        startDate: "2026-10-30",
-        endDate: "2026-10-30",
-        dateDisplay: "Friday, Oct 30, 2026",
-        timeDisplay: "4:00 PM – 7:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Downtown Wellen turns into an open-air Halloween plaza! Stroll the beautiful pedestrian promenade around the lake for trick-or-treating at local merchants, interactive lawn games, live DJ music, and family costume contests.",
-        familyTip: "Perfect meeting point halfway between Punta Gorda and Venice! Paved, wide walkways make it 100% stroller and wagon friendly.",
-        mapsQuery: "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
-        icon: "🎃"
-      },
-      {
-        id: "venice-halloween-strut",
-        title: "Historic Downtown Venice Halloween Strut",
-        location: "Venice",
-        venue: "Historic Downtown Venice",
-        address: "West Venice Ave & Miami Ave, Venice, FL 34285",
-        distanceMiles: 26,
-        driveTime: "30 mins",
-        proximityTier: "venice",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Trick-or-Treat & Community",
-        startDate: "2026-10-31",
-        endDate: "2026-10-31",
-        dateDisplay: "Saturday, Oct 31, 2026 (Halloween)",
-        timeDisplay: "4:00 PM – 6:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "A long-held Venice holiday tradition where hundreds of costumed children and parents stroll under the palm trees along Tampa, Venice, and Miami Avenues. Friendly shopkeepers hand out treats outside their stores.",
-        familyTip: "Ends at 6:00 PM, leaving plenty of time to grab an early family dinner downtown before traditional neighborhood trick-or-treating!",
-        mapsQuery: "West Venice Ave, Venice, FL 34285",
-        icon: "🧙‍♀️"
-      },
-      {
-        id: "north-port-howloween",
-        title: "HOWLo'WEEN BOOlevard Trick-or-Treat",
-        location: "North Port",
-        venue: "Elevate Pride Grounds",
-        address: "164 Eric St, North Port, FL 34287",
-        distanceMiles: 15,
-        driveTime: "18 mins",
-        proximityTier: "north-port",
-        season: "fall",
-        category: "trick-or-treat",
-        categoryLabel: "Community Trick-or-Treat",
-        startDate: "2026-10-31",
-        endDate: "2026-10-31",
-        dateDisplay: "Saturday, Oct 31, 2026 (Halloween)",
-        timeDisplay: "5:30 PM – 8:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "A vibrant North Port neighborhood trick-or-treating street walk with decorated tents, safe community treat zones, music, and kid photo stations.",
-        familyTip: "Convenient for families visiting relatives in North Port on Halloween evening.",
-        mapsQuery: "164 Eric St, North Port, FL 34287",
-        icon: "🦇"
-      },
-      {
-        id: "lighting-of-fishermens-village",
-        title: "Grand Lighting of Fishermen's Village",
-        location: "Punta Gorda",
-        venue: "Fishermen's Village",
-        address: "1200 W Retta St, Punta Gorda, FL 33950",
-        distanceMiles: 6,
-        driveTime: "9 mins",
-        proximityTier: "closest",
-        season: "winter",
-        category: "tree-lighting",
-        categoryLabel: "Tree Lightings & Santa",
-        startDate: "2026-11-14",
-        endDate: "2026-11-14",
-        dateDisplay: "Saturday, Nov 14, 2026",
-        timeDisplay: "5:00 PM – 9:00 PM (Lighting at Dusk)",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "The official grand kickoff of Southwest Florida's Christmas season! Count down with Santa and Mrs. Claus as over one million dazzling lights simultaneously illuminate throughout the village, accompanied by bagpipers, carolers, and holiday cheer.",
-        familyTip: "Punta Gorda's signature event of the year! Arrive by 4:30 PM to secure parking in the main lot or take the overflow shuttle.",
-        mapsQuery: "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
-        icon: "✨"
-      },
-      {
-        id: "fishermens-village-festival-of-lights",
-        title: "Festival of Lights at Fishermen's Village",
-        location: "Punta Gorda",
-        venue: "Fishermen's Village",
-        address: "1200 W Retta St, Punta Gorda, FL 33950",
-        distanceMiles: 6,
-        driveTime: "9 mins",
-        proximityTier: "closest",
-        season: "winter",
-        category: "light-displays",
-        categoryLabel: "Light Displays & Shopping",
-        startDate: "2026-11-15",
-        endDate: "2026-12-31",
-        dateDisplay: "Daily, Nov 15 – Dec 31, 2026",
-        timeDisplay: "All Day & Evening (Lights turn on at 5:30 PM)",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Ranked among Florida's top holiday destinations! Stroll through a winter wonderland of over 1,000,000 sparkling lights, themed Christmas trees in every concourse, visits with Santa, live holiday musical entertainment, and waterfront dining.",
-        familyTip: "Because it runs daily through New Year's Eve, weekday evenings (Monday–Wednesday) offer the same magical lights with much lighter crowds and easiest stroller navigation.",
-        mapsQuery: "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
-        icon: "🌟"
-      },
-      {
-        id: "venice-holiday-parade",
-        title: "50th Annual Venice Holiday Parade (\"Golden Traditions\")",
-        location: "Venice",
-        venue: "Historic Downtown Venice",
-        address: "West Venice Ave to Venice High School, Venice, FL 34285",
-        distanceMiles: 26,
-        driveTime: "30 mins",
-        proximityTier: "venice",
-        season: "winter",
-        category: "parades",
-        categoryLabel: "Parades & Santa",
-        startDate: "2026-11-28",
-        endDate: "2026-11-28",
-        dateDisplay: "Saturday, Nov 28, 2026 (Thanksgiving Weekend)",
-        timeDisplay: "Pre-parade 3:00 PM, Parade starts 6:30 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "A historic milestone! The 50th Golden Anniversary of the Venice Holiday Parade features over 100 lighted floats, marching bands, dancers, festive vehicles, and Santa Claus arriving to cap off Thanksgiving weekend.",
-        familyTip: "Spectators typically set out chairs along Venice Ave early in the afternoon. Make a day of it with family in Venice!",
-        mapsQuery: "West Venice Ave, Venice, FL 34285",
-        icon: "🎺"
-      },
-      {
-        id: "king-fisher-christmas-cruises",
-        title: "King Fisher Christmas Light Canal Cruises",
-        location: "Punta Gorda",
-        venue: "King Fisher Fleet at Fishermen's Village",
-        address: "1200 W Retta St, Punta Gorda, FL 33950",
-        distanceMiles: 6,
-        driveTime: "9 mins",
-        proximityTier: "closest",
-        season: "winter",
-        category: "light-displays",
-        categoryLabel: "Light Displays & Boat Cruises",
-        startDate: "2026-12-01",
-        endDate: "2026-12-31",
-        dateDisplay: "Daily in December 2026",
-        timeDisplay: "Evenings: 6:00 PM, 7:30 PM, 9:00 PM",
-        cost: "Approx. $28-$32 Adults / $18-$22 Kids",
-        isFree: false,
-        kidFriendly: true,
-        strollerFriendly: false,
-        description: "Board a comfortable sightseeing tour boat from Fishermen's Village to tour the protected residential canals of Punta Gorda Isles. View multi-million dollar homes and docks competing in neighborhood holiday light and music competitions.",
-        familyTip: "Must book several weeks ahead online at kingfisherfleet.com — tickets sell out quickly every single year! Bring a light jacket for the breeze on the water.",
-        mapsQuery: "King Fisher Fleet, 1200 W Retta St, Punta Gorda, FL 33950",
-        icon: "🚢"
-      },
-      {
-        id: "wellen-wonderland-tree-lighting",
-        title: "Wellen Wonderland Tree Lighting Celebration",
-        location: "Wellen Park",
-        venue: "Downtown Wellen",
-        address: "19745 Wellen Pkwy, Venice, FL 34293",
-        distanceMiles: 21,
-        driveTime: "24 mins",
-        proximityTier: "wellen-park",
-        season: "winter",
-        category: "tree-lighting",
-        categoryLabel: "Tree Lightings & Santa",
-        startDate: "2026-12-04",
-        endDate: "2026-12-04",
-        dateDisplay: "Friday, Dec 4, 2026",
-        timeDisplay: "6:00 PM – 9:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Kick off December with the lighting of Wellen Park's 32-foot lakeside holiday tree! Enjoy holiday carolers, free photos with Santa and Mrs. Claus, the 'Cottages for Kids' gingerbread trail, and seasonal drinks and treats.",
-        familyTip: "Great open grassy areas for kids to run around while waiting for the tree lighting. Bring picnic blankets.",
-        mapsQuery: "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
-        icon: "🎄"
-      },
-      {
-        id: "north-port-poinsettia-parade",
-        title: "North Port Poinsettia Parade & Tree Lighting Festival",
-        location: "North Port",
-        venue: "North Port City Center Front Green",
-        address: "4970 City Center Blvd, North Port, FL 34286",
-        distanceMiles: 16,
-        driveTime: "20 mins",
-        proximityTier: "north-port",
-        season: "winter",
-        category: "parades",
-        categoryLabel: "Parades, Tree Lighting & Santa",
-        startDate: "2026-12-05",
-        endDate: "2026-12-05",
-        dateDisplay: "Saturday, Dec 5, 2026",
-        timeDisplay: "Festival 4:00 PM – 8:00 PM (Parade at 5:00 PM)",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "North Port's biggest holiday celebration of the year! The 'Sleigh the Night Away' parade rolls down Sumter Blvd featuring lighted floats and vehicles, followed by the ceremonial lighting of the City Hall holiday tree, Santa's workshop, and mobile food vendors.",
-        familyTip: "Sumter Blvd closes for the parade at 4:30 PM, so approach via Price Blvd or West Price to access City Center parking lots.",
-        mapsQuery: "North Port City Center, 4970 City Center Blvd, North Port, FL",
-        icon: "🌺"
-      },
-      {
-        id: "venice-christmas-boat-parade",
-        title: "Venice Christmas Boat Parade",
-        location: "Venice",
-        venue: "Intracoastal Waterway",
-        address: "Albee Rd Bridge to Circus Bridge, Venice, FL 34285",
-        distanceMiles: 27,
-        driveTime: "32 mins",
-        proximityTier: "venice",
-        season: "winter",
-        category: "parades",
-        categoryLabel: "Parades & Boat Parades",
-        startDate: "2026-12-05",
-        endDate: "2026-12-05",
-        dateDisplay: "Saturday, Dec 5, 2026",
-        timeDisplay: "Starts at 6:00 PM",
-        cost: "Free Public Viewing",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "A dazzling aquatic parade of illuminated yachts, pontoon boats, and sailboats decorated with moving light sculptures, holiday scenes, and sounding boat horns cruising south down the Intracoastal Waterway.",
-        familyTip: "Top public viewing spots with easy stroller access: Venetian Waterway Park trail, Venice Marina, or along the waterfront parks near the north jetty.",
-        mapsQuery: "Venetian Waterway Park, Venice, FL 34285",
-        icon: "⛵"
-      },
-      {
-        id: "wellen-park-glow-bike-ride",
-        title: "Wellen Park Holiday Glow Bike Ride & Dueling Pianos",
-        location: "Wellen Park",
-        venue: "Downtown Wellen & Solis Hall",
-        address: "19745 Wellen Pkwy, Venice, FL 34293",
-        distanceMiles: 21,
-        driveTime: "24 mins",
-        proximityTier: "wellen-park",
-        season: "winter",
-        category: "concerts",
-        categoryLabel: "Live Music & Night Festivals",
-        startDate: "2026-12-05",
-        endDate: "2026-12-05",
-        dateDisplay: "Saturday, Dec 5, 2026",
-        timeDisplay: "6:00 PM – 9:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Wrap your bicycles and strollers in glow sticks and string lights for a scenic, family-friendly slow roll around the 80-acre Grand Lake, followed by lively holiday dueling pianos under the stars at Solis Hall.",
-        familyTip: "Bring battery-powered fairy lights to clip onto kids' scooters, trikes, or strollers so they can participate in the glow!",
-        mapsQuery: "Solis Hall, Downtown Wellen, Venice, FL 34293",
-        icon: "🚲"
-      },
-      {
-        id: "mayors-hometown-christmas-venice",
-        title: "The Mayor's Hometown Christmas & Christmas Walk",
-        location: "Venice",
-        venue: "Centennial Park & Historic Downtown",
-        address: "200 W Venice Ave, Venice, FL 34285",
-        distanceMiles: 26,
-        driveTime: "30 mins",
-        proximityTier: "venice",
-        season: "winter",
-        category: "tree-lighting",
-        categoryLabel: "Tree Lightings & Community",
-        startDate: "2026-12-10",
-        endDate: "2026-12-10",
-        dateDisplay: "Thursday, Dec 10, 2026",
-        timeDisplay: "5:00 PM – 8:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Step into a Hallmark-movie-style evening in historic Venice! Children can sit on Santa's lap in the park gazebo, listen to school and church youth choirs singing carols, and sip free hot cider while strolling decorated shop fronts.",
-        familyTip: "Centennial Park has a wonderful interactive children's splash pad and playground right next to the gazebo if the little ones need playtime.",
-        mapsQuery: "Centennial Park, 200 W Venice Ave, Venice, FL 34285",
-        icon: "🎅"
-      },
-      {
-        id: "peace-river-gardens-aglow",
-        title: "Peace River Gardens Aglow",
-        location: "Punta Gorda",
-        venue: "Peace River Botanical & Sculpture Gardens",
-        address: "5827 Riverside Dr, Punta Gorda, FL 33982",
-        distanceMiles: 8,
-        driveTime: "12 mins",
-        proximityTier: "closest",
-        season: "winter",
-        category: "light-displays",
-        categoryLabel: "Light Displays & Art",
-        startDate: "2026-12-11",
-        endDate: "2026-12-20",
-        dateDisplay: "Dec 11–13 & Dec 18–20, 2026",
-        timeDisplay: "6:00 PM – 9:00 PM",
-        cost: "$15 Adults / $7 Kids (3 and under Free)",
-        isFree: false,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Punta Gorda's enchanting nature-immersed light experience. Thousands of glowing fairy lights and botanical light sculptures illuminate the walking paths along the Peace River, accompanied by live acoustic holiday musicians, s'mores roasting pits, and hot chocolate stations.",
-        familyTip: "Pre-purchase timed tickets online at peacerivergardens.org. Boardwalks and trails are smooth and easy for strollers.",
-        mapsQuery: "Peace River Botanical & Sculpture Gardens, 5827 Riverside Dr, Punta Gorda, FL 33982",
-        icon: "🌿"
-      },
-      {
-        id: "punta-gorda-boat-parade",
-        title: "Annual Punta Gorda Christmas Boat Parade",
-        location: "Punta Gorda",
-        venue: "Punta Gorda Isles Waterfront Canals",
-        address: "Rim Canal / Charlotte Harbor, Punta Gorda, FL 33950",
-        distanceMiles: 6,
-        driveTime: "9 mins",
-        proximityTier: "closest",
-        season: "winter",
-        category: "parades",
-        categoryLabel: "Parades & Boat Parades",
-        startDate: "2026-12-19",
-        endDate: "2026-12-19",
-        dateDisplay: "Saturday, Dec 19, 2026",
-        timeDisplay: "Starts at 6:00 PM",
-        cost: "Free Public Viewing",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Known as 'The Saturday Night Before Christmas Eve Boat Parade,' this cherished Punta Gorda Isles tradition features dozens of extravagantly illuminated motor yachts, sailboats, and catamarans navigating 4 miles of residential canals.",
-        familyTip: "Great public viewing spots with easy parking: along the rim canal bridges, Ponce de Leon Park, or join neighbors who host shoreline lawn watch parties.",
-        mapsQuery: "Ponce de Leon Park, Punta Gorda, FL 33950",
-        icon: "🛥️"
-      },
-      {
-        id: "christmas-carols-by-the-gulf",
-        title: "Christmas Carols by the Gulf",
-        location: "Venice",
-        venue: "Maxine Barritt Park Pavilion",
-        address: "1800 Harbor Dr S, Venice, FL 34285",
-        distanceMiles: 27,
-        driveTime: "32 mins",
-        proximityTier: "venice",
-        season: "winter",
-        category: "concerts",
-        categoryLabel: "Live Music & Community",
-        startDate: "2026-12-19",
-        endDate: "2026-12-19",
-        dateDisplay: "Saturday, Dec 19, 2026",
-        timeDisplay: "5:00 PM – 7:00 PM",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Sing your favorite holiday carols with local choral groups as the sun sets over the Gulf of Mexico. Song sheets are handed out to everyone, with festive cookies and cider available.",
-        familyTip: "Bring lawn chairs, cozy sweaters, and battery candles for the kids when dusk falls.",
-        mapsQuery: "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
-        icon: "🎵"
-      },
-      {
-        id: "fishermens-village-nye",
-        title: "Fishermen's Village New Year's Eve & Fireworks",
-        location: "Punta Gorda",
-        venue: "Fishermen's Village",
-        address: "1200 W Retta St, Punta Gorda, FL 33950",
-        distanceMiles: 6,
-        driveTime: "9 mins",
-        proximityTier: "closest",
-        season: "winter",
-        category: "nye",
-        categoryLabel: "New Year's Celebrations",
-        startDate: "2026-12-31",
-        endDate: "2026-12-31",
-        dateDisplay: "Thursday, Dec 31, 2026",
-        timeDisplay: "6:00 PM – 12:30 AM (Fireworks at Midnight)",
-        cost: "Free Admission",
-        isFree: true,
-        kidFriendly: true,
-        strollerFriendly: true,
-        description: "Southwest Florida's biggest family-friendly New Year's Eve blowout! Features multiple stages of live music, magicians, face painters, balloon artists, glow souvenirs, dancing, and a midnight fireworks display launched over Charlotte Harbor.",
-        familyTip: "If celebrating with younger toddlers who can't stay up until midnight, the 6:00 PM – 8:30 PM window is packed with fun kids entertainment, glowing lights, and treats without the late night squeeze!",
-        mapsQuery: "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
-        icon: "🎆"
-      }
-    ];
+  {
+    "id": "prana-farms-pumpkin-fest",
+    "title": "Prana Farms Annual Pumpkin Festival",
+    "location": "Punta Gorda",
+    "venue": "Prana Farms",
+    "address": "6026 Sweden Blvd, Punta Gorda, FL 33982",
+    "distanceMiles": 7,
+    "driveTime": "12 mins",
+    "proximityTier": "closest",
+    "season": "fall",
+    "category": "pumpkin-patches",
+    "categoryLabel": "Pumpkin Patches & Farms",
+    "startDate": "2026-10-15",
+    "endDate": "2026-10-25",
+    "dateDisplay": "Oct 15 \u2013 Oct 25, 2026 (Thurs\u2013Sun)",
+    "timeDisplay": "10:00 AM \u2013 5:00 PM",
+    "cost": "$12 Admission (Kids under 2 Free)",
+    "isFree": false,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Punta Gorda's premier family autumn tradition featuring thousands of farm-fresh pumpkins, walk-through butterfly encounters, friendly farm animal petting zoo, inflatables, barrel train rides, and rustic fall photo setups.",
+    "familyTip": "Wear closed-toe shoes for the farm paths. Mornings around 10:00 AM have the lightest crowds and best photo lighting!",
+    "mapsQuery": "Prana Farms, 6026 Sweden Blvd, Punta Gorda, FL 33982",
+    "icon": "\ud83c\udf83",
+    "badgeColor": "orange",
+    "lat": 26.965,
+    "lng": -81.985
+  },
+  {
+    "id": "pg-city-fall-festival",
+    "title": "City of Punta Gorda Fall Festival",
+    "location": "Punta Gorda",
+    "venue": "Laishley Park",
+    "address": "100 Nesbit St, Punta Gorda, FL 33950",
+    "distanceMiles": 5,
+    "driveTime": "8 mins",
+    "proximityTier": "closest",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Festivals",
+    "startDate": "2026-10-17",
+    "endDate": "2026-10-17",
+    "dateDisplay": "Saturday, Oct 17, 2026",
+    "timeDisplay": "12:00 PM \u2013 4:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A wholesome waterfront autumn festival on the harbor with trick-or-treating stations, inflatables, lawn games, live kids DJ entertainment, food trucks, and a costume contest with prizes by age group.",
+    "familyTip": "Parking is available along Nesbit St and near the marina. Bring candy buckets and sunscreen since it's an afternoon outdoor event on the lawn.",
+    "mapsQuery": "Laishley Park, 100 Nesbit St, Punta Gorda, FL 33950",
+    "icon": "\ud83d\udc7b",
+    "badgeColor": "orange",
+    "lat": 26.937,
+    "lng": -82.046
+  },
+  {
+    "id": "halloween-notte-fairgrounds",
+    "title": "Halloween Notte: Family Fun & Haunts",
+    "location": "Port Charlotte",
+    "venue": "Charlotte County Fairgrounds",
+    "address": "2333 El Jobean Rd, Port Charlotte, FL 33948",
+    "distanceMiles": 9,
+    "driveTime": "14 mins",
+    "proximityTier": "closest",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Spooky Fun",
+    "startDate": "2026-10-16",
+    "endDate": "2026-10-31",
+    "dateDisplay": "Oct 16\u201318, 23\u201325, & 29\u201331, 2026",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "cost": "$15 General Admission (Kids 3 & under Free)",
+    "isFree": false,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Charlotte County's flagship Halloween attraction with a dual experience: a friendly daytime-style carnival midway with pumpkin patches, bounce houses, petting zoo, safe trick-or-treat booths, alongside separately enclosed spooky walk-through haunted zones for braver kids and teens.",
+    "familyTip": "Families with toddlers and younger kids should stick to the illuminated family midway area. Arrive right at 6:00 PM when gates open.",
+    "mapsQuery": "Charlotte County Fairgrounds, 2333 El Jobean Rd, Port Charlotte, FL 33948",
+    "icon": "\ud83c\udfaa",
+    "badgeColor": "amber",
+    "lat": 26.994,
+    "lng": -82.163
+  },
+  {
+    "id": "venice-nights-halloween",
+    "title": "Venice Nights Market & Music (Halloween Edition)",
+    "location": "Venice",
+    "venue": "Maxine Barritt Park",
+    "address": "1800 Harbor Dr S, Venice, FL 34285",
+    "distanceMiles": 27,
+    "driveTime": "32 mins",
+    "proximityTier": "venice",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Markets & Evening Festivals",
+    "startDate": "2026-10-17",
+    "endDate": "2026-10-17",
+    "dateDisplay": "Saturday, Oct 17, 2026",
+    "timeDisplay": "5:00 PM \u2013 10:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Coastal evening celebration right on the Gulf featuring a costumed pet parade, youth costume promenade, live bands, artisan craft vendors, and 20+ local food trucks against a scenic Gulf sunset.",
+    "familyTip": "Great excuse to visit Venice family! Bring beach chairs and blankets to sit on the grass lawn while listening to the band.",
+    "mapsQuery": "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
+    "icon": "\ud83d\udc3e",
+    "badgeColor": "purple",
+    "lat": 27.078,
+    "lng": -82.449
+  },
+  {
+    "id": "north-port-trick-or-treat",
+    "title": "North Port Trick-or-Treat & Pumpkin Trail",
+    "location": "North Port",
+    "venue": "George Mullen Activity Center / City Center Green",
+    "address": "4956 City Center Blvd, North Port, FL 34286",
+    "distanceMiles": 16,
+    "driveTime": "20 mins",
+    "proximityTier": "north-port",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Festivals",
+    "startDate": "2026-10-23",
+    "endDate": "2026-10-23",
+    "dateDisplay": "Friday, Oct 23, 2026",
+    "timeDisplay": "5:00 PM \u2013 8:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "North Port's most beloved family Halloween night! Features the famous illuminated Pumpkin Trail with dozens of local business booths handing out candy, a DJ-led Monster Mash dance pit, costume contests, and food vendors.",
+    "familyTip": "Very popular event! Parking fills up quickly at City Center; carpool with North Port family or arrive 20 minutes before 5:00 PM.",
+    "mapsQuery": "George Mullen Activity Center, 4956 City Center Blvd, North Port, FL",
+    "icon": "\ud83c\udf6c",
+    "badgeColor": "orange",
+    "lat": 27.048,
+    "lng": -82.228
+  },
+  {
+    "id": "babcock-ranch-halloween",
+    "title": "Babcock Ranch Halloween Nights",
+    "location": "Punta Gorda",
+    "venue": "Founder's Square",
+    "address": "42850 Crescent Loop, Babcock Ranch, FL 33982",
+    "distanceMiles": 18,
+    "driveTime": "22 mins",
+    "proximityTier": "closest",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Festivals",
+    "startDate": "2026-10-24",
+    "endDate": "2026-10-24",
+    "dateDisplay": "Saturday, Oct 24, 2026",
+    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "An eco-friendly solar town Halloween celebration featuring an extravagant decorated golf cart parade, lakeside trick-or-treating stations, spooky maze fun, food trucks, and music around Founder's Square boardwalk.",
+    "familyTip": "The golf cart parade is a massive crowd pleaser for toddlers and kids. Grab a spot along Crescent Loop around 5:45 PM.",
+    "mapsQuery": "Founder's Square, 42850 Crescent Loop, Babcock Ranch, FL",
+    "icon": "\ud83d\udefa",
+    "badgeColor": "amber",
+    "lat": 26.797,
+    "lng": -81.728
+  },
+  {
+    "id": "wellen-park-spooktacular",
+    "title": "Wellen Park Spooktacular",
+    "location": "Wellen Park",
+    "venue": "Downtown Wellen",
+    "address": "19745 Wellen Pkwy, Venice, FL 34293",
+    "distanceMiles": 21,
+    "driveTime": "24 mins",
+    "proximityTier": "wellen-park",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Community",
+    "startDate": "2026-10-30",
+    "endDate": "2026-10-30",
+    "dateDisplay": "Friday, Oct 30, 2026",
+    "timeDisplay": "4:00 PM \u2013 7:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Downtown Wellen turns into an open-air Halloween plaza! Stroll the beautiful pedestrian promenade around the lake for trick-or-treating at local merchants, interactive lawn games, live DJ music, and family costume contests.",
+    "familyTip": "Perfect meeting point halfway between Punta Gorda and Venice! Paved, wide walkways make it 100% stroller and wagon friendly.",
+    "mapsQuery": "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
+    "icon": "\ud83c\udf83",
+    "badgeColor": "orange",
+    "lat": 27.062,
+    "lng": -82.348
+  },
+  {
+    "id": "venice-halloween-strut",
+    "title": "Historic Downtown Venice Halloween Strut",
+    "location": "Venice",
+    "venue": "Historic Downtown Venice",
+    "address": "West Venice Ave & Miami Ave, Venice, FL 34285",
+    "distanceMiles": 26,
+    "driveTime": "30 mins",
+    "proximityTier": "venice",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Community",
+    "startDate": "2026-10-31",
+    "endDate": "2026-10-31",
+    "dateDisplay": "Saturday, Oct 31, 2026 (Halloween)",
+    "timeDisplay": "4:00 PM \u2013 6:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A long-held Venice holiday tradition where hundreds of costumed children and parents stroll under the palm trees along Tampa, Venice, and Miami Avenues. Friendly shopkeepers and downtown merchants hand out treats outside their stores.",
+    "familyTip": "Ends at 6:00 PM, leaving plenty of time to grab an early family dinner downtown before traditional neighborhood trick-or-treating!",
+    "mapsQuery": "West Venice Ave, Venice, FL 34285",
+    "icon": "\ud83e\uddd9\u200d\u2640\ufe0f",
+    "badgeColor": "purple",
+    "lat": 27.1,
+    "lng": -82.448
+  },
+  {
+    "id": "north-port-howloween",
+    "title": "HOWLo'WEEN BOOlevard Trick-or-Treat",
+    "location": "North Port",
+    "venue": "Elevate Pride Grounds",
+    "address": "164 Eric St, North Port, FL 34287",
+    "distanceMiles": 15,
+    "driveTime": "18 mins",
+    "proximityTier": "north-port",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Community Trick-or-Treat",
+    "startDate": "2026-10-31",
+    "endDate": "2026-10-31",
+    "dateDisplay": "Saturday, Oct 31, 2026 (Halloween)",
+    "timeDisplay": "5:30 PM \u2013 8:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A vibrant North Port neighborhood trick-or-treating street walk with decorated tents, safe community treat zones, music, and kid photo stations.",
+    "familyTip": "Convenient for families visiting relatives in North Port on Halloween evening.",
+    "mapsQuery": "164 Eric St, North Port, FL 34287",
+    "icon": "\ud83e\udd87",
+    "badgeColor": "amber",
+    "lat": 27.06,
+    "lng": -82.19
+  },
+  {
+    "id": "lighting-of-fishermens-village",
+    "title": "Grand Lighting of Fishermen's Village",
+    "location": "Punta Gorda",
+    "venue": "Fishermen's Village",
+    "address": "1200 W Retta St, Punta Gorda, FL 33950",
+    "distanceMiles": 6,
+    "driveTime": "9 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "tree-lighting",
+    "categoryLabel": "Tree Lightings & Santa",
+    "startDate": "2026-11-14",
+    "endDate": "2026-11-14",
+    "dateDisplay": "Saturday, Nov 14, 2026",
+    "timeDisplay": "5:00 PM \u2013 9:00 PM (Lighting at Dusk)",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "The official grand kickoff of Southwest Florida's Christmas season! Count down with Santa and Mrs. Claus as over one million dazzling lights simultaneously illuminate throughout the village, accompanied by bagpipers, carolers, and holiday cheer.",
+    "familyTip": "Punta Gorda's signature event of the year! Arrive by 4:30 PM to secure parking in the main lot or take the overflow shuttle.",
+    "mapsQuery": "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
+    "icon": "\u2728",
+    "badgeColor": "emerald",
+    "lat": 26.94,
+    "lng": -82.062
+  },
+  {
+    "id": "fishermens-village-festival-of-lights",
+    "title": "Festival of Lights at Fishermen's Village",
+    "location": "Punta Gorda",
+    "venue": "Fishermen's Village",
+    "address": "1200 W Retta St, Punta Gorda, FL 33950",
+    "distanceMiles": 6,
+    "driveTime": "9 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "light-displays",
+    "categoryLabel": "Light Displays & Shopping",
+    "startDate": "2026-11-15",
+    "endDate": "2026-12-31",
+    "dateDisplay": "Daily, Nov 15 \u2013 Dec 31, 2026",
+    "timeDisplay": "All Day & Evening (Lights turn on at 5:30 PM)",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Ranked among Florida's top holiday destinations! Stroll through a winter wonderland of over 1,000,000 sparkling lights, themed Christmas trees in every concourse, visits with Santa, live holiday musical entertainment, and waterfront shopping.",
+    "familyTip": "Because it runs daily through New Year's Eve, weekday evenings (Monday\u2013Wednesday) offer the same magical lights with much lighter crowds and easiest stroller navigation.",
+    "mapsQuery": "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
+    "icon": "\ud83c\udf1f",
+    "badgeColor": "emerald",
+    "lat": 26.94,
+    "lng": -82.062
+  },
+  {
+    "id": "venice-holiday-parade",
+    "title": "50th Annual Venice Holiday Parade (\"Golden Traditions\")",
+    "location": "Venice",
+    "venue": "Historic Downtown Venice",
+    "address": "West Venice Ave to Venice High School, Venice, FL 34285",
+    "distanceMiles": 26,
+    "driveTime": "30 mins",
+    "proximityTier": "venice",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades & Santa",
+    "startDate": "2026-11-28",
+    "endDate": "2026-11-28",
+    "dateDisplay": "Saturday, Nov 28, 2026 (Thanksgiving Weekend)",
+    "timeDisplay": "Pre-parade 3:00 PM, Parade starts 6:30 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A historic milestone! The 50th Golden Anniversary of the Venice Holiday Parade features over 100 lighted floats, marching bands, dancers, festive vehicles, and Santa Claus arriving to cap off Thanksgiving weekend.",
+    "familyTip": "Spectators typically set out chairs along Venice Ave early in the afternoon. Make a day of it with family in Venice!",
+    "mapsQuery": "West Venice Ave, Venice, FL 34285",
+    "icon": "\ud83c\udfba",
+    "badgeColor": "rose",
+    "lat": 27.1,
+    "lng": -82.448
+  },
+  {
+    "id": "king-fisher-christmas-cruises",
+    "title": "King Fisher Christmas Light Canal Cruises",
+    "location": "Punta Gorda",
+    "venue": "King Fisher Fleet at Fishermen's Village",
+    "address": "1200 W Retta St, Punta Gorda, FL 33950",
+    "distanceMiles": 6,
+    "driveTime": "9 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "light-displays",
+    "categoryLabel": "Light Displays & Boat Cruises",
+    "startDate": "2026-12-01",
+    "endDate": "2026-12-31",
+    "dateDisplay": "Daily in December 2026",
+    "timeDisplay": "Evenings: 6:00 PM, 7:30 PM, 9:00 PM",
+    "cost": "Approx. $28-$32 Adults / $18-$22 Kids",
+    "isFree": false,
+    "kidFriendly": true,
+    "strollerFriendly": false,
+    "description": "Board a comfortable sightseeing tour boat from Fishermen's Village to tour the protected residential canals of Punta Gorda Isles. View multi-million dollar homes and docks competing in neighborhood holiday light and music competitions.",
+    "familyTip": "Must book several weeks ahead online at kingfisherfleet.com \u2014 tickets sell out quickly every single year! Bring a light jacket for the breeze on the water.",
+    "mapsQuery": "King Fisher Fleet, 1200 W Retta St, Punta Gorda, FL 33950",
+    "icon": "\ud83d\udea2",
+    "badgeColor": "cyan",
+    "lat": 26.94,
+    "lng": -82.062
+  },
+  {
+    "id": "wellen-wonderland-tree-lighting",
+    "title": "Wellen Wonderland Tree Lighting Celebration",
+    "location": "Wellen Park",
+    "venue": "Downtown Wellen",
+    "address": "19745 Wellen Pkwy, Venice, FL 34293",
+    "distanceMiles": 21,
+    "driveTime": "24 mins",
+    "proximityTier": "wellen-park",
+    "season": "winter",
+    "category": "tree-lighting",
+    "categoryLabel": "Tree Lightings & Santa",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-04",
+    "dateDisplay": "Friday, Dec 4, 2026",
+    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Kick off December with the lighting of Wellen Park's 32-foot lakeside holiday tree! Enjoy holiday carolers, free photos with Santa and Mrs. Claus, the 'Cottages for Kids' gingerbread trail, and seasonal drinks and treats.",
+    "familyTip": "Great open grassy areas for kids to run around while waiting for the tree lighting. Bring picnic blankets.",
+    "mapsQuery": "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
+    "icon": "\ud83c\udf84",
+    "badgeColor": "emerald",
+    "lat": 27.062,
+    "lng": -82.348
+  },
+  {
+    "id": "north-port-poinsettia-parade",
+    "title": "North Port Poinsettia Parade & Tree Lighting Festival",
+    "location": "North Port",
+    "venue": "North Port City Center Front Green",
+    "address": "4970 City Center Blvd, North Port, FL 34286",
+    "distanceMiles": 16,
+    "driveTime": "20 mins",
+    "proximityTier": "north-port",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades, Tree Lighting & Santa",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-05",
+    "dateDisplay": "Saturday, Dec 5, 2026",
+    "timeDisplay": "Festival 4:00 PM \u2013 8:00 PM (Parade at 5:00 PM)",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "North Port's biggest holiday celebration of the year! The 'Sleigh the Night Away' parade rolls down Sumter Blvd featuring lighted floats and vehicles, followed by the ceremonial lighting of the City Hall holiday tree, Santa's workshop, and mobile food vendors.",
+    "familyTip": "Sumter Blvd closes for the parade at 4:30 PM, so approach via Price Blvd or West Price to access City Center parking lots.",
+    "mapsQuery": "North Port City Center, 4970 City Center Blvd, North Port, FL",
+    "icon": "\ud83c\udf3a",
+    "badgeColor": "rose",
+    "lat": 27.048,
+    "lng": -82.228
+  },
+  {
+    "id": "venice-christmas-boat-parade",
+    "title": "Venice Christmas Boat Parade",
+    "location": "Venice",
+    "venue": "Intracoastal Waterway",
+    "address": "Albee Rd Bridge to Circus Bridge, Venice, FL 34285",
+    "distanceMiles": 27,
+    "driveTime": "32 mins",
+    "proximityTier": "venice",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades & Boat Parades",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-05",
+    "dateDisplay": "Saturday, Dec 5, 2026",
+    "timeDisplay": "Starts at 6:00 PM",
+    "cost": "Free Public Viewing",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A dazzling aquatic parade of illuminated yachts, pontoon boats, and sailboats decorated with moving light sculptures, holiday scenes, and sounding boat horns cruising south down the Intracoastal Waterway.",
+    "familyTip": "Top public viewing spots with easy stroller access: Venetian Waterway Park trail, Venice Marina, or along the waterfront parks near the north jetty.",
+    "mapsQuery": "Venetian Waterway Park, Venice, FL 34285",
+    "icon": "\u26f5",
+    "badgeColor": "cyan",
+    "lat": 27.115,
+    "lng": -82.464
+  },
+  {
+    "id": "wellen-park-glow-bike-ride",
+    "title": "Wellen Park Holiday Glow Bike Ride & Dueling Pianos",
+    "location": "Wellen Park",
+    "venue": "Downtown Wellen & Solis Hall",
+    "address": "19745 Wellen Pkwy, Venice, FL 34293",
+    "distanceMiles": 21,
+    "driveTime": "24 mins",
+    "proximityTier": "wellen-park",
+    "season": "winter",
+    "category": "concerts",
+    "categoryLabel": "Live Music & Night Festivals",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-05",
+    "dateDisplay": "Saturday, Dec 5, 2026",
+    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Wrap your bicycles and strollers in glow sticks and string lights for a scenic, family-friendly slow roll around the 80-acre Grand Lake, followed by lively holiday dueling pianos under the stars at Solis Hall.",
+    "familyTip": "Bring battery-powered fairy lights to clip onto kids' scooters, trikes, or strollers so they can participate in the glow!",
+    "mapsQuery": "Solis Hall, Downtown Wellen, Venice, FL 34293",
+    "icon": "\ud83d\udeb2",
+    "badgeColor": "purple",
+    "lat": 27.062,
+    "lng": -82.348
+  },
+  {
+    "id": "mayors-hometown-christmas-venice",
+    "title": "The Mayor's Hometown Christmas & Christmas Walk",
+    "location": "Venice",
+    "venue": "Centennial Park & Historic Downtown",
+    "address": "200 W Venice Ave, Venice, FL 34285",
+    "distanceMiles": 26,
+    "driveTime": "30 mins",
+    "proximityTier": "venice",
+    "season": "winter",
+    "category": "tree-lighting",
+    "categoryLabel": "Tree Lightings & Community",
+    "startDate": "2026-12-10",
+    "endDate": "2026-12-10",
+    "dateDisplay": "Thursday, Dec 10, 2026",
+    "timeDisplay": "5:00 PM \u2013 8:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Step into a Hallmark-movie-style evening in historic Venice! Children can sit on Santa's lap in the park gazebo, listen to school and church youth choirs singing carols, and sip free hot cider while strolling decorated shop fronts.",
+    "familyTip": "Centennial Park has a wonderful interactive children's splash pad and playground right next to the gazebo if the little ones need playtime.",
+    "mapsQuery": "Centennial Park, 200 W Venice Ave, Venice, FL 34285",
+    "icon": "\ud83c\udf85",
+    "badgeColor": "emerald",
+    "lat": 27.101,
+    "lng": -82.447
+  },
+  {
+    "id": "peace-river-gardens-aglow",
+    "title": "Peace River Gardens Aglow",
+    "location": "Punta Gorda",
+    "venue": "Peace River Botanical & Sculpture Gardens",
+    "address": "5827 Riverside Dr, Punta Gorda, FL 33982",
+    "distanceMiles": 8,
+    "driveTime": "12 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "light-displays",
+    "categoryLabel": "Light Displays & Art",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-20",
+    "dateDisplay": "Dec 11\u201313 & Dec 18\u201320, 2026",
+    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "cost": "$15 Adults / $7 Kids (3 and under Free)",
+    "isFree": false,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Punta Gorda's enchanting nature-immersed light experience. Thousands of glowing fairy lights and botanical light sculptures illuminate the walking paths along the Peace River, accompanied by live acoustic holiday musicians, s'mores roasting pits, and hot chocolate stations.",
+    "familyTip": "Pre-purchase timed tickets online at peacerivergardens.org. Boardwalks and trails are smooth and easy for strollers.",
+    "mapsQuery": "Peace River Botanical & Sculpture Gardens, 5827 Riverside Dr, Punta Gorda, FL 33982",
+    "icon": "\ud83c\udf3f",
+    "badgeColor": "emerald",
+    "lat": 26.96,
+    "lng": -81.995
+  },
+  {
+    "id": "punta-gorda-boat-parade",
+    "title": "Annual Punta Gorda Christmas Boat Parade",
+    "location": "Punta Gorda",
+    "venue": "Punta Gorda Isles Waterfront Canals",
+    "address": "Rim Canal / Charlotte Harbor, Punta Gorda, FL 33950",
+    "distanceMiles": 6,
+    "driveTime": "9 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades & Boat Parades",
+    "startDate": "2026-12-19",
+    "endDate": "2026-12-19",
+    "dateDisplay": "Saturday, Dec 19, 2026",
+    "timeDisplay": "Starts at 6:00 PM",
+    "cost": "Free Public Viewing",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Known as 'The Saturday Night Before Christmas Eve Boat Parade,' this cherished Punta Gorda Isles tradition features dozens of extravagantly illuminated motor yachts, sailboats, and catamarans navigating 4 miles of residential canals.",
+    "familyTip": "Great public viewing spots with easy parking: along the rim canal bridges, Ponce de Leon Park, or join neighbors who host shoreline lawn watch parties.",
+    "mapsQuery": "Ponce de Leon Park, Punta Gorda, FL 33950",
+    "icon": "\ud83d\udee5\ufe0f",
+    "badgeColor": "cyan",
+    "lat": 26.918,
+    "lng": -82.075
+  },
+  {
+    "id": "christmas-carols-by-the-gulf",
+    "title": "Christmas Carols by the Gulf",
+    "location": "Venice",
+    "venue": "Maxine Barritt Park Pavilion",
+    "address": "1800 Harbor Dr S, Venice, FL 34285",
+    "distanceMiles": 27,
+    "driveTime": "32 mins",
+    "proximityTier": "venice",
+    "season": "winter",
+    "category": "concerts",
+    "categoryLabel": "Live Music & Community",
+    "startDate": "2026-12-19",
+    "endDate": "2026-12-19",
+    "dateDisplay": "Saturday, Dec 19, 2026",
+    "timeDisplay": "5:00 PM \u2013 7:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Sing your favorite holiday carols with local choral groups as the sun sets over the Gulf of Mexico. Song sheets are handed out to everyone, with festive cookies and cider available.",
+    "familyTip": "Bring lawn chairs, cozy sweaters, and battery candles for the kids when dusk falls.",
+    "mapsQuery": "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
+    "icon": "\ud83c\udfb5",
+    "badgeColor": "purple",
+    "lat": 27.078,
+    "lng": -82.449
+  },
+  {
+    "id": "fishermens-village-nye",
+    "title": "Fishermen's Village New Year's Eve & Fireworks",
+    "location": "Punta Gorda",
+    "venue": "Fishermen's Village",
+    "address": "1200 W Retta St, Punta Gorda, FL 33950",
+    "distanceMiles": 6,
+    "driveTime": "9 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "nye",
+    "categoryLabel": "New Year's Celebrations",
+    "startDate": "2026-12-31",
+    "endDate": "2026-12-31",
+    "dateDisplay": "Thursday, Dec 31, 2026",
+    "timeDisplay": "6:00 PM \u2013 12:30 AM (Fireworks at Midnight)",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Southwest Florida's biggest family-friendly New Year's Eve blowout! Features multiple stages of live music, magicians, face painters, balloon artists, glow souvenirs, dancing, and a midnight fireworks display launched over Charlotte Harbor.",
+    "familyTip": "If celebrating with younger toddlers who can't stay up until midnight, the 6:00 PM \u2013 8:30 PM window is packed with fun kids entertainment, glowing lights, and treats without the late night squeeze!",
+    "mapsQuery": "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
+    "icon": "\ud83c\udf86",
+    "badgeColor": "rose",
+    "lat": 26.94,
+    "lng": -82.062
+  },
+  {
+    "id": "hunsader-farms-pumpkin-festival",
+    "title": "Hunsader Farms 35th Annual Pumpkin Festival",
+    "location": "Bradenton",
+    "venue": "Hunsader Farms",
+    "address": "5500 C.R. 675, Bradenton, FL 34211",
+    "lat": 27.447,
+    "lng": -82.327,
+    "distanceMiles": 48,
+    "driveTime": "50 mins",
+    "proximityTier": "bradenton",
+    "season": "fall",
+    "category": "pumpkin-patches",
+    "categoryLabel": "Pumpkin Patches & Country Fairs",
+    "startDate": "2026-10-10",
+    "endDate": "2026-10-25",
+    "dateDisplay": "Oct 10\u201311, 17\u201318, & 24\u201325, 2026",
+    "timeDisplay": "9:00 AM \u2013 5:00 PM",
+    "cost": " Admission (Kids 10 & under Free) \u2022  Parking",
+    "isFree": false,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "The biggest, most famous agricultural fall festival on the Suncoast! Features an enormous pumpkin patch, craft booths, corn maze, live bluegrass and country bands, petting zoo, monster truck rides, circus stunt shows, pony rides, and homemade pumpkin pie.",
+    "familyTip": "Bring cash for parking and food stands. Strollers and wagons navigate the farm easily. Arrive before 10:30 AM to beat the mid-day rush on CR 675.",
+    "mapsQuery": "Hunsader Farms, 5500 CR 675, Bradenton, FL 34211",
+    "icon": "\ud83c\udf83"
+  },
+  {
+    "id": "bradenton-riverwalk-fall-fest",
+    "title": "Bradenton Riverwalk Fall & Halloween Festival",
+    "location": "Bradenton",
+    "venue": "Bradenton Riverwalk Pavilion",
+    "address": "452 3rd Ave W, Bradenton, FL 34205",
+    "lat": 27.499,
+    "lng": -82.571,
+    "distanceMiles": 55,
+    "driveTime": "55 mins",
+    "proximityTier": "bradenton",
+    "season": "fall",
+    "category": "trick-or-treat",
+    "categoryLabel": "Trick-or-Treat & Festivals",
+    "startDate": "2026-10-24",
+    "endDate": "2026-10-24",
+    "dateDisplay": "Saturday, Oct 24, 2026",
+    "timeDisplay": "11:00 AM \u2013 4:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Lively riverside community festival along the beautiful Manatee Riverwalk. Features costume parades for children and pets, bounce houses, face painting, live family music, trick-or-treat candy booths, and local food trucks.",
+    "familyTip": "Free parking along 3rd Ave W and downtown parking garages. The Riverwalk has an awesome modern splash pad and playground right next to the event pavilion!",
+    "mapsQuery": "Bradenton Riverwalk Pavilion, Bradenton, FL 34205",
+    "icon": "\ud83d\udc7b"
+  },
+  {
+    "id": "st-armands-night-of-lights",
+    "title": "St. Armands Circle Holiday Night of Lights",
+    "location": "Sarasota",
+    "venue": "St. Armands Circle Park",
+    "address": "St. Armands Circle, Sarasota, FL 34236",
+    "lat": 27.318,
+    "lng": -82.577,
+    "distanceMiles": 44,
+    "driveTime": "48 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "tree-lighting",
+    "categoryLabel": "Tree Lightings & Santa",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-04",
+    "dateDisplay": "Friday, Dec 4, 2026",
+    "timeDisplay": "5:30 PM \u2013 8:30 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Sarasota barrier island elegance meets holiday wonder! Kick off Christmas with the ceremonial lighting of the spectacular 60-foot Christmas tree in the center of the Circle, followed by Santa and Mrs. Claus arrival in a horse carriage, choir concerts, and festive shop open houses.",
+    "familyTip": "Circle parking fills by 5:00 PM. Take the free Bay Runner trolley from downtown Sarasota directly to St. Armands Circle to skip parking traffic!",
+    "mapsQuery": "St. Armands Circle, Sarasota, FL 34236",
+    "icon": "\ud83c\udf84"
+  },
+  {
+    "id": "sarasota-holiday-parade",
+    "title": "Annual Sarasota Downtown Holiday Parade",
+    "location": "Sarasota",
+    "venue": "Historic Downtown Main Street",
+    "address": "Main St & US 301 to Gulfstream Ave, Sarasota, FL 34236",
+    "lat": 27.336,
+    "lng": -82.535,
+    "distanceMiles": 42,
+    "driveTime": "45 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades & Santa",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-05",
+    "dateDisplay": "Saturday, Dec 5, 2026",
+    "timeDisplay": "Starts at 7:00 PM",
+    "cost": "Free Admission",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Sarasota's premier evening holiday procession, drawing thousands to Main Street. Features 100+ illuminated floats, marching bands from high schools across Sarasota and Manatee counties, equestrian units, antique cars, and Santa Claus.",
+    "familyTip": "Bring folding chairs and set up between Lemon Ave and Palm Ave. Park in the Palm Ave or State Street garages before 5:30 PM.",
+    "mapsQuery": "Main St and Lemon Ave, Sarasota, FL 34236",
+    "icon": "\ud83c\udfba"
+  },
+  {
+    "id": "selby-lights-in-bloom",
+    "title": "Lights in Bloom\u00ae at Marie Selby Botanical Gardens",
+    "location": "Sarasota",
+    "venue": "Marie Selby Botanical Gardens (Downtown Campus)",
+    "address": "1534 Mound St, Sarasota, FL 34236",
+    "lat": 27.327,
+    "lng": -82.537,
+    "distanceMiles": 41,
+    "driveTime": "44 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "light-displays",
+    "categoryLabel": "Botanical Light Displays",
+    "startDate": "2026-12-05",
+    "endDate": "2027-01-02",
+    "dateDisplay": "Dec 5, 2026 \u2013 Jan 2, 2027 (Nightly)",
+    "timeDisplay": "6:30 PM \u2013 9:00 PM (Early entry 5:30 PM)",
+    "cost": " Adults /  Kids (4 and under Free)",
+    "isFree": false,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Nationally acclaimed by USA Today as one of America's best botanical light shows! Over two million lights transform the 15-acre bayfront botanical gardens into an enchanting wonderland. Walk through glowing tunnels, lit giant banyan trees, sensory light fields, and visit with Santa.",
+    "familyTip": "Tickets must be purchased online in advance at selby.org as time slots frequently sell out. All paved paths are stroller and wheelchair accessible.",
+    "mapsQuery": "Marie Selby Botanical Gardens, 1534 Mound St, Sarasota, FL 34236",
+    "icon": "\u2728"
+  },
+  {
+    "id": "holidays-at-utc",
+    "title": "Holidays at UTC & The Rink (Festival of Lights)",
+    "location": "Sarasota",
+    "venue": "The Mall at University Town Center",
+    "address": "140 University Town Center Dr, Sarasota, FL 34243",
+    "lat": 27.388,
+    "lng": -82.453,
+    "distanceMiles": 46,
+    "driveTime": "46 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "light-displays",
+    "categoryLabel": "Light Shows & Winter Wonderland",
+    "startDate": "2026-11-15",
+    "endDate": "2027-01-03",
+    "dateDisplay": "Nightly, Nov 15, 2026 \u2013 Jan 3, 2027",
+    "timeDisplay": "Shows every 30 min from 6:30 PM \u2013 9:30 PM",
+    "cost": "Free Light Shows & Movie Nights (Ice Skating is ticketed)",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A massive holiday destination featuring over 4 million choreographed lights set to seasonal music across Cattlemen Rd, an outdoor real-ice skating rink (The Rink at UTC), free outdoor holiday movies under the stars on weekends, Saturday night fireworks, and Santa photos.",
+    "familyTip": "Very easy parking at UTC mall. Kids love the synchronized light shows and horse-drawn carriage rides around the lake!",
+    "mapsQuery": "University Town Center, 140 University Town Center Dr, Sarasota, FL",
+    "icon": "\u26f8\ufe0f"
+  },
+  {
+    "id": "sarasota-boat-parade-of-lights",
+    "title": "39th Annual Sarasota Holiday Boat Parade of Lights",
+    "location": "Sarasota",
+    "venue": "Sarasota Bayfront & Marina Jack",
+    "address": "2 Marina Plaza, Sarasota, FL 34236",
+    "lat": 27.331,
+    "lng": -82.544,
+    "distanceMiles": 42,
+    "driveTime": "45 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades & Boat Parades",
+    "startDate": "2026-12-12",
+    "endDate": "2026-12-12",
+    "dateDisplay": "Saturday, Dec 12, 2026",
+    "timeDisplay": "Starts at 6:00 PM",
+    "cost": "Free Public Viewing",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "An iconic Sarasota tradition organized by Suncoast Charities for Children. Scores of lavishly illuminated motor yachts, sailboats, and party catamarans cruise across Sarasota Bay, passing right in front of Marina Jack and Bayfront Park.",
+    "familyTip": "Bayfront Park and the lawn around Marina Jack provide panoramic open viewing. Bring blankets, lawn chairs, and an unwrapped toy donation for local kids in need.",
+    "mapsQuery": "Marina Jack, 2 Marina Plaza, Sarasota, FL 34236",
+    "icon": "\u26f5"
+  },
+  {
+    "id": "manatee-river-boat-parade",
+    "title": "Manatee River Holiday Boat Parade",
+    "location": "Bradenton",
+    "venue": "Manatee River & Bradenton Riverwalk",
+    "address": "452 3rd Ave W, Bradenton, FL 34205",
+    "lat": 27.502,
+    "lng": -82.569,
+    "distanceMiles": 55,
+    "driveTime": "55 mins",
+    "proximityTier": "bradenton",
+    "season": "winter",
+    "category": "parades",
+    "categoryLabel": "Parades & Boat Parades",
+    "startDate": "2026-12-12",
+    "endDate": "2026-12-12",
+    "dateDisplay": "Saturday, Dec 12, 2026",
+    "timeDisplay": "6:00 PM \u2013 8:30 PM",
+    "cost": "Free Public Viewing",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Manatee County's largest holiday waterfront event! Lit vessels cruise down the Manatee River between Bradenton and Palmetto, competing for boat decor honors under brilliant evening lights.",
+    "familyTip": "Best public viewing with kids: Green Bridge pedestrian walkway (closed to vehicles during the parade) or anywhere along the Bradenton Riverwalk shoreline.",
+    "mapsQuery": "Bradenton Riverwalk, Bradenton, FL 34205",
+    "icon": "\ud83d\udee5\ufe0f"
+  }
+];
+
+    // Comprehensive Southwest Florida ZIP Coordinates
+    const ZIP_COORDINATES = {
+      '33983': { name: 'Punta Gorda (Deep Creek)', lat: 26.974, lng: -82.025 },
+      '33950': { name: 'Punta Gorda (Downtown)', lat: 26.929, lng: -82.045 },
+      '33982': { name: 'Punta Gorda (East / Prana)', lat: 26.915, lng: -81.970 },
+      '33955': { name: 'Punta Gorda (South)', lat: 26.830, lng: -82.020 },
+      '33948': { name: 'Port Charlotte', lat: 26.986, lng: -82.138 },
+      '33952': { name: 'Port Charlotte (Midway)', lat: 26.976, lng: -82.091 },
+      '33980': { name: 'Port Charlotte (Harbor)', lat: 26.960, lng: -82.065 },
+      '34286': { name: 'North Port', lat: 27.044, lng: -82.235 },
+      '34287': { name: 'North Port (South)', lat: 27.050, lng: -82.200 },
+      '34288': { name: 'North Port (East)', lat: 27.085, lng: -82.140 },
+      '34293': { name: 'Wellen Park / S. Venice', lat: 27.060, lng: -82.350 },
+      '34285': { name: 'Venice (Historic Island)', lat: 27.099, lng: -82.454 },
+      '34292': { name: 'Venice (East)', lat: 27.105, lng: -82.398 },
+      '34275': { name: 'Nokomis / Laurel', lat: 27.185, lng: -82.470 },
+      '34238': { name: 'Palmer Ranch / Osprey', lat: 27.228, lng: -82.485 },
+      '34236': { name: 'Sarasota (Downtown / Bayfront)', lat: 27.336, lng: -82.530 },
+      '34239': { name: 'Sarasota (South / Siesta)', lat: 27.310, lng: -82.525 },
+      '34243': { name: 'Sarasota (UTC / Airport)', lat: 27.387, lng: -82.452 },
+      '34235': { name: 'Sarasota (Meadows)', lat: 27.365, lng: -82.470 },
+      '34231': { name: 'Sarasota (Gulf Gate)', lat: 27.265, lng: -82.515 },
+      '34232': { name: 'Sarasota (Bee Ridge)', lat: 27.315, lng: -82.460 },
+      '34241': { name: 'Sarasota (East / Rothenbach)', lat: 27.280, lng: -82.350 },
+      '34205': { name: 'Bradenton (Downtown / Riverwalk)', lat: 27.498, lng: -82.574 },
+      '34208': { name: 'Bradenton (East)', lat: 27.480, lng: -82.510 },
+      '34209': { name: 'West Bradenton', lat: 27.505, lng: -82.645 },
+      '34210': { name: 'Bradenton (Cortez)', lat: 27.465, lng: -82.640 },
+      '34211': { name: 'Lakewood Ranch / East Bradenton', lat: 27.460, lng: -82.350 },
+      '34212': { name: 'Bradenton (Heritage Harbour)', lat: 27.490, lng: -82.420 },
+      '34221': { name: 'Palmetto', lat: 27.525, lng: -82.565 },
+      '34217': { name: 'Anna Maria Island', lat: 27.510, lng: -82.720 },
+      '33947': { name: 'Rotonda / Englewood', lat: 26.920, lng: -82.320 },
+      '34223': { name: 'Englewood', lat: 26.960, lng: -82.350 },
+      '34224': { name: 'Englewood Beach', lat: 26.905, lng: -82.300 },
+      '33901': { name: 'Fort Myers', lat: 26.640, lng: -81.870 },
+      '33914': { name: 'Cape Coral', lat: 26.580, lng: -82.000 },
+      '33701': { name: 'St. Petersburg', lat: 27.770, lng: -82.640 },
+      '33602': { name: 'Tampa', lat: 27.950, lng: -82.460 }
+    };
+
+    const TOWN_NAME_TO_ZIP = {
+      'punta gorda': '33983',
+      'deep creek': '33983',
+      'port charlotte': '33948',
+      'north port': '34286',
+      'wellen park': '34293',
+      'venice': '34285',
+      'nokomis': '34275',
+      'osprey': '34238',
+      'sarasota': '34236',
+      'utc': '34243',
+      'siesta key': '34236',
+      'lakewood ranch': '34211',
+      'bradenton': '34205',
+      'palmetto': '34221',
+      'anna maria': '34217',
+      'englewood': '34223',
+      'cape coral': '33914',
+      'fort myers': '33901'
+    };
 
     // State Management
     let eventsData = [...FESTIVITIES];
     let customEvents = JSON.parse(localStorage.getItem('swfl_custom_events') || '[]');
     let savedEventIds = new Set(JSON.parse(localStorage.getItem('swfl_saved_events') || '[]'));
+
+    // User Location State
+    let currentZip = localStorage.getItem('swfl_user_zip') || '33983';
+    let currentLocationName = localStorage.getItem('swfl_user_loc_name') || 'Punta Gorda (33983)';
+    let currentUserLat = 26.974;
+    let currentUserLng = -82.025;
 
     let activeFilter = {
       search: '',
@@ -1880,24 +2413,192 @@
       freeOnly: false,
       strollerOnly: false,
       savedOnly: false,
-      sortBy: 'date'
+      sortBy: 'distance'
     };
 
     let currentCalDate = new Date(2026, 9, 1); // Oct 2026
     let selectedCalDay = null;
 
+    // Mathematical Distance Calculation (Haversine Formula + Road Factor)
+    function getDistanceInMiles(lat1, lon1, lat2, lon2) {
+      const R = 3958.8; // Earth radius in miles
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      // Apply road factor of ~1.2x to simulate highway / arterial road routes
+      return Math.round(R * c * 1.2);
+    }
+
+    function getDriveTimeEstimate(miles) {
+      if (miles <= 4) return '6 mins';
+      if (miles <= 10) return `${Math.round(miles * 1.35)} mins`;
+      if (miles <= 25) return `${Math.round(miles * 1.15)} mins`;
+      if (miles <= 50) return `${Math.round(miles * 1.05)} mins`;
+      return `${Math.round(miles * 1.0)} mins`;
+    }
+
     // Initialize App
     function init() {
-      // Merge custom events
       combineEvents();
       updateCountdowns();
-      renderCards();
+      
+      // Load saved location coordinates if present
+      if (ZIP_COORDINATES[currentZip]) {
+        currentUserLat = ZIP_COORDINATES[currentZip].lat;
+        currentUserLng = ZIP_COORDINATES[currentZip].lng;
+        currentLocationName = ZIP_COORDINATES[currentZip].name;
+      }
+      
+      applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
       updateSavedCount();
       renderCalendar();
     }
 
     function combineEvents() {
       eventsData = [...FESTIVITIES, ...customEvents];
+    }
+
+    // Set Location by Custom ZIP Code or Town Name
+    function setCustomZip(inputVal) {
+      const raw = (inputVal || '').trim().toLowerCase();
+      if (!raw) return;
+
+      // Check town name aliases
+      let matchedZip = TOWN_NAME_TO_ZIP[raw] || raw;
+
+      if (ZIP_COORDINATES[matchedZip]) {
+        const info = ZIP_COORDINATES[matchedZip];
+        applyLocationCoordinates(info.lat, info.lng, info.name, matchedZip, true);
+        return;
+      }
+
+      // If it's a 5-digit US ZIP not yet in our table, try fetching via public zippopotam API
+      if (/^\d{5}$/.test(matchedZip)) {
+        fetch(`https://api.zippopotam.us/us/${matchedZip}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.places && data.places.length > 0) {
+              const place = data.places[0];
+              const lat = parseFloat(place.latitude);
+              const lng = parseFloat(place.longitude);
+              const name = `${place['place name']}, ${data['state abbreviation']} (${matchedZip})`;
+              ZIP_COORDINATES[matchedZip] = { name, lat, lng };
+              applyLocationCoordinates(lat, lng, name, matchedZip, true);
+            } else {
+              alert(`Could not find coordinates for ZIP code ${matchedZip}. Reverting to Punta Gorda 33983.`);
+            }
+          })
+          .catch(() => {
+            alert(`Could not look up ZIP code ${matchedZip}. Please check your connection or choose a preset.`);
+          });
+      } else {
+        alert(`Location "${inputVal}" was not recognized. Try a 5-digit ZIP code like 33983, 34236, 34205, or a town name like "Sarasota".`);
+      }
+    }
+
+    function applyPresetLocation(zip) {
+      if (ZIP_COORDINATES[zip]) {
+        const info = ZIP_COORDINATES[zip];
+        applyLocationCoordinates(info.lat, info.lng, info.name, zip, true);
+      }
+    }
+
+    // Use HTML5 Geolocation (GPS)
+    function useGeolocation() {
+      if (!navigator.geolocation) {
+        alert('Geolocation is not supported by your browser.');
+        return;
+      }
+      
+      const gpsBtn = document.querySelector('.btn-gps');
+      if (gpsBtn) gpsBtn.textContent = '⏳ Locating...';
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          if (gpsBtn) gpsBtn.textContent = '🎯 GPS';
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+
+          // Find closest known town in our table
+          let closestZip = '33983';
+          let minD = Infinity;
+          for (const [zip, coord] of Object.entries(ZIP_COORDINATES)) {
+            const d = getDistanceInMiles(lat, lng, coord.lat, coord.lng);
+            if (d < minD) {
+              minD = d;
+              closestZip = zip;
+            }
+          }
+
+          const name = `My GPS Location (~${ZIP_COORDINATES[closestZip].name})`;
+          applyLocationCoordinates(lat, lng, name, closestZip, true);
+        },
+        (err) => {
+          if (gpsBtn) gpsBtn.textContent = '🎯 GPS';
+          alert('Could not access your location. Please check location permissions or enter your ZIP code manually.');
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
+    // Apply Location Coordinates & Recalculate All Distances
+    function applyLocationCoordinates(lat, lng, name, zip, save) {
+      currentUserLat = lat;
+      currentUserLng = lng;
+      currentLocationName = name;
+      currentZip = zip;
+
+      if (save) {
+        localStorage.setItem('swfl_user_zip', zip);
+        localStorage.setItem('swfl_user_loc_name', name);
+      }
+
+      // Update Header & Banner UI
+      document.getElementById('zipInput').value = zip;
+      document.getElementById('currentLocationText').innerHTML = 
+        `Currently showing driving distances from: <strong>${name}</strong>`;
+      document.getElementById('headerLocationBadge').innerHTML = 
+        `<span>📍</span><span>Location: ${name}</span>`;
+
+      // Update preset pill active states
+      document.querySelectorAll('.loc-preset-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.zip === zip);
+      });
+
+      // Recalculate dynamic distance & drive times for every event
+      eventsData.forEach(ev => {
+        const evLat = ev.lat || 26.974;
+        const evLng = ev.lng || -82.025;
+        const dist = getDistanceInMiles(currentUserLat, currentUserLng, evLat, evLng);
+        ev.dynamicMiles = dist;
+        ev.dynamicDriveTime = getDriveTimeEstimate(dist);
+        ev.dynamicTier = dist <= 12 ? 'closest' : (dist <= 25 ? 'near' : (dist <= 45 ? 'mid' : 'far'));
+      });
+
+      // Update Radar Tiers Summary
+      updateRadarTiersSummary();
+      renderCards();
+    }
+
+    function updateRadarTiersSummary() {
+      const container = document.getElementById('radarTiersContainer');
+      if (!container) return;
+
+      const closestCount = eventsData.filter(e => e.dynamicMiles <= 12).length;
+      const nearCount = eventsData.filter(e => e.dynamicMiles > 12 && e.dynamicMiles <= 25).length;
+      const midCount = eventsData.filter(e => e.dynamicMiles > 25 && e.dynamicMiles <= 45).length;
+      const farCount = eventsData.filter(e => e.dynamicMiles > 45).length;
+
+      container.innerHTML = `
+        <span class="radar-pill tier-closest">📍 Closest (< 12 mi • ~15 min): ${closestCount} events</span>
+        <span class="radar-pill tier-near">🚗 Nearby (12–25 mi • ~25 min): ${nearCount} events</span>
+        <span class="radar-pill tier-mid">🎡 Day Trip (25–45 mi • ~40 min): ${midCount} events</span>
+        <span class="radar-pill tier-far">🏖️ Excursion (45+ mi • 50+ min): ${farCount} events</span>
+      `;
     }
 
     // Holiday Countdowns
@@ -1931,9 +2632,21 @@
           if (!matchText.includes(q)) return false;
         }
 
-        // Location
+        // Location / Area filter
         if (activeFilter.location !== 'all') {
-          if (ev.proximityTier !== activeFilter.location) return false;
+          if (activeFilter.location === 'closest') {
+            if (ev.location !== 'Punta Gorda' && ev.location !== 'Port Charlotte') return false;
+          } else if (activeFilter.location === 'north-port') {
+            if (ev.location !== 'North Port') return false;
+          } else if (activeFilter.location === 'wellen-park') {
+            if (ev.location !== 'Wellen Park') return false;
+          } else if (activeFilter.location === 'venice') {
+            if (ev.location !== 'Venice') return false;
+          } else if (activeFilter.location === 'sarasota') {
+            if (ev.location !== 'Sarasota') return false;
+          } else if (activeFilter.location === 'bradenton') {
+            if (ev.location !== 'Bradenton') return false;
+          }
         }
 
         // Season
@@ -1958,7 +2671,7 @@
         return true;
       }).sort((a, b) => {
         if (activeFilter.sortBy === 'distance') {
-          return (a.distanceMiles || 99) - (b.distanceMiles || 99);
+          return (a.dynamicMiles || 0) - (b.dynamicMiles || 0);
         } else if (activeFilter.sortBy === 'name') {
           return a.title.localeCompare(b.title);
         } else {
@@ -1990,15 +2703,32 @@
 
       container.innerHTML = filtered.map(ev => {
         const isSaved = savedEventIds.has(ev.id);
-        const tierClass = ev.proximityTier === 'closest' ? 'tier-closest' :
-                          ev.proximityTier === 'venice' ? 'tier-venice' : 'tier-near';
+        const dist = ev.dynamicMiles !== undefined ? ev.dynamicMiles : (ev.distanceMiles || 0);
+        const drive = ev.dynamicDriveTime || ev.driveTime || '20 mins';
+        
+        let tierClass = 'tier-near';
+        let tierLabel = 'Nearby';
+        if (dist <= 12) {
+          tierClass = 'tier-closest';
+          tierLabel = 'Closest';
+        } else if (dist <= 25) {
+          tierClass = 'tier-near';
+          tierLabel = 'Nearby';
+        } else if (dist <= 45) {
+          tierClass = 'tier-mid';
+          tierLabel = 'Day Trip';
+        } else {
+          tierClass = 'tier-far';
+          tierLabel = 'Excursion';
+        }
+
         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.mapsQuery || (ev.venue + ', ' + ev.address))}`;
 
         return `
           <article class="event-card">
             <div class="card-top">
               <span class="proximity-badge ${tierClass}">
-                📍 ${ev.location} • ${ev.distanceMiles} mi (${ev.driveTime})
+                📍 ${ev.location} • ${dist} mi (${drive}) • ${tierLabel}
               </span>
               <button 
                 class="card-fav-btn ${isSaved ? 'is-saved' : ''}" 
@@ -2129,7 +2859,7 @@
         freeOnly: false,
         strollerOnly: false,
         savedOnly: false,
-        sortBy: 'date'
+        sortBy: 'distance'
       };
       document.getElementById('searchInput').value = '';
       document.querySelectorAll('.filter-chips .chip').forEach(el => {
@@ -2139,7 +2869,7 @@
       document.getElementById('toggleFree').classList.remove('active');
       document.getElementById('toggleStroller').classList.remove('active');
       document.getElementById('toggleSavedOnly').classList.remove('active');
-      document.getElementById('sortSelect').value = 'date';
+      document.getElementById('sortSelect').value = 'distance';
       renderCards();
     }
 
@@ -2214,7 +2944,9 @@
             <span class="day-num">${day}</span>
             ${dayEvents.slice(0, 3).map(ev => {
               const chipClass = ev.location === 'Punta Gorda' ? 'chip-pg' :
-                                ev.location === 'Venice' ? 'chip-venice' : '';
+                                ev.location === 'Venice' ? 'chip-venice' : 
+                                ev.location === 'Sarasota' ? 'chip-sarasota' : 
+                                ev.location === 'Bradenton' ? 'chip-bradenton' : '';
               return `<div class="cal-event-chip ${chipClass}" title="${ev.title}">${ev.icon || '📍'} ${ev.title}</div>`;
             }).join('')}
             ${dayEvents.length > 3 ? `<div style="font-size:0.65rem; color:var(--text-muted); font-weight:700;">+${dayEvents.length - 3} more</div>` : ''}
@@ -2329,16 +3061,19 @@
         <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
           You have <strong>${saved.length}</strong> festive outings bookmarked.
         </p>
-        ${saved.map(ev => `
-          <div class="itinerary-item">
-            <div class="itinerary-info">
-              <h4>${ev.icon || '🎉'} ${ev.title}</h4>
-              <p>📅 ${ev.dateDisplay} • ⏰ ${ev.timeDisplay}</p>
-              <p>📍 ${ev.venue}, ${ev.location} (${ev.distanceMiles} mi from home)</p>
+        ${saved.map(ev => {
+          const dist = ev.dynamicMiles !== undefined ? ev.dynamicMiles : (ev.distanceMiles || 0);
+          return `
+            <div class="itinerary-item">
+              <div class="itinerary-info">
+                <h4>${ev.icon || '🎉'} ${ev.title}</h4>
+                <p>📅 ${ev.dateDisplay} • ⏰ ${ev.timeDisplay}</p>
+                <p>📍 ${ev.venue}, ${ev.location} (~${dist} mi from your location)</p>
+              </div>
+              <button class="btn-remove" onclick="toggleSaveEvent('${ev.id}')">Remove</button>
             </div>
-            <button class="btn-remove" onclick="toggleSaveEvent('${ev.id}')">Remove</button>
-          </div>
-        `).join('')}
+          `;
+        }).join('')}
       `;
     }
 
@@ -2358,9 +3093,11 @@
         location: location,
         venue: address,
         address: address,
-        distanceMiles: location === 'Punta Gorda' ? 5 : (location === 'North Port' ? 16 : 26),
-        driveTime: location === 'Punta Gorda' ? '8 mins' : (location === 'North Port' ? '20 mins' : '30 mins'),
-        proximityTier: location === 'Punta Gorda' ? 'closest' : (location === 'North Port' ? 'north-port' : 'venice'),
+        lat: currentUserLat,
+        lng: currentUserLng,
+        distanceMiles: 5,
+        driveTime: '8 mins',
+        proximityTier: 'closest',
         season: date >= '2026-11-15' ? 'winter' : 'fall',
         category: 'custom',
         categoryLabel: 'Family Gathering',
@@ -2384,8 +3121,8 @@
       localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
 
       combineEvents();
+      applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
       updateSavedCount();
-      renderCards();
       renderCalendar();
       closeCustomEventModal();
       document.getElementById('customEventForm').reset();
@@ -2413,7 +3150,7 @@
       let lines = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//SWFL Holiday Planner//Punta Gorda 33983//EN',
+        'PRODID:-//SWFL Holiday Planner//SWFL//EN',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH'
       ];
@@ -2488,7 +3225,6 @@
     // PWA Install Prompt Handling
     let deferredInstallPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent browser's default banner
       e.preventDefault();
       deferredInstallPrompt = e;
       const installBtn = document.getElementById('installAppBtn');
