@@ -1331,7 +1331,565 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* ==========================================
+       INTERACTIVE MAP VIEW STYLES
+       ========================================== */
+    .map-view-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .map-title-group h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .map-title-group p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      background: var(--bg-subtle);
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .festivities-map {
+      width: 100%;
+      height: 560px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Leaflet Custom Festive Pins */
+    .custom-festive-pin-wrapper {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .festive-map-pin {
+      width: 34px;
+      height: 34px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+      border: 2px solid #ffffff;
+      cursor: pointer;
+      transition: transform 0.18s ease;
+    }
+
+    .festive-map-pin:hover {
+      transform: rotate(-45deg) scale(1.22);
+      z-index: 999;
+    }
+
+    .festive-map-pin span {
+      transform: rotate(45deg);
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .festive-map-pin.marker-home { background: linear-gradient(135deg, #10b981, #047857); }
+    .festive-map-pin.marker-boat { background: linear-gradient(135deg, #0284c7, #0369a1); }
+    .festive-map-pin.marker-grand { background: linear-gradient(135deg, #f59e0b, #b45309); }
+    .festive-map-pin.marker-santa { background: linear-gradient(135deg, #ef4444, #991b1b); }
+    .festive-map-pin.marker-fall { background: linear-gradient(135deg, #ea580c, #9a3412); }
+    .festive-map-pin.marker-user {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-radius: 50%;
+      transform: none;
+      animation: pulse-beacon 2s infinite;
+    }
+    .festive-map-pin.marker-user span { transform: none; }
+
+    @keyframes pulse-beacon {
+      0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+      70% { box-shadow: 0 0 0 14px rgba(59, 130, 246, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 14px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .leaflet-popup-content {
+      margin: 0;
+      line-height: 1.4;
+    }
+    .map-popup-card {
+      padding: 1rem;
+      min-width: 250px;
+      max-width: 290px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .map-popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .map-popup-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--bg-subtle);
+      color: var(--brand-primary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+    }
+    .map-popup-dist {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #10b981;
+    }
+    .map-popup-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.35rem;
+    }
+    .map-popup-addr {
+      font-size: 0.78rem;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+    .map-popup-date {
+      font-size: 0.76rem;
+      color: #334155;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .map-popup-radio {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      margin: 0.4rem 0;
+    }
+    .map-popup-nav-btn {
+      display: block;
+      text-align: center;
+      background: #ea580c;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-top: 0.6rem;
+      transition: background 0.2s;
+    }
+    .map-popup-nav-btn:hover {
+      background: #c2410c;
+    }
+
+    /* ==========================================
+       DEDICATED RESIDENTIAL LIGHT TRAIL SECTION
+       ========================================== */
+    .residential-trail-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .trail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .trail-header-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .trail-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      flex-shrink: 0;
+    }
+
+    .trail-header-title h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .trail-header-title p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .trail-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-apply-home-show {
+      background: #10b981;
+      color: #ffffff;
+      border: none;
+      padding: 0.65rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-apply-home-show:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+
+    .btn-admin-portal {
+      background: rgba(100, 116, 139, 0.12);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 0.95rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-admin-portal:hover {
+      background: rgba(100, 116, 139, 0.22);
+    }
+
+    .badge-pending {
+      background: #ea580c;
+      color: #ffffff;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      font-weight: 800;
+    }
+
+    /* Drive-by Etiquette Card */
+    .driveby-etiquette-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .etiquette-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #166534;
+      margin-bottom: 0.6rem;
+    }
+
+    .etiquette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: #14532d;
+    }
+
+    .etiquette-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    /* Residential Cards Grid */
+    .residential-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .res-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .res-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      border-color: #10b981;
+    }
+
+    .res-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .res-verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+    }
+
+    .res-dist-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .res-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .res-addr {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .res-radio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      color: #166534;
+      padding: 0.3rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .res-desc {
+      font-size: 0.83rem;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+      line-height: 1.45;
+    }
+
+    .res-footer {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .btn-res-nav {
+      flex: 1;
+      background: #ea580c;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+    }
+    .btn-res-nav:hover {
+      background: #c2410c;
+    }
+
+    .btn-res-map {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .btn-res-map:hover {
+      background: var(--border-color);
+    }
+
+    /* Admin Verification Queue Modal */
+    .pending-item-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+    .pending-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .pending-item-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .pending-badge {
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+    }
+    .pending-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: #475569;
+      background: #f8fafc;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin: 0.6rem 0;
+    }
+    .pending-actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn-approve {
+      background: #10b981;
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-approve:hover { background: #059669; }
+    .btn-reject {
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-reject:hover { background: #dc2626; }
+    .btn-copy-json {
+      background: #64748b;
+      color: #ffffff;
+      border: none;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-copy-json:hover { background: #475569; }
   </style>
+
+  <!-- Leaflet Interactive Maps CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body>
   <!-- Ambient Seasonal Particle Effects Canvas -->
@@ -1434,16 +1992,42 @@
       </div>
     </div>
 
-    <!-- COMMUNITY RESIDENTIAL LIGHT SHOW BANNER -->
-    <div class="community-light-banner">
-      <div class="community-banner-text">
-        <h4>✨ Host a Holiday Light Show at Your Home?</h4>
-        <p>Add your house to our community map with your address, dates, and FM radio station so local families can enjoy your display!</p>
+    <!-- DEDICATED NEIGHBORHOOD & RESIDENTIAL LIGHT SHOW TRAIL -->
+    <section id="residentialTrailSection" class="residential-trail-section">
+      <div class="trail-header">
+        <div class="trail-header-title">
+          <div class="trail-icon-badge">🏡</div>
+          <div>
+            <h3>SWFL Neighborhood & Home Light Show Trail</h3>
+            <p>Curated, verified residential light spectacles, musical street cul-de-sacs, and FM-radio synchronized front yards across Punta Gorda, North Port, Venice, Sarasota & Bradenton.</p>
+          </div>
+        </div>
+        <div class="trail-header-actions">
+          <button class="btn-apply-home-show" onclick="openSubmitHomeShowModal()">
+            <span>✨</span> Apply to Add Your Light Show
+          </button>
+          <button class="btn-admin-portal" onclick="openAdminReviewModal()" id="adminReviewTriggerBtn" title="Review pending community submissions">
+            <span>🔐</span> Verification Portal <span class="badge-pending" id="pendingReviewCount" style="display:none;">0</span>
+          </button>
+        </div>
       </div>
-      <button class="btn-submit-home-show" onclick="openSubmitHomeShowModal()">
-        <span>🏡</span> Submit Your Home Display
-      </button>
-    </div>
+
+      <!-- Drive-By Etiquette Banner -->
+      <div class="driveby-etiquette-card">
+        <div class="etiquette-title">🚗 Drive-By Etiquette & Tips for Visiting Families:</div>
+        <div class="etiquette-grid">
+          <div class="etiquette-item"><span>💡</span> <div><strong>Headlights:</strong> Please dim to amber parking lights when pulled in front of displays.</div></div>
+          <div class="etiquette-item"><span>📻</span> <div><strong>FM Radio:</strong> Tune car stereo to the specific frequency posted on each house sign.</div></div>
+          <div class="etiquette-item"><span>🚫</span> <div><strong>Driveways:</strong> Never block neighbor driveways, mailboxes, or oncoming traffic flow.</div></div>
+          <div class="etiquette-item"><span>⏰</span> <div><strong>Hours:</strong> Most home displays turn off at 10:00 PM out of residential courtesy.</div></div>
+        </div>
+      </div>
+
+      <!-- Residential Displays Grid -->
+      <div class="residential-cards-grid" id="residentialCardsGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
 
     <!-- Filter & Control Panel -->
     <section class="control-panel">
@@ -1466,11 +2050,14 @@
           <button id="viewCalBtn" class="view-btn" onclick="switchView('calendar')">
             <span>📅</span> Calendar
           </button>
+          <button id="viewMapBtn" class="view-btn" onclick="switchView('map')">
+            <span>🗺️</span> Map
+          </button>
           <button class="view-btn itinerary-btn" onclick="openItineraryModal()">
             <span>❤️</span> My Planner <span class="badge-count" id="itineraryCount">0</span>
           </button>
-          <button class="view-btn" onclick="openSubmitHomeShowModal()" style="border-color:#d8b4fe; color:#7e22ce;">
-            <span>🏡</span> + Home Show
+          <button class="view-btn" onclick="openSubmitHomeShowModal()" style="border-color:#10b981; color:#047857;">
+            <span>🏡</span> Apply Light Show
           </button>
           <button class="view-btn" onclick="openCustomEventModal()">
             <span>➕</span> + Event
@@ -1568,26 +2155,57 @@
       </div>
     </section>
 
+    <!-- INTERACTIVE MAP VIEW -->
+    <section id="mapContainer" class="map-view-container" style="display: none;">
+      <div class="map-header">
+        <div class="map-title-group">
+          <h3>🗺️ SWFL Holiday Festivities & Light Show Map</h3>
+          <p>Explore all 40+ events and residential displays on the map. Click any pin for drive times and turn-by-turn directions.</p>
+        </div>
+        <div class="map-legend">
+          <span class="legend-item"><span class="legend-pin">🏡</span> Home Light Trail</span>
+          <span class="legend-item"><span class="legend-pin">⛵</span> Boat Parades</span>
+          <span class="legend-item"><span class="legend-pin">🌟</span> Grand Displays</span>
+          <span class="legend-item"><span class="legend-pin">🎅</span> Santa & Trees</span>
+          <span class="legend-item"><span class="legend-pin">🎃</span> Fall Festivals</span>
+          <span class="legend-item"><span class="legend-pin">📍</span> Your Location</span>
+        </div>
+      </div>
+      <div id="festivitiesMap" class="festivities-map"></div>
+    </section>
+
   </main>
 
-  <!-- SUBMIT HOME LIGHT SHOW MODAL -->
+  <!-- SUBMIT HOME LIGHT SHOW APPLICATION MODAL -->
   <div class="modal-overlay" id="submitHomeShowModal" onclick="closeModalOnBackdrop(event, 'submitHomeShowModal')">
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title">
-          <span>✨</span>
-          <span>Submit Your Holiday Home Display</span>
+          <span>🏡</span>
+          <span>Host Application: Add Your Home Light Show</span>
         </div>
         <button class="modal-close" onclick="closeSubmitHomeShowModal()">✕</button>
       </div>
       <div class="modal-body">
-        <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:1.2rem;">
-          Hosting a Christmas or Halloween light display at your house? Enter your address and details below so neighbors and local families can come enjoy your holiday cheer!
-        </p>
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 0.85rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: #166534;">
+          <strong>🛡️ Anti-Scam & Safety Verification:</strong> To keep local families safe from invalid addresses or fake listings, every home submission is verified by our moderation team before appearing on the public map and calendar.
+        </div>
         <form id="homeShowForm" onsubmit="saveHomeShowSubmission(event)">
           <div class="form-group">
             <label class="form-label">Display / Family Title *</label>
             <input type="text" id="hsTitle" class="form-control" placeholder="e.g. The Miller Family Musical Holiday Lights" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Homeowner / Host Name *</label>
+              <input type="text" id="hsHostName" class="form-control" placeholder="e.g. Dave & Sarah Miller" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Host Contact Email or Phone *</label>
+              <input type="text" id="hsContact" class="form-control" placeholder="e.g. dave@example.com or (941) 555-0123" required />
+              <small style="font-size: 0.72rem; color: var(--text-muted);">🔒 Kept private. Used strictly to verify address and prevent spam.</small>
+            </div>
           </div>
 
           <div class="form-row">
@@ -1617,8 +2235,8 @@
               <input type="text" id="hsZip" class="form-control" placeholder="e.g. 33983 or 34286" maxlength="5" required />
             </div>
             <div class="form-group">
-              <label class="form-label">Music / Sound Sync</label>
-              <input type="text" id="hsRadio" class="form-control" placeholder="e.g. Tune to 95.5 FM or Outdoor Music" />
+              <label class="form-label">Music / Sound Sync (FM Radio or Speakers)</label>
+              <input type="text" id="hsRadio" class="form-control" placeholder="e.g. Tune to 95.5 FM or Lawn Speakers" />
             </div>
           </div>
 
@@ -1634,6 +2252,11 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label">Photo, Video, or Facebook Page Link (Optional verification proof)</label>
+            <input type="url" id="hsPhotoLink" class="form-control" placeholder="e.g. https://facebook.com/OurHolidayLights or YouTube video" />
+          </div>
+
+          <div class="form-group">
             <label class="form-label">Display Highlights & Features</label>
             <textarea id="hsDesc" class="form-control" rows="2" placeholder="e.g. 20,000 smart LEDs dancing to music, mega-tree, photo bench, accepting canned food donations for shelter..."></textarea>
           </div>
@@ -1643,10 +2266,66 @@
             <input type="text" id="hsTip" class="form-control" placeholder="e.g. Please dim headlights to parking lights and do not block neighbor driveways." />
           </div>
 
-          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
-            ✨ Add My Home Display to Community Planner
+          <div style="margin: 1rem 0; padding: 0.85rem; background: var(--bg-subtle); border-radius: 8px; border: 1px solid var(--border-color);">
+            <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; cursor: pointer; color: var(--text-main);">
+              <input type="checkbox" id="hsAgree" required style="margin-top: 0.2rem;" />
+              <span>I confirm that I am the homeowner/resident of this property and agree to welcome polite family drive-bys. I understand submissions are reviewed for authenticity before being published.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; background: #10b981;">
+            🛡️ Submit Application for Verification
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION SUBMISSION CONFIRMATION MODAL -->
+  <div class="modal-overlay" id="submissionSuccessModal" onclick="closeModalOnBackdrop(event, 'submissionSuccessModal')">
+    <div class="modal-card" style="max-width: 520px; text-align: center;">
+      <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">🛡️</div>
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">Application Received for Review!</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.25rem;">
+        Thank you for sharing your holiday light display with Southwest Florida families!
+      </p>
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 1rem; text-align: left; font-size: 0.82rem; color: #166534; margin-bottom: 1.25rem;">
+        <div style="font-weight: 800; margin-bottom: 0.35rem;">🟡 Verification Status: Under Community Review</div>
+        <div>To protect local families and children from invalid addresses, vacant lots, or spam, our moderation team reviews all residential submissions before publishing to the live map and trail.</div>
+      </div>
+      <div id="submissionSuccessDetails" style="text-align: left; font-size: 0.8rem; background: var(--bg-subtle); padding: 0.85rem; border-radius: 10px; margin-bottom: 1.25rem;">
+        <!-- Injected details -->
+      </div>
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-primary" onclick="closeSubmissionSuccessModal()">Got It, Thank You!</button>
+        <a id="emailAdminFastTrackLink" href="#" class="btn-secondary" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
+          ✉️ Email Moderator for Fast Review
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN VERIFICATION & REVIEW MODAL -->
+  <div class="modal-overlay" id="adminReviewModal" onclick="closeModalOnBackdrop(event, 'adminReviewModal')">
+    <div class="modal-card" style="max-width: 760px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🔐</span>
+          <span>Community Light Show Verification Queue</span>
+        </div>
+        <button class="modal-close" onclick="closeAdminReviewModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:1.25rem;">
+          Review incoming homeowner applications. Verify address legitimacy and family safety before approving to the live SWFL map and residential trail.
+        </p>
+        <div id="adminPendingQueueContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <span style="font-size: 0.78rem; color: var(--text-muted);">Approved shows are instantly published to your map & residential trail.</span>
+        <button class="btn-secondary" onclick="closeAdminReviewModal()">Close</button>
       </div>
     </div>
   </div>
@@ -2921,7 +3600,11 @@
     let eventsData = [...FESTIVITIES];
     let customEvents = JSON.parse(localStorage.getItem('swfl_custom_events') || '[]');
     let communityHomeShows = JSON.parse(localStorage.getItem('swfl_community_home_shows') || '[]');
+    let pendingHomeShows = JSON.parse(localStorage.getItem('swfl_pending_home_shows') || '[]');
     let savedEventIds = new Set(JSON.parse(localStorage.getItem('swfl_saved_events') || '[]'));
+    let currentView = 'grid'; // 'grid', 'calendar', 'map'
+    let leafletMap = null;
+    let mapMarkersGroup = null;
 
     // User Location State
     let currentZip = localStorage.getItem('swfl_user_zip') || '33983';
@@ -2981,6 +3664,8 @@
       applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
       updateSavedCount();
       renderCalendar();
+      renderResidentialTrail();
+      updatePendingReviewBadge();
 
       // Initialize saved visual theme & ambient seasonal particle animation
       const savedTheme = localStorage.getItem('swfl_theme') || 'autumn';
@@ -3112,6 +3797,10 @@
       // Update Radar Tiers Summary
       updateRadarTiersSummary();
       renderCards();
+      renderResidentialTrail();
+      if (currentView === 'map' && leafletMap) {
+        initOrUpdateMap();
+      }
     }
 
     function updateRadarTiersSummary() {
@@ -3315,8 +4004,11 @@
 
               <div class="card-actions">
                 <a href="${mapsUrl}" target="_blank" rel="noopener" class="btn-action btn-maps">
-                  <span>🗺️</span> Directions
+                  <span>🚗</span> Directions
                 </a>
+                <button class="btn-action" onclick="focusEventOnMap('${ev.id}')" title="View location on interactive map">
+                  <span>🗺️</span> Map
+                </button>
                 <button class="btn-action" onclick="exportSingleEventICS('${ev.id}')">
                   <span>📅</span> Add to Cal
                 </button>
@@ -3325,6 +4017,10 @@
           </article>
         `;
       }).join('');
+
+      if (currentView === 'map' && leafletMap) {
+        initOrUpdateMap();
+      }
     }
 
     // Toggle Bookmarking / Itinerary
@@ -3337,6 +4033,7 @@
       localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
       updateSavedCount();
       renderCards();
+      renderResidentialTrail();
       if (document.getElementById('itineraryModal').classList.contains('open')) {
         renderItineraryModal();
       }
@@ -3428,14 +4125,34 @@
 
     // View Switching
     function switchView(view) {
+      currentView = view;
       const isGrid = view === 'grid';
-      document.getElementById('cardsContainer').style.display = isGrid ? 'grid' : 'none';
-      document.getElementById('calendarContainer').classList.toggle('active', !isGrid);
-      document.getElementById('viewGridBtn').classList.toggle('active', isGrid);
-      document.getElementById('viewCalBtn').classList.toggle('active', !isGrid);
+      const isCal = view === 'calendar';
+      const isMap = view === 'map';
 
-      if (!isGrid) {
+      const cardsContainer = document.getElementById('cardsContainer');
+      const calendarContainer = document.getElementById('calendarContainer');
+      const mapContainer = document.getElementById('mapContainer');
+
+      if (cardsContainer) cardsContainer.style.display = isGrid ? 'grid' : 'none';
+      if (calendarContainer) calendarContainer.classList.toggle('active', isCal);
+      if (mapContainer) mapContainer.style.display = isMap ? 'block' : 'none';
+
+      const gridBtn = document.getElementById('viewGridBtn');
+      const calBtn = document.getElementById('viewCalBtn');
+      const mapBtn = document.getElementById('viewMapBtn');
+
+      if (gridBtn) gridBtn.classList.toggle('active', isGrid);
+      if (calBtn) calBtn.classList.toggle('active', isCal);
+      if (mapBtn) mapBtn.classList.toggle('active', isMap);
+
+      if (isCal) {
         renderCalendar();
+      } else if (isMap) {
+        initOrUpdateMap();
+        setTimeout(() => {
+          if (leafletMap) leafletMap.invalidateSize();
+        }, 150);
       }
     }
 
@@ -3589,6 +4306,32 @@
       document.getElementById('submitHomeShowModal').classList.remove('open');
     }
 
+    function openSubmissionSuccessModal() {
+      document.getElementById('submissionSuccessModal').classList.add('open');
+    }
+
+    function closeSubmissionSuccessModal() {
+      document.getElementById('submissionSuccessModal').classList.remove('open');
+    }
+
+    function openAdminReviewModal() {
+      renderAdminReviewQueue();
+      document.getElementById('adminReviewModal').classList.add('open');
+    }
+
+    function closeAdminReviewModal() {
+      document.getElementById('adminReviewModal').classList.remove('open');
+    }
+
+    function updatePendingReviewBadge() {
+      const badge = document.getElementById('pendingReviewCount');
+      if (badge) {
+        const count = pendingHomeShows.length;
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'inline-block' : 'none';
+      }
+    }
+
     function closeModalOnBackdrop(e, modalId) {
       if (e.target.id === modalId) {
         document.getElementById(modalId).classList.remove('open');
@@ -3632,18 +4375,27 @@
       `;
     }
 
-    // Community Home Light Show Submission
+    // Homeowner Light Show Application & Anti-Scam Verification Flow
     function saveHomeShowSubmission(e) {
       e.preventDefault();
       const title = document.getElementById('hsTitle').value.trim();
+      const hostName = document.getElementById('hsHostName').value.trim();
+      const contact = document.getElementById('hsContact').value.trim();
       const address = document.getElementById('hsAddress').value.trim();
       const city = document.getElementById('hsCity').value;
       const zip = document.getElementById('hsZip').value.trim();
       const radio = document.getElementById('hsRadio').value.trim();
       const dates = document.getElementById('hsDates').value.trim() || 'Nightly in December';
       const hours = document.getElementById('hsHours').value.trim() || '6:00 PM – 10:00 PM';
+      const photoLink = document.getElementById('hsPhotoLink') ? document.getElementById('hsPhotoLink').value.trim() : '';
       const desc = document.getElementById('hsDesc').value.trim();
       const tip = document.getElementById('hsTip').value.trim() || 'Please dim headlights to parking lights and do not block neighbor driveways.';
+      const agree = document.getElementById('hsAgree') ? document.getElementById('hsAgree').checked : true;
+
+      if (!agree) {
+        alert('Please accept the homeowner verification confirmation checkbox to proceed.');
+        return;
+      }
 
       // Determine coordinates from ZIP
       let lat = currentUserLat;
@@ -3653,52 +4405,411 @@
         lng = ZIP_COORDINATES[zip].lng;
       }
 
-      const newHomeShow = {
-        id: 'home-show-' + Date.now(),
+      const pendingApp = {
+        id: 'pending-' + Date.now(),
         title: title,
-        location: city,
-        venue: address,
-        address: `${address}, ${city}, FL ${zip}`,
+        hostName: hostName,
+        contact: contact,
+        address: address,
+        city: city,
+        zip: zip,
         lat: lat,
         lng: lng,
+        radioSync: radio || '',
+        dates: dates,
+        hours: hours,
+        photoLink: photoLink,
+        description: desc || `Spectacular residential holiday light show hosted by ${hostName} at ${address}.`,
+        familyTip: tip,
+        submittedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        status: 'Pending Verification'
+      };
+
+      pendingHomeShows.push(pendingApp);
+      localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingHomeShows));
+      updatePendingReviewBadge();
+
+      // Populate confirmation modal details
+      const detailsContainer = document.getElementById('submissionSuccessDetails');
+      if (detailsContainer) {
+        detailsContainer.innerHTML = `
+          <div style="display:grid; gap:0.35rem; color:var(--text-main);">
+            <div><strong>Display:</strong> ${escapeHtml(title)}</div>
+            <div><strong>Host / Homeowner:</strong> ${escapeHtml(hostName)}</div>
+            <div><strong>Address:</strong> ${escapeHtml(address)}, ${escapeHtml(city)}, FL ${escapeHtml(zip)}</div>
+            <div><strong>Private Contact:</strong> ${escapeHtml(contact)}</div>
+            ${photoLink ? `<div><strong>Proof / Social Link:</strong> <a href="${escapeHtml(photoLink)}" target="_blank" rel="noopener" style="color:#0284c7;">${escapeHtml(photoLink)}</a></div>` : ''}
+            <div style="color:var(--text-muted); font-size:0.75rem; margin-top:0.4rem;">Submitted: ${escapeHtml(pendingApp.submittedAt)}</div>
+          </div>
+        `;
+      }
+
+      // Fast-track email link prefilled
+      const emailLink = document.getElementById('emailAdminFastTrackLink');
+      if (emailLink) {
+        const emailSubject = encodeURIComponent(`Light Show Verification: ${title} (${city})`);
+        const emailBody = encodeURIComponent(`Hello SWFL Holiday Planner Moderation Team,\n\nI have submitted my home light show for anti-scam review:\n\nDisplay Name: ${title}\nHost Name: ${hostName}\nAddress: ${address}, ${city}, FL ${zip}\nContact Phone/Email: ${contact}\nHours: ${hours}\nProof/Page: ${photoLink}\n\nPlease verify and approve our display for the live SWFL community map.\n\nThank you!`);
+        emailLink.href = `mailto:community@swflholidays.local?subject=${emailSubject}&body=${emailBody}`;
+      }
+
+      closeSubmitHomeShowModal();
+      document.getElementById('homeShowForm').reset();
+      openSubmissionSuccessModal();
+    }
+
+    // Admin / Moderation Queue Rendering
+    function renderAdminReviewQueue() {
+      const container = document.getElementById('adminPendingQueueContainer');
+      if (!container) return;
+
+      if (pendingHomeShows.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎉</div>
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.35rem;">Review Queue is All Clear!</h4>
+            <p style="font-size: 0.85rem;">There are no homeowner light show applications currently awaiting review. Submissions from the "Apply to Add Your Light Show" button appear here for verification.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = pendingHomeShows.map(item => {
+        const mapsQueryUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.address + ', ' + item.city + ', FL ' + item.zip)}`;
+        return `
+          <div class="pending-item-card" id="card-${item.id}">
+            <div class="pending-item-header">
+              <span class="pending-item-title">${escapeHtml(item.title)}</span>
+              <span class="pending-badge">⏳ Awaiting Verification</span>
+            </div>
+            <div class="pending-details-grid">
+              <div><strong>👤 Host Name:</strong> ${escapeHtml(item.hostName || 'Not specified')}</div>
+              <div><strong>🔒 Private Contact:</strong> ${escapeHtml(item.contact || 'None provided')}</div>
+              <div><strong>📍 Address:</strong> ${escapeHtml(item.address)}, ${escapeHtml(item.city)}, FL ${escapeHtml(item.zip)}</div>
+              <div><strong>📻 Audio:</strong> ${escapeHtml(item.radioSync || 'No synchronized audio')}</div>
+              <div><strong>⏰ Hours:</strong> ${escapeHtml(item.hours)}</div>
+              <div><strong>📅 Dates:</strong> ${escapeHtml(item.dates)}</div>
+              ${item.photoLink ? `<div><strong>🔗 Proof:</strong> <a href="${escapeHtml(item.photoLink)}" target="_blank" rel="noopener" style="color:#0284c7;">View Photo/Video ↗</a></div>` : '<div><strong>🔗 Proof:</strong> None provided</div>'}
+              <div><strong>🕒 Submitted:</strong> ${escapeHtml(item.submittedAt || 'Recently')}</div>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--text-main); margin: 0.5rem 0;">
+              <strong>Highlights:</strong> ${escapeHtml(item.description)}
+            </div>
+            ${item.familyTip ? `<div style="font-size: 0.78rem; color: var(--text-muted);"><strong>Courtesy Note:</strong> ${escapeHtml(item.familyTip)}</div>` : ''}
+            <div class="pending-actions">
+              <button class="btn-approve" onclick="approvePendingHomeShow('${item.id}')">
+                ✅ Verify & Approve to Live Trail
+              </button>
+              <button class="btn-reject" onclick="rejectPendingHomeShow('${item.id}')">
+                ❌ Reject / Fraud Flag
+              </button>
+              <a href="${mapsQueryUrl}" target="_blank" rel="noopener" class="btn-copy-json" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.3rem;">
+                🗺️ Check Address on Google Maps
+              </a>
+              <button class="btn-copy-json" onclick="copyPendingJson('${item.id}')">
+                📋 Copy JSON
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Approve an application: Move to communityHomeShows and publish to map & residential trail
+    function approvePendingHomeShow(id) {
+      const item = pendingHomeShows.find(p => p.id === id);
+      if (!item) return;
+
+      const approvedEvent = {
+        id: 'home-show-' + Date.now(),
+        title: item.title,
+        location: item.city,
+        venue: item.address,
+        address: `${item.address}, ${item.city}, FL ${item.zip}`,
+        lat: item.lat,
+        lng: item.lng,
         distanceMiles: 10,
         driveTime: '15 mins',
-        proximityTier: city.toLowerCase().replace(/\s+/g, '-'),
+        proximityTier: item.city.toLowerCase().replace(/\s+/g, '-'),
         season: 'winter',
         category: 'home-lights',
         categoryLabel: 'Home & Neighborhood Light Shows',
         isHomeDisplay: true,
         isCommunitySubmitted: true,
-        radioSync: radio || '',
+        hostName: item.hostName,
+        radioSync: item.radioSync || '',
         startDate: '2026-12-01',
         endDate: '2027-01-01',
-        dateDisplay: dates,
-        timeDisplay: hours,
+        dateDisplay: item.dates,
+        timeDisplay: item.hours,
         cost: 'Free Drive-By Show',
         isFree: true,
         kidFriendly: true,
         strollerFriendly: true,
-        description: desc || `Spectacular residential holiday light show hosted by local homeowners at ${address}.`,
-        familyTip: tip,
-        mapsQuery: `${address}, ${city}, FL ${zip}`,
+        description: item.description,
+        familyTip: item.familyTip,
+        photoLink: item.photoLink || '',
+        mapsQuery: `${item.address}, ${item.city}, FL ${item.zip}`,
         icon: '🏡'
       };
 
-      communityHomeShows.push(newHomeShow);
+      // Add to community home shows
+      communityHomeShows.push(approvedEvent);
       localStorage.setItem('swfl_community_home_shows', JSON.stringify(communityHomeShows));
 
-      // Also automatically bookmark for easy reference
-      savedEventIds.add(newHomeShow.id);
+      // Remove from pending
+      pendingHomeShows = pendingHomeShows.filter(p => p.id !== id);
+      localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingHomeShows));
+
+      // Automatically bookmark
+      savedEventIds.add(approvedEvent.id);
       localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
 
       combineEvents();
       applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
       updateSavedCount();
       renderCalendar();
-      closeSubmitHomeShowModal();
-      document.getElementById('homeShowForm').reset();
+      renderResidentialTrail();
+      updatePendingReviewBadge();
+      renderAdminReviewQueue();
 
-      alert(`🎉 Thank you! "${title}" has been added to the community planner. Neighbors can now find it and get driving directions!`);
+      alert(`🎉 Application Approved!\n\n"${item.title}" at ${item.address}, ${item.city} has been verified and published to the live SWFL map and residential trail!`);
+    }
+
+    // Reject an application: Discard spam or invalid submission
+    function rejectPendingHomeShow(id) {
+      const item = pendingHomeShows.find(p => p.id === id);
+      const title = item ? item.title : 'this application';
+      if (!confirm(`Are you sure you want to reject and remove "${title}" from the verification queue?`)) {
+        return;
+      }
+
+      pendingHomeShows = pendingHomeShows.filter(p => p.id !== id);
+      localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingHomeShows));
+      updatePendingReviewBadge();
+      renderAdminReviewQueue();
+    }
+
+    // Copy pending JSON for manual code updates
+    function copyPendingJson(id) {
+      const item = pendingHomeShows.find(p => p.id === id);
+      if (!item) return;
+      const jsonStr = JSON.stringify(item, null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(jsonStr).then(() => {
+          alert(`Application data for "${item.title}" copied to clipboard!`);
+        });
+      } else {
+        prompt('Copy application JSON:', jsonStr);
+      }
+    }
+
+    // Render Dedicated Residential Light Show Trail
+    function renderResidentialTrail() {
+      const container = document.getElementById('residentialCardsGrid');
+      if (!container) return;
+
+      const homeShows = eventsData.filter(ev => ev.isHomeDisplay || ev.category === 'home-lights')
+        .sort((a, b) => {
+          const distA = a.dynamicMiles !== undefined ? a.dynamicMiles : (a.distanceMiles || 999);
+          const distB = b.dynamicMiles !== undefined ? b.dynamicMiles : (b.distanceMiles || 999);
+          return distA - distB;
+        });
+
+      if (homeShows.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted);">
+            <p>No verified home light displays listed yet for this area.</p>
+            <button class="btn-apply-home-show" onclick="openSubmitHomeShowModal()" style="margin-top: 0.75rem;">
+              <span>✨</span> Be the first to apply to add your home light show!
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = homeShows.map(ev => {
+        const dist = ev.dynamicMiles !== undefined ? ev.dynamicMiles : (ev.distanceMiles || 0);
+        const driveTime = ev.dynamicDriveTime || ev.driveTime || 'Nearby';
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.mapsQuery || (ev.venue + ' ' + ev.address))}`;
+        const isSaved = savedEventIds.has(ev.id);
+
+        return `
+          <div class="res-card">
+            <div>
+              <div class="res-badge-row">
+                <span class="res-verified-badge">🛡️ Verified Display</span>
+                <span class="res-dist-badge">🚗 ~${dist} mi (${driveTime})</span>
+              </div>
+              <h4 class="res-title">${escapeHtml(ev.title)}</h4>
+              <div class="res-addr">📍 ${escapeHtml(ev.venue || ev.address)} (${escapeHtml(ev.location)})</div>
+              ${ev.radioSync ? `<div class="res-radio-pill">📻 ${escapeHtml(ev.radioSync)}</div>` : ''}
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.6rem;">
+                ⏰ ${escapeHtml(ev.timeDisplay || 'Evenings')} • 📅 ${escapeHtml(ev.dateDisplay || 'Nightly in Dec')}
+              </div>
+              <div class="res-desc">${escapeHtml(ev.description || '')}</div>
+              ${ev.familyTip ? `<div style="font-size:0.75rem; background:var(--bg-subtle); padding:0.4rem 0.6rem; border-radius:6px; color:var(--text-muted); margin-bottom:0.6rem;"><strong>Family Tip:</strong> ${escapeHtml(ev.familyTip)}</div>` : ''}
+            </div>
+            <div class="res-footer">
+              <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="btn-res-nav">
+                <span>🚗</span> Directions
+              </a>
+              <button class="btn-res-map" onclick="focusEventOnMap('${ev.id}')" title="View on interactive map">
+                <span>🗺️</span> Map
+              </button>
+              <button class="btn-res-map" onclick="toggleSaveEvent('${ev.id}')" title="${isSaved ? 'Remove from planner' : 'Save to planner'}">
+                <span>${isSaved ? '❤️' : '🤍'}</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Leaflet Interactive Map Engine
+    function initOrUpdateMap() {
+      if (typeof L === 'undefined') {
+        console.warn('Leaflet library is still loading or not available.');
+        return;
+      }
+
+      const mapElem = document.getElementById('festivitiesMap');
+      if (!mapElem) return;
+
+      if (!leafletMap) {
+        leafletMap = L.map('festivitiesMap', {
+          center: [currentUserLat, currentUserLng],
+          zoom: 10,
+          scrollWheelZoom: true
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 19
+        }).addTo(leafletMap);
+
+        mapMarkersGroup = L.layerGroup().addTo(leafletMap);
+      }
+
+      mapMarkersGroup.clearLayers();
+      window.mapEventMarkers = {};
+
+      // Add User Location Beacon
+      const userIcon = L.divIcon({
+        className: 'custom-festive-pin-wrapper',
+        html: `<div class="festive-map-pin marker-user" title="${escapeHtml(currentLocationName)}"><span>📍</span></div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17],
+        popupAnchor: [0, -17]
+      });
+
+      const userMarker = L.marker([currentUserLat, currentUserLng], { icon: userIcon });
+      userMarker.bindPopup(`
+        <div class="map-popup-card">
+          <div class="map-popup-header">
+            <span class="map-popup-badge" style="background:#dbeafe; color:#1d4ed8;">Your Location</span>
+          </div>
+          <div class="map-popup-title">${escapeHtml(currentLocationName)}</div>
+          <div class="map-popup-addr">ZIP Code: ${escapeHtml(currentZip)}</div>
+          <div style="font-size:0.75rem; color:#64748b; margin-top:0.4rem;">Driving distances and estimates are calculated from here.</div>
+        </div>
+      `);
+      mapMarkersGroup.addLayer(userMarker);
+
+      // Add Markers for Filtered Festivities & Home Shows
+      const filtered = getFilteredEvents();
+
+      filtered.forEach(ev => {
+        if (!ev.lat || !ev.lng) return;
+
+        let markerClass = 'marker-home';
+        let markerEmoji = '🏡';
+
+        if (ev.isHomeDisplay) {
+          markerClass = 'marker-home';
+          markerEmoji = '🏡';
+        } else if (ev.category === 'boat-parades') {
+          markerClass = 'marker-boat';
+          markerEmoji = '⛵';
+        } else if (ev.category === 'grand-displays') {
+          markerClass = 'marker-grand';
+          markerEmoji = '🌟';
+        } else if (ev.category === 'santa-trees') {
+          markerClass = 'marker-santa';
+          markerEmoji = '🎅';
+        } else if (ev.category === 'fall-festivals') {
+          markerClass = 'marker-fall';
+          markerEmoji = '🎃';
+        } else {
+          markerClass = 'marker-grand';
+          markerEmoji = ev.icon || '🎉';
+        }
+
+        const icon = L.divIcon({
+          className: 'custom-festive-pin-wrapper',
+          html: `<div class="festive-map-pin ${markerClass}" title="${escapeHtml(ev.title)}"><span>${markerEmoji}</span></div>`,
+          iconSize: [34, 34],
+          iconAnchor: [17, 34],
+          popupAnchor: [0, -32]
+        });
+
+        const marker = L.marker([ev.lat, ev.lng], { icon: icon });
+        const dist = ev.dynamicMiles !== undefined ? ev.dynamicMiles : (ev.distanceMiles || 0);
+        const driveTime = ev.dynamicDriveTime || ev.driveTime || '';
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.mapsQuery || (ev.venue + ' ' + ev.address))}`;
+
+        marker.bindPopup(`
+          <div class="map-popup-card">
+            <div class="map-popup-header">
+              <span class="map-popup-badge">${escapeHtml(ev.categoryLabel || ev.category)}</span>
+              <span class="map-popup-dist">🚗 ~${dist} mi (${driveTime})</span>
+            </div>
+            <div class="map-popup-title">${escapeHtml(ev.title)}</div>
+            <div class="map-popup-addr">📍 ${escapeHtml(ev.venue || ev.address)}, ${escapeHtml(ev.location)}</div>
+            <div class="map-popup-date">📅 ${escapeHtml(ev.dateDisplay || '')} • ${escapeHtml(ev.timeDisplay || '')}</div>
+            ${ev.radioSync ? `<div class="map-popup-radio">📻 ${escapeHtml(ev.radioSync)}</div>` : ''}
+            <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="map-popup-nav-btn">
+              🚗 Get Driving Directions
+            </a>
+          </div>
+        `);
+
+        mapMarkersGroup.addLayer(marker);
+        window.mapEventMarkers[ev.id] = marker;
+      });
+
+      leafletMap.invalidateSize();
+    }
+
+    // Direct Zoom & Focus to a specific event on the map
+    function focusEventOnMap(id) {
+      switchView('map');
+      const ev = eventsData.find(e => e.id === id);
+      if (!ev || !ev.lat || !ev.lng) return;
+
+      const mapElem = document.getElementById('mapContainer');
+      if (mapElem) {
+        mapElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      setTimeout(() => {
+        if (leafletMap) {
+          leafletMap.setView([ev.lat, ev.lng], 14, { animate: true });
+          if (window.mapEventMarkers && window.mapEventMarkers[id]) {
+            window.mapEventMarkers[id].openPopup();
+          }
+        }
+      }, 250);
+    }
+
+    // HTML escape utility
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     // Save Custom Family Event
