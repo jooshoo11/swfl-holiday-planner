@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holiday & Festivities Planner | Punta Gorda, North Port & Venice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #fdfbf7;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f7f4ec;
+      --text-main: #1f2937;
+      --text-muted: #64748b;
+      --brand-primary: #b45309;
+      --brand-accent: #ea580c;
+      --border-color: #e5e0d3;
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+      --card-shadow-hover: 0 10px 25px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
+      --tag-closest: #15803d;
+      --tag-closest-bg: #dcfce7;
+      --accent-glow: rgba(234, 88, 12, 0.12);
+    }
+
+    /* Winter Wonderland Theme */
+    body.theme-winter {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --brand-primary: #15803d;
+      --brand-accent: #dc2626;
+      --border-color: #cbd5e1;
+      --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+      --card-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.12);
+      --tag-closest: #0284c7;
+      --tag-closest-bg: #e0f2fe;
+      --accent-glow: rgba(21, 128, 61, 0.12);
+    }
+
+    /* Coastal Festive Theme */
+    body.theme-coastal {
+      --bg-primary: #f0fdf4;
+      --bg-surface: #ffffff;
+      --bg-subtle: #dcfce7;
+      --text-main: #064e3b;
+      --text-muted: #047857;
+      --brand-primary: #0284c7;
+      --brand-accent: #0ea5e9;
+      --border-color: #bbf7d0;
+      --card-shadow: 0 4px 20px -2px rgba(6, 78, 59, 0.06);
+      --card-shadow-hover: 0 10px 25px -4px rgba(6, 78, 59, 0.12);
+      --tag-closest: #059669;
+      --tag-closest-bg: #d1fae5;
+      --accent-glow: rgba(2, 132, 199, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.5;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* Header & Hero */
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.25) 0%, rgba(234, 88, 12, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -40%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .theme-picker {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.25rem 0.4rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin-bottom: 2rem;
+    }
+
+    /* Countdown Bar */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .countdown-card {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .countdown-card:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .countdown-number {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #f8fafc;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-top: 0.15rem;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      flex: 1;
+    }
+
+    /* Proximity Radar Banner */
+    .radar-banner {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .radar-info h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .radar-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .radar-tiers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .radar-pill {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .tier-closest {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: #14532d;
+    }
+
+    .tier-near {
+      background: #fef9c3;
+      border-color: #fde047;
+      color: #713f12;
+    }
+
+    .tier-venice {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      color: #0369a1;
+    }
+
+    /* Controls & Filter Section */
+    .control-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .search-and-view {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      font-size: 0.95rem;
+      color: var(--text-main);
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--brand-accent);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .view-toggles {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .view-btn.active {
+      background: var(--text-main);
+      color: #ffffff;
+      border-color: var(--text-main);
+    }
+
+    .itinerary-btn {
+      background: var(--brand-accent);
+      color: #ffffff;
+      border-color: var(--brand-accent);
+      position: relative;
+    }
+
+    .itinerary-btn:hover {
+      opacity: 0.92;
+    }
+
+    .badge-count {
+      background: #ffffff;
+      color: var(--brand-accent);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      margin-left: 0.2rem;
+    }
+
+    /* Filters Group */
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .chip {
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .chip:hover {
+      border-color: var(--brand-accent);
+      background: var(--bg-subtle);
+    }
+
+    .chip.active {
+      background: var(--brand-accent);
+      color: #ffffff;
+      border-color: var(--brand-accent);
+    }
+
+    .chip-checkbox {
+      background: var(--bg-subtle);
+    }
+
+    .chip-checkbox.active {
+      background: #1e293b;
+      color: #ffffff;
+      border-color: #1e293b;
+    }
+
+    /* Results Header */
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding: 0 0.25rem;
+    }
+
+    .results-count {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .sort-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .sort-select {
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      outline: none;
+      font-family: inherit;
+    }
+
+    /* Event Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .event-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: #cbd5e1;
+    }
+
+    .card-top {
+      padding: 1.25rem 1.25rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .proximity-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .card-fav-btn {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      color: #94a3b8;
+    }
+
+    .card-fav-btn:hover {
+      transform: scale(1.1);
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+
+    .card-fav-btn.is-saved {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #ef4444;
+    }
+
+    .card-body {
+      padding: 0.5rem 1.25rem 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .meta-icon {
+      flex-shrink: 0;
+      color: var(--brand-accent);
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      margin-bottom: 1rem;
+      line-height: 1.55;
+    }
+
+    .family-tip-box {
+      background: var(--bg-subtle);
+      border-left: 3px solid var(--brand-accent);
+      padding: 0.75rem 0.85rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .tip-title {
+      font-weight: 700;
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-actions {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-action:hover {
+      background: var(--bg-subtle);
+      border-color: #94a3b8;
+    }
+
+    .btn-maps {
+      color: #0369a1;
+      border-color: #bae6fd;
+      background: #f0f9ff;
+    }
+
+    .btn-maps:hover {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+    }
+
+    /* Calendar View */
+    .calendar-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem;
+      display: none;
+    }
+
+    .calendar-container.active {
+      display: block;
+    }
+
+    .cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .cal-month-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .cal-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .cal-nav-btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background: var(--border-color);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cal-day-name {
+      background: var(--bg-subtle);
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .cal-day {
+      background: var(--bg-surface);
+      min-height: 100px;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .cal-day:hover {
+      background: var(--bg-subtle);
+    }
+
+    .cal-day.other-month {
+      background: #fafaf9;
+      opacity: 0.5;
+    }
+
+    .cal-day.is-selected {
+      background: #eff6ff;
+      outline: 2px solid #3b82f6;
+      z-index: 2;
+    }
+
+    .day-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .cal-event-chip {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.35rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: #fef3c7;
+      color: #92400e;
+      border-left: 3px solid #d97706;
+    }
+
+    .cal-event-chip.chip-pg {
+      background: #dcfce7;
+      color: #14532d;
+      border-left-color: #16a34a;
+    }
+
+    .cal-event-chip.chip-venice {
+      background: #e0f2fe;
+      color: #075985;
+      border-left-color: #0284c7;
+    }
+
+    .cal-day-details {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: var(--bg-subtle);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .cal-day-details h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Modal Drawer (Saved Itinerary) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: modalSlide 0.25s ease-out;
+      overflow: hidden;
+    }
+
+    @keyframes modalSlide {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.25rem;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .itinerary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .itinerary-info h4 {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .itinerary-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .btn-remove {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* Custom Event Form */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--brand-accent);
+      background: #fff;
+    }
+
+    .btn-primary {
+      background: var(--brand-accent);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    /* Print Styles */
+    @media print {
+      header, .radar-banner, .control-panel, .card-actions, .card-fav-btn, .theme-picker, .countdown-grid {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .event-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .search-and-view {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .view-toggles {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Banner -->
+  <header>
+    <div class="header-content">
+      <div class="top-bar">
+        <div class="location-badge">
+          <span>📍</span>
+          <span>Home: Punta Gorda, FL (33983) • Family in North Port & Venice</span>
+        </div>
+        <div class="theme-picker">
+          <button class="theme-btn active" onclick="setTheme('autumn')">🍂 Autumn</button>
+          <button class="theme-btn" onclick="setTheme('winter')">❄️ Winter</button>
+          <button class="theme-btn" onclick="setTheme('coastal')">🌴 Coastal</button>
+        </div>
+      </div>
+
+      <h1 class="hero-title font-serif">Holiday & Festivities Planner</h1>
+      <p class="hero-subtitle">
+        Your family guide to 2026 fall festivals, pumpkin patches, holiday lights, Christmas boat parades, and Santa visits across Punta Gorda, Port Charlotte, North Port, and Venice.
+      </p>
+
+      <!-- Holiday Countdowns -->
+      <div class="countdown-grid" id="countdownContainer">
+        <div class="countdown-card">
+          <div class="countdown-number" id="daysToHalloween">--</div>
+          <div class="countdown-label">🎃 Halloween</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="daysToThanksgiving">--</div>
+          <div class="countdown-label">🦃 Thanksgiving</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="daysToFishermens">--</div>
+          <div class="countdown-label">✨ 1M Lights Kickoff</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="daysToChristmas">--</div>
+          <div class="countdown-label">🎄 Christmas</div>
+        </div>
+        <div class="countdown-card">
+          <div class="countdown-number" id="daysToNYE">--</div>
+          <div class="countdown-label">🎆 New Year's Eve</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Proximity Radar Banner -->
+    <div class="radar-banner">
+      <div class="radar-info">
+        <h3>🧭 Proximity Radar (Centered on 33983)</h3>
+        <p>Events prioritized by driving distance from home, with easy meet-up spots for family in North Port & Venice.</p>
+      </div>
+      <div class="radar-tiers">
+        <span class="radar-pill tier-closest">📍 Punta Gorda & PC (0–9 mi • 8–15 min)</span>
+        <span class="radar-pill tier-near">🚗 North Port (14–17 mi • 18–22 min)</span>
+        <span class="radar-pill tier-near">🎡 Wellen Park (18–21 mi • 22–25 min)</span>
+        <span class="radar-pill tier-venice">🏖️ Venice (25–28 mi • 30–35 min)</span>
+      </div>
+    </div>
+
+    <!-- Filter & Control Panel -->
+    <section class="control-panel">
+      <!-- Search & View Toggles -->
+      <div class="search-and-view">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search festivities (e.g., 'boat parade', 'pumpkin', 'santa', 'laishley')..."
+            oninput="handleSearch(this.value)"
+          />
+        </div>
+        <div class="view-toggles">
+          <button id="viewGridBtn" class="view-btn active" onclick="switchView('grid')">
+            <span>📋</span> Cards
+          </button>
+          <button id="viewCalBtn" class="view-btn" onclick="switchView('calendar')">
+            <span>📅</span> Calendar
+          </button>
+          <button class="view-btn itinerary-btn" onclick="openItineraryModal()">
+            <span>❤️</span> My Planner <span class="badge-count" id="itineraryCount">0</span>
+          </button>
+          <button class="view-btn" onclick="openCustomEventModal()">
+            <span>➕</span> Add Event
+          </button>
+        </div>
+      </div>
+
+      <!-- Location Tabs -->
+      <div class="filter-group">
+        <span class="filter-label">Filter by Area / Proximity:</span>
+        <div class="filter-chips" id="locationChips">
+          <button class="chip active" data-filter="all" onclick="setLocationFilter('all')">🌟 All Areas</button>
+          <button class="chip" data-filter="closest" onclick="setLocationFilter('closest')">📍 Punta Gorda & Port Charlotte (Closest)</button>
+          <button class="chip" data-filter="north-port" onclick="setLocationFilter('north-port')">🚗 North Port (~20 min)</button>
+          <button class="chip" data-filter="wellen-park" onclick="setLocationFilter('wellen-park')">🎡 Wellen Park (~22 min)</button>
+          <button class="chip" data-filter="venice" onclick="setLocationFilter('venice')">🏖️ Venice (~30 min)</button>
+        </div>
+      </div>
+
+      <!-- Season Tabs -->
+      <div class="filter-group">
+        <span class="filter-label">Filter by Holiday Season:</span>
+        <div class="filter-chips" id="seasonChips">
+          <button class="chip active" data-filter="all" onclick="setSeasonFilter('all')">✨ Entire Fall & Winter</button>
+          <button class="chip" data-filter="fall" onclick="setSeasonFilter('fall')">🎃 Halloween & Harvest (Oct)</button>
+          <button class="chip" data-filter="winter" onclick="setSeasonFilter('winter')">🎄 Christmas & Lights (Nov–Dec)</button>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-group">
+        <span class="filter-label">Filter by Category:</span>
+        <div class="filter-chips" id="categoryChips">
+          <button class="chip active" data-filter="all" onclick="setCategoryFilter('all')">All Festivities</button>
+          <button class="chip" data-filter="pumpkin-patches" onclick="setCategoryFilter('pumpkin-patches')">🎃 Pumpkin Patches</button>
+          <button class="chip" data-filter="trick-or-treat" onclick="setCategoryFilter('trick-or-treat')">🍬 Trick-or-Treat & Fall Fests</button>
+          <button class="chip" data-filter="parades" onclick="setCategoryFilter('parades')">⛵ Boat & Street Parades</button>
+          <button class="chip" data-filter="light-displays" onclick="setCategoryFilter('light-displays')">🌟 Light Displays</button>
+          <button class="chip" data-filter="tree-lighting" onclick="setCategoryFilter('tree-lighting')">🎅 Tree Lightings & Santa</button>
+          <button class="chip" data-filter="concerts" onclick="setCategoryFilter('concerts')">🎶 Live Music & Night Fests</button>
+        </div>
+      </div>
+
+      <!-- Quick Toggles -->
+      <div class="filter-group">
+        <span class="filter-label">Quick Family Preferences:</span>
+        <div class="filter-chips">
+          <button id="toggleFree" class="chip chip-checkbox" onclick="toggleFilter('freeOnly')">🆓 Free Admission Only</button>
+          <button id="toggleStroller" class="chip chip-checkbox" onclick="toggleFilter('strollerOnly')">👶 Stroller / Toddler Friendly</button>
+          <button id="toggleSavedOnly" class="chip chip-checkbox" onclick="toggleFilter('savedOnly')">❤️ Saved in My Planner Only</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Status Bar -->
+    <div class="results-bar">
+      <div class="results-count" id="resultsSummary">Showing all 21 festivities</div>
+      <div class="sort-control">
+        <span>Sort by:</span>
+        <select id="sortSelect" class="sort-select" onchange="handleSortChange(this.value)">
+          <option value="distance">Distance from 33983 (Closest First)</option>
+          <option value="date" selected>Date (Chronological)</option>
+          <option value="name">Event Name (A-Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- CARDS GRID VIEW -->
+    <section id="cardsContainer" class="cards-grid">
+      <!-- Injected via JavaScript -->
+    </section>
+
+    <!-- CALENDAR VIEW -->
+    <section id="calendarContainer" class="calendar-container">
+      <div class="cal-header">
+        <div class="cal-month-title" id="calMonthTitle">October 2026</div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="prevMonth()">← Prev</button>
+          <button class="cal-nav-btn" onclick="resetToToday()">Current</button>
+          <button class="cal-nav-btn" onclick="nextMonth()">Next →</button>
+        </div>
+      </div>
+
+      <div class="cal-grid" id="calendarGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="cal-day-details" id="calDayDetails" style="display: none;">
+        <h4 id="selectedDayHeading">Events on this day</h4>
+        <div id="selectedDayList"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SAVED ITINERARY MODAL -->
+  <div class="modal-overlay" id="itineraryModal" onclick="closeModalOnBackdrop(event, 'itineraryModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>❤️</span>
+          <span>My Holiday Family Itinerary</span>
+        </div>
+        <button class="modal-close" onclick="closeItineraryModal()">✕</button>
+      </div>
+      <div class="modal-body" id="itineraryListContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="exportAllToICS()">
+          📥 Export All to Calendar (.ics)
+        </button>
+        <button class="btn-primary" onclick="window.print()">
+          🖨️ Print Itinerary
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD CUSTOM EVENT MODAL -->
+  <div class="modal-overlay" id="customEventModal" onclick="closeModalOnBackdrop(event, 'customEventModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>➕</span>
+          <span>Add Family Holiday Event</span>
+        </div>
+        <button class="modal-close" onclick="closeCustomEventModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="customEventForm" onsubmit="saveCustomEvent(event)">
+          <div class="form-group">
+            <label class="form-label">Event Title *</label>
+            <input type="text" id="custTitle" class="form-control" placeholder="e.g., Thanksgiving Dinner in Venice" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Town / Location *</label>
+            <select id="custLocation" class="form-control" required>
+              <option value="Punta Gorda">Punta Gorda (Closest)</option>
+              <option value="Port Charlotte">Port Charlotte</option>
+              <option value="North Port">North Port</option>
+              <option value="Wellen Park">Wellen Park</option>
+              <option value="Venice">Venice</option>
+              <option value="Other">Other SWFL Location</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date *</label>
+            <input type="date" id="custDate" class="form-control" value="2026-11-26" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Time / Notes</label>
+            <input type="text" id="custTime" class="form-control" placeholder="e.g., 2:00 PM – 7:00 PM" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Venue / Address</label>
+            <input type="text" id="custAddress" class="form-control" placeholder="e.g., Grandma's House, Venice" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes for the Family</label>
+            <textarea id="custDesc" class="form-control" rows="3" placeholder="Bring pumpkin pie and gift for exchange..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+            Save to Planner
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Embedded Database of Punta Gorda, Port Charlotte, North Port & Venice Festivities
+    const FESTIVITIES = [
+      {
+        id: "prana-farms-pumpkin-fest",
+        title: "Prana Farms Annual Pumpkin Festival",
+        location: "Punta Gorda",
+        venue: "Prana Farms",
+        address: "6026 Sweden Blvd, Punta Gorda, FL 33982",
+        distanceMiles: 7,
+        driveTime: "12 mins",
+        proximityTier: "closest",
+        season: "fall",
+        category: "pumpkin-patches",
+        categoryLabel: "Pumpkin Patches & Farms",
+        startDate: "2026-10-15",
+        endDate: "2026-10-25",
+        dateDisplay: "Oct 15 – Oct 25, 2026 (Thurs–Sun)",
+        timeDisplay: "10:00 AM – 5:00 PM",
+        cost: "$12 Admission (Kids under 2 Free)",
+        isFree: false,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Punta Gorda's premier family autumn tradition featuring thousands of farm-fresh pumpkins, walk-through butterfly encounters, friendly farm animal petting zoo, inflatables, barrel train rides, and rustic fall photo setups.",
+        familyTip: "Wear closed-toe shoes for the farm paths. Mornings around 10:00 AM have the lightest crowds and best photo lighting!",
+        mapsQuery: "Prana Farms, 6026 Sweden Blvd, Punta Gorda, FL 33982",
+        icon: "🎃"
+      },
+      {
+        id: "pg-city-fall-festival",
+        title: "City of Punta Gorda Fall Festival",
+        location: "Punta Gorda",
+        venue: "Laishley Park",
+        address: "100 Nesbit St, Punta Gorda, FL 33950",
+        distanceMiles: 5,
+        driveTime: "8 mins",
+        proximityTier: "closest",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Trick-or-Treat & Festivals",
+        startDate: "2026-10-17",
+        endDate: "2026-10-17",
+        dateDisplay: "Saturday, Oct 17, 2026",
+        timeDisplay: "12:00 PM – 4:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "A wholesome waterfront autumn festival on Charlotte Harbor with trick-or-treating stations, inflatables, lawn games, live kids DJ entertainment, food trucks, and a costume contest with prizes by age group.",
+        familyTip: "Parking is available along Nesbit St and near the marina. Bring candy buckets and sunscreen since it's an afternoon outdoor event on the lawn.",
+        mapsQuery: "Laishley Park, 100 Nesbit St, Punta Gorda, FL 33950",
+        icon: "👻"
+      },
+      {
+        id: "halloween-notte-fairgrounds",
+        title: "Halloween Notte: Family Fun & Haunts",
+        location: "Port Charlotte",
+        venue: "Charlotte County Fairgrounds",
+        address: "2333 El Jobean Rd, Port Charlotte, FL 33948",
+        distanceMiles: 9,
+        driveTime: "14 mins",
+        proximityTier: "closest",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Trick-or-Treat & Spooky Fun",
+        startDate: "2026-10-16",
+        endDate: "2026-10-31",
+        dateDisplay: "Oct 16–18, 23–25, & 29–31, 2026",
+        timeDisplay: "6:00 PM – 10:00 PM",
+        cost: "$15 General Admission (Kids 3 & under Free)",
+        isFree: false,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Charlotte County's flagship Halloween attraction with a dual experience: a friendly daytime-style carnival midway with pumpkin patches, bounce houses, petting zoo, safe trick-or-treat booths, alongside separately enclosed spooky walk-through haunted zones for braver kids and teens.",
+        familyTip: "Families with toddlers and younger kids should stick to the illuminated family midway area. Arrive right at 6:00 PM when gates open.",
+        mapsQuery: "Charlotte County Fairgrounds, 2333 El Jobean Rd, Port Charlotte, FL 33948",
+        icon: "🎪"
+      },
+      {
+        id: "venice-nights-halloween",
+        title: "Venice Nights Market & Music (Halloween Edition)",
+        location: "Venice",
+        venue: "Maxine Barritt Park",
+        address: "1800 Harbor Dr S, Venice, FL 34285",
+        distanceMiles: 27,
+        driveTime: "32 mins",
+        proximityTier: "venice",
+        season: "fall",
+        category: "concerts",
+        categoryLabel: "Markets & Evening Festivals",
+        startDate: "2026-10-17",
+        endDate: "2026-10-17",
+        dateDisplay: "Saturday, Oct 17, 2026",
+        timeDisplay: "5:00 PM – 10:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Coastal evening celebration right on the Gulf of Mexico featuring a costumed pet parade, youth costume promenade, live bands, artisan craft vendors, and 20+ local food trucks against a scenic Gulf sunset.",
+        familyTip: "Great excuse to visit Venice family! Bring beach chairs and blankets to sit on the grass lawn while listening to the band.",
+        mapsQuery: "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
+        icon: "🐾"
+      },
+      {
+        id: "north-port-trick-or-treat",
+        title: "North Port Trick-or-Treat & Pumpkin Trail",
+        location: "North Port",
+        venue: "George Mullen Activity Center / City Center Green",
+        address: "4956 City Center Blvd, North Port, FL 34286",
+        distanceMiles: 16,
+        driveTime: "20 mins",
+        proximityTier: "north-port",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Trick-or-Treat & Festivals",
+        startDate: "2026-10-23",
+        endDate: "2026-10-23",
+        dateDisplay: "Friday, Oct 23, 2026",
+        timeDisplay: "5:00 PM – 8:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "North Port's most beloved family Halloween night! Features the famous illuminated Pumpkin Trail with dozens of local business booths handing out candy, a DJ-led Monster Mash dance pit, costume contests, and food vendors.",
+        familyTip: "Very popular event! Parking fills up quickly at City Center; carpool with North Port family or arrive 20 minutes before 5:00 PM.",
+        mapsQuery: "George Mullen Activity Center, 4956 City Center Blvd, North Port, FL",
+        icon: "🍬"
+      },
+      {
+        id: "babcock-ranch-halloween",
+        title: "Babcock Ranch Halloween Nights",
+        location: "Punta Gorda",
+        venue: "Founder's Square",
+        address: "42850 Crescent Loop, Babcock Ranch, FL 33982",
+        distanceMiles: 18,
+        driveTime: "22 mins",
+        proximityTier: "closest",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Trick-or-Treat & Festivals",
+        startDate: "2026-10-24",
+        endDate: "2026-10-24",
+        dateDisplay: "Saturday, Oct 24, 2026",
+        timeDisplay: "6:00 PM – 9:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "A festive solar-town Halloween celebration featuring an extravagant decorated golf cart parade, lakeside trick-or-treating stations, spooky maze fun, food trucks, and music around Founder's Square boardwalk.",
+        familyTip: "The golf cart parade is a massive crowd pleaser for toddlers and kids. Grab a spot along Crescent Loop around 5:45 PM.",
+        mapsQuery: "Founder's Square, 42850 Crescent Loop, Babcock Ranch, FL",
+        icon: "🛺"
+      },
+      {
+        id: "wellen-park-spooktacular",
+        title: "Wellen Park Spooktacular",
+        location: "Wellen Park",
+        venue: "Downtown Wellen",
+        address: "19745 Wellen Pkwy, Venice, FL 34293",
+        distanceMiles: 21,
+        driveTime: "24 mins",
+        proximityTier: "wellen-park",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Trick-or-Treat & Community",
+        startDate: "2026-10-30",
+        endDate: "2026-10-30",
+        dateDisplay: "Friday, Oct 30, 2026",
+        timeDisplay: "4:00 PM – 7:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Downtown Wellen turns into an open-air Halloween plaza! Stroll the beautiful pedestrian promenade around the lake for trick-or-treating at local merchants, interactive lawn games, live DJ music, and family costume contests.",
+        familyTip: "Perfect meeting point halfway between Punta Gorda and Venice! Paved, wide walkways make it 100% stroller and wagon friendly.",
+        mapsQuery: "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
+        icon: "🎃"
+      },
+      {
+        id: "venice-halloween-strut",
+        title: "Historic Downtown Venice Halloween Strut",
+        location: "Venice",
+        venue: "Historic Downtown Venice",
+        address: "West Venice Ave & Miami Ave, Venice, FL 34285",
+        distanceMiles: 26,
+        driveTime: "30 mins",
+        proximityTier: "venice",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Trick-or-Treat & Community",
+        startDate: "2026-10-31",
+        endDate: "2026-10-31",
+        dateDisplay: "Saturday, Oct 31, 2026 (Halloween)",
+        timeDisplay: "4:00 PM – 6:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "A long-held Venice holiday tradition where hundreds of costumed children and parents stroll under the palm trees along Tampa, Venice, and Miami Avenues. Friendly shopkeepers hand out treats outside their stores.",
+        familyTip: "Ends at 6:00 PM, leaving plenty of time to grab an early family dinner downtown before traditional neighborhood trick-or-treating!",
+        mapsQuery: "West Venice Ave, Venice, FL 34285",
+        icon: "🧙‍♀️"
+      },
+      {
+        id: "north-port-howloween",
+        title: "HOWLo'WEEN BOOlevard Trick-or-Treat",
+        location: "North Port",
+        venue: "Elevate Pride Grounds",
+        address: "164 Eric St, North Port, FL 34287",
+        distanceMiles: 15,
+        driveTime: "18 mins",
+        proximityTier: "north-port",
+        season: "fall",
+        category: "trick-or-treat",
+        categoryLabel: "Community Trick-or-Treat",
+        startDate: "2026-10-31",
+        endDate: "2026-10-31",
+        dateDisplay: "Saturday, Oct 31, 2026 (Halloween)",
+        timeDisplay: "5:30 PM – 8:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "A vibrant North Port neighborhood trick-or-treating street walk with decorated tents, safe community treat zones, music, and kid photo stations.",
+        familyTip: "Convenient for families visiting relatives in North Port on Halloween evening.",
+        mapsQuery: "164 Eric St, North Port, FL 34287",
+        icon: "🦇"
+      },
+      {
+        id: "lighting-of-fishermens-village",
+        title: "Grand Lighting of Fishermen's Village",
+        location: "Punta Gorda",
+        venue: "Fishermen's Village",
+        address: "1200 W Retta St, Punta Gorda, FL 33950",
+        distanceMiles: 6,
+        driveTime: "9 mins",
+        proximityTier: "closest",
+        season: "winter",
+        category: "tree-lighting",
+        categoryLabel: "Tree Lightings & Santa",
+        startDate: "2026-11-14",
+        endDate: "2026-11-14",
+        dateDisplay: "Saturday, Nov 14, 2026",
+        timeDisplay: "5:00 PM – 9:00 PM (Lighting at Dusk)",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "The official grand kickoff of Southwest Florida's Christmas season! Count down with Santa and Mrs. Claus as over one million dazzling lights simultaneously illuminate throughout the village, accompanied by bagpipers, carolers, and holiday cheer.",
+        familyTip: "Punta Gorda's signature event of the year! Arrive by 4:30 PM to secure parking in the main lot or take the overflow shuttle.",
+        mapsQuery: "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
+        icon: "✨"
+      },
+      {
+        id: "fishermens-village-festival-of-lights",
+        title: "Festival of Lights at Fishermen's Village",
+        location: "Punta Gorda",
+        venue: "Fishermen's Village",
+        address: "1200 W Retta St, Punta Gorda, FL 33950",
+        distanceMiles: 6,
+        driveTime: "9 mins",
+        proximityTier: "closest",
+        season: "winter",
+        category: "light-displays",
+        categoryLabel: "Light Displays & Shopping",
+        startDate: "2026-11-15",
+        endDate: "2026-12-31",
+        dateDisplay: "Daily, Nov 15 – Dec 31, 2026",
+        timeDisplay: "All Day & Evening (Lights turn on at 5:30 PM)",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Ranked among Florida's top holiday destinations! Stroll through a winter wonderland of over 1,000,000 sparkling lights, themed Christmas trees in every concourse, visits with Santa, live holiday musical entertainment, and waterfront dining.",
+        familyTip: "Because it runs daily through New Year's Eve, weekday evenings (Monday–Wednesday) offer the same magical lights with much lighter crowds and easiest stroller navigation.",
+        mapsQuery: "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
+        icon: "🌟"
+      },
+      {
+        id: "venice-holiday-parade",
+        title: "50th Annual Venice Holiday Parade (\"Golden Traditions\")",
+        location: "Venice",
+        venue: "Historic Downtown Venice",
+        address: "West Venice Ave to Venice High School, Venice, FL 34285",
+        distanceMiles: 26,
+        driveTime: "30 mins",
+        proximityTier: "venice",
+        season: "winter",
+        category: "parades",
+        categoryLabel: "Parades & Santa",
+        startDate: "2026-11-28",
+        endDate: "2026-11-28",
+        dateDisplay: "Saturday, Nov 28, 2026 (Thanksgiving Weekend)",
+        timeDisplay: "Pre-parade 3:00 PM, Parade starts 6:30 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "A historic milestone! The 50th Golden Anniversary of the Venice Holiday Parade features over 100 lighted floats, marching bands, dancers, festive vehicles, and Santa Claus arriving to cap off Thanksgiving weekend.",
+        familyTip: "Spectators typically set out chairs along Venice Ave early in the afternoon. Make a day of it with family in Venice!",
+        mapsQuery: "West Venice Ave, Venice, FL 34285",
+        icon: "🎺"
+      },
+      {
+        id: "king-fisher-christmas-cruises",
+        title: "King Fisher Christmas Light Canal Cruises",
+        location: "Punta Gorda",
+        venue: "King Fisher Fleet at Fishermen's Village",
+        address: "1200 W Retta St, Punta Gorda, FL 33950",
+        distanceMiles: 6,
+        driveTime: "9 mins",
+        proximityTier: "closest",
+        season: "winter",
+        category: "light-displays",
+        categoryLabel: "Light Displays & Boat Cruises",
+        startDate: "2026-12-01",
+        endDate: "2026-12-31",
+        dateDisplay: "Daily in December 2026",
+        timeDisplay: "Evenings: 6:00 PM, 7:30 PM, 9:00 PM",
+        cost: "Approx. $28-$32 Adults / $18-$22 Kids",
+        isFree: false,
+        kidFriendly: true,
+        strollerFriendly: false,
+        description: "Board a comfortable sightseeing tour boat from Fishermen's Village to tour the protected residential canals of Punta Gorda Isles. View multi-million dollar homes and docks competing in neighborhood holiday light and music competitions.",
+        familyTip: "Must book several weeks ahead online at kingfisherfleet.com — tickets sell out quickly every single year! Bring a light jacket for the breeze on the water.",
+        mapsQuery: "King Fisher Fleet, 1200 W Retta St, Punta Gorda, FL 33950",
+        icon: "🚢"
+      },
+      {
+        id: "wellen-wonderland-tree-lighting",
+        title: "Wellen Wonderland Tree Lighting Celebration",
+        location: "Wellen Park",
+        venue: "Downtown Wellen",
+        address: "19745 Wellen Pkwy, Venice, FL 34293",
+        distanceMiles: 21,
+        driveTime: "24 mins",
+        proximityTier: "wellen-park",
+        season: "winter",
+        category: "tree-lighting",
+        categoryLabel: "Tree Lightings & Santa",
+        startDate: "2026-12-04",
+        endDate: "2026-12-04",
+        dateDisplay: "Friday, Dec 4, 2026",
+        timeDisplay: "6:00 PM – 9:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Kick off December with the lighting of Wellen Park's 32-foot lakeside holiday tree! Enjoy holiday carolers, free photos with Santa and Mrs. Claus, the 'Cottages for Kids' gingerbread trail, and seasonal drinks and treats.",
+        familyTip: "Great open grassy areas for kids to run around while waiting for the tree lighting. Bring picnic blankets.",
+        mapsQuery: "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
+        icon: "🎄"
+      },
+      {
+        id: "north-port-poinsettia-parade",
+        title: "North Port Poinsettia Parade & Tree Lighting Festival",
+        location: "North Port",
+        venue: "North Port City Center Front Green",
+        address: "4970 City Center Blvd, North Port, FL 34286",
+        distanceMiles: 16,
+        driveTime: "20 mins",
+        proximityTier: "north-port",
+        season: "winter",
+        category: "parades",
+        categoryLabel: "Parades, Tree Lighting & Santa",
+        startDate: "2026-12-05",
+        endDate: "2026-12-05",
+        dateDisplay: "Saturday, Dec 5, 2026",
+        timeDisplay: "Festival 4:00 PM – 8:00 PM (Parade at 5:00 PM)",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "North Port's biggest holiday celebration of the year! The 'Sleigh the Night Away' parade rolls down Sumter Blvd featuring lighted floats and vehicles, followed by the ceremonial lighting of the City Hall holiday tree, Santa's workshop, and mobile food vendors.",
+        familyTip: "Sumter Blvd closes for the parade at 4:30 PM, so approach via Price Blvd or West Price to access City Center parking lots.",
+        mapsQuery: "North Port City Center, 4970 City Center Blvd, North Port, FL",
+        icon: "🌺"
+      },
+      {
+        id: "venice-christmas-boat-parade",
+        title: "Venice Christmas Boat Parade",
+        location: "Venice",
+        venue: "Intracoastal Waterway",
+        address: "Albee Rd Bridge to Circus Bridge, Venice, FL 34285",
+        distanceMiles: 27,
+        driveTime: "32 mins",
+        proximityTier: "venice",
+        season: "winter",
+        category: "parades",
+        categoryLabel: "Parades & Boat Parades",
+        startDate: "2026-12-05",
+        endDate: "2026-12-05",
+        dateDisplay: "Saturday, Dec 5, 2026",
+        timeDisplay: "Starts at 6:00 PM",
+        cost: "Free Public Viewing",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "A dazzling aquatic parade of illuminated yachts, pontoon boats, and sailboats decorated with moving light sculptures, holiday scenes, and sounding boat horns cruising south down the Intracoastal Waterway.",
+        familyTip: "Top public viewing spots with easy stroller access: Venetian Waterway Park trail, Venice Marina, or along the waterfront parks near the north jetty.",
+        mapsQuery: "Venetian Waterway Park, Venice, FL 34285",
+        icon: "⛵"
+      },
+      {
+        id: "wellen-park-glow-bike-ride",
+        title: "Wellen Park Holiday Glow Bike Ride & Dueling Pianos",
+        location: "Wellen Park",
+        venue: "Downtown Wellen & Solis Hall",
+        address: "19745 Wellen Pkwy, Venice, FL 34293",
+        distanceMiles: 21,
+        driveTime: "24 mins",
+        proximityTier: "wellen-park",
+        season: "winter",
+        category: "concerts",
+        categoryLabel: "Live Music & Night Festivals",
+        startDate: "2026-12-05",
+        endDate: "2026-12-05",
+        dateDisplay: "Saturday, Dec 5, 2026",
+        timeDisplay: "6:00 PM – 9:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Wrap your bicycles and strollers in glow sticks and string lights for a scenic, family-friendly slow roll around the 80-acre Grand Lake, followed by lively holiday dueling pianos under the stars at Solis Hall.",
+        familyTip: "Bring battery-powered fairy lights to clip onto kids' scooters, trikes, or strollers so they can participate in the glow!",
+        mapsQuery: "Solis Hall, Downtown Wellen, Venice, FL 34293",
+        icon: "🚲"
+      },
+      {
+        id: "mayors-hometown-christmas-venice",
+        title: "The Mayor's Hometown Christmas & Christmas Walk",
+        location: "Venice",
+        venue: "Centennial Park & Historic Downtown",
+        address: "200 W Venice Ave, Venice, FL 34285",
+        distanceMiles: 26,
+        driveTime: "30 mins",
+        proximityTier: "venice",
+        season: "winter",
+        category: "tree-lighting",
+        categoryLabel: "Tree Lightings & Community",
+        startDate: "2026-12-10",
+        endDate: "2026-12-10",
+        dateDisplay: "Thursday, Dec 10, 2026",
+        timeDisplay: "5:00 PM – 8:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Step into a Hallmark-movie-style evening in historic Venice! Children can sit on Santa's lap in the park gazebo, listen to school and church youth choirs singing carols, and sip free hot cider while strolling decorated shop fronts.",
+        familyTip: "Centennial Park has a wonderful interactive children's splash pad and playground right next to the gazebo if the little ones need playtime.",
+        mapsQuery: "Centennial Park, 200 W Venice Ave, Venice, FL 34285",
+        icon: "🎅"
+      },
+      {
+        id: "peace-river-gardens-aglow",
+        title: "Peace River Gardens Aglow",
+        location: "Punta Gorda",
+        venue: "Peace River Botanical & Sculpture Gardens",
+        address: "5827 Riverside Dr, Punta Gorda, FL 33982",
+        distanceMiles: 8,
+        driveTime: "12 mins",
+        proximityTier: "closest",
+        season: "winter",
+        category: "light-displays",
+        categoryLabel: "Light Displays & Art",
+        startDate: "2026-12-11",
+        endDate: "2026-12-20",
+        dateDisplay: "Dec 11–13 & Dec 18–20, 2026",
+        timeDisplay: "6:00 PM – 9:00 PM",
+        cost: "$15 Adults / $7 Kids (3 and under Free)",
+        isFree: false,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Punta Gorda's enchanting nature-immersed light experience. Thousands of glowing fairy lights and botanical light sculptures illuminate the walking paths along the Peace River, accompanied by live acoustic holiday musicians, s'mores roasting pits, and hot chocolate stations.",
+        familyTip: "Pre-purchase timed tickets online at peacerivergardens.org. Boardwalks and trails are smooth and easy for strollers.",
+        mapsQuery: "Peace River Botanical & Sculpture Gardens, 5827 Riverside Dr, Punta Gorda, FL 33982",
+        icon: "🌿"
+      },
+      {
+        id: "punta-gorda-boat-parade",
+        title: "Annual Punta Gorda Christmas Boat Parade",
+        location: "Punta Gorda",
+        venue: "Punta Gorda Isles Waterfront Canals",
+        address: "Rim Canal / Charlotte Harbor, Punta Gorda, FL 33950",
+        distanceMiles: 6,
+        driveTime: "9 mins",
+        proximityTier: "closest",
+        season: "winter",
+        category: "parades",
+        categoryLabel: "Parades & Boat Parades",
+        startDate: "2026-12-19",
+        endDate: "2026-12-19",
+        dateDisplay: "Saturday, Dec 19, 2026",
+        timeDisplay: "Starts at 6:00 PM",
+        cost: "Free Public Viewing",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Known as 'The Saturday Night Before Christmas Eve Boat Parade,' this cherished Punta Gorda Isles tradition features dozens of extravagantly illuminated motor yachts, sailboats, and catamarans navigating 4 miles of residential canals.",
+        familyTip: "Great public viewing spots with easy parking: along the rim canal bridges, Ponce de Leon Park, or join neighbors who host shoreline lawn watch parties.",
+        mapsQuery: "Ponce de Leon Park, Punta Gorda, FL 33950",
+        icon: "🛥️"
+      },
+      {
+        id: "christmas-carols-by-the-gulf",
+        title: "Christmas Carols by the Gulf",
+        location: "Venice",
+        venue: "Maxine Barritt Park Pavilion",
+        address: "1800 Harbor Dr S, Venice, FL 34285",
+        distanceMiles: 27,
+        driveTime: "32 mins",
+        proximityTier: "venice",
+        season: "winter",
+        category: "concerts",
+        categoryLabel: "Live Music & Community",
+        startDate: "2026-12-19",
+        endDate: "2026-12-19",
+        dateDisplay: "Saturday, Dec 19, 2026",
+        timeDisplay: "5:00 PM – 7:00 PM",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Sing your favorite holiday carols with local choral groups as the sun sets over the Gulf of Mexico. Song sheets are handed out to everyone, with festive cookies and cider available.",
+        familyTip: "Bring lawn chairs, cozy sweaters, and battery candles for the kids when dusk falls.",
+        mapsQuery: "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
+        icon: "🎵"
+      },
+      {
+        id: "fishermens-village-nye",
+        title: "Fishermen's Village New Year's Eve & Fireworks",
+        location: "Punta Gorda",
+        venue: "Fishermen's Village",
+        address: "1200 W Retta St, Punta Gorda, FL 33950",
+        distanceMiles: 6,
+        driveTime: "9 mins",
+        proximityTier: "closest",
+        season: "winter",
+        category: "nye",
+        categoryLabel: "New Year's Celebrations",
+        startDate: "2026-12-31",
+        endDate: "2026-12-31",
+        dateDisplay: "Thursday, Dec 31, 2026",
+        timeDisplay: "6:00 PM – 12:30 AM (Fireworks at Midnight)",
+        cost: "Free Admission",
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: "Southwest Florida's biggest family-friendly New Year's Eve blowout! Features multiple stages of live music, magicians, face painters, balloon artists, glow souvenirs, dancing, and a midnight fireworks display launched over Charlotte Harbor.",
+        familyTip: "If celebrating with younger toddlers who can't stay up until midnight, the 6:00 PM – 8:30 PM window is packed with fun kids entertainment, glowing lights, and treats without the late night squeeze!",
+        mapsQuery: "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
+        icon: "🎆"
+      }
+    ];
+
+    // State Management
+    let eventsData = [...FESTIVITIES];
+    let customEvents = JSON.parse(localStorage.getItem('swfl_custom_events') || '[]');
+    let savedEventIds = new Set(JSON.parse(localStorage.getItem('swfl_saved_events') || '[]'));
+
+    let activeFilter = {
+      search: '',
+      location: 'all',
+      season: 'all',
+      category: 'all',
+      freeOnly: false,
+      strollerOnly: false,
+      savedOnly: false,
+      sortBy: 'date'
+    };
+
+    let currentCalDate = new Date(2026, 9, 1); // Oct 2026
+    let selectedCalDay = null;
+
+    // Initialize App
+    function init() {
+      // Merge custom events
+      combineEvents();
+      updateCountdowns();
+      renderCards();
+      updateSavedCount();
+      renderCalendar();
+    }
+
+    function combineEvents() {
+      eventsData = [...FESTIVITIES, ...customEvents];
+    }
+
+    // Holiday Countdowns
+    function updateCountdowns() {
+      const now = new Date();
+      const targets = {
+        daysToHalloween: new Date(2026, 9, 31),
+        daysToThanksgiving: new Date(2026, 10, 26),
+        daysToFishermens: new Date(2026, 10, 14),
+        daysToChristmas: new Date(2026, 11, 25),
+        daysToNYE: new Date(2026, 11, 31)
+      };
+
+      for (const [elemId, date] of Object.entries(targets)) {
+        const diffMs = date - now;
+        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+        const elem = document.getElementById(elemId);
+        if (elem) {
+          elem.textContent = diffDays > 0 ? `${diffDays}d` : 'Today!';
+        }
+      }
+    }
+
+    // Filter Logic
+    function getFilteredEvents() {
+      return eventsData.filter(ev => {
+        // Search query
+        if (activeFilter.search) {
+          const q = activeFilter.search.toLowerCase();
+          const matchText = `${ev.title} ${ev.venue} ${ev.location} ${ev.description} ${ev.categoryLabel}`.toLowerCase();
+          if (!matchText.includes(q)) return false;
+        }
+
+        // Location
+        if (activeFilter.location !== 'all') {
+          if (ev.proximityTier !== activeFilter.location) return false;
+        }
+
+        // Season
+        if (activeFilter.season !== 'all') {
+          if (ev.season !== activeFilter.season) return false;
+        }
+
+        // Category
+        if (activeFilter.category !== 'all') {
+          if (ev.category !== activeFilter.category) return false;
+        }
+
+        // Free Only
+        if (activeFilter.freeOnly && !ev.isFree) return false;
+
+        // Stroller Only
+        if (activeFilter.strollerOnly && !ev.strollerFriendly) return false;
+
+        // Saved Only
+        if (activeFilter.savedOnly && !savedEventIds.has(ev.id)) return false;
+
+        return true;
+      }).sort((a, b) => {
+        if (activeFilter.sortBy === 'distance') {
+          return (a.distanceMiles || 99) - (b.distanceMiles || 99);
+        } else if (activeFilter.sortBy === 'name') {
+          return a.title.localeCompare(b.title);
+        } else {
+          // Date
+          return new Date(a.startDate) - new Date(b.startDate);
+        }
+      });
+    }
+
+    // Render Event Cards
+    function renderCards() {
+      const container = document.getElementById('cardsContainer');
+      const filtered = getFilteredEvents();
+      
+      document.getElementById('resultsSummary').textContent = 
+        `Showing ${filtered.length} of ${eventsData.length} festivities`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <span class="empty-state-icon">🔍</span>
+            <h3>No festivities matched your filters</h3>
+            <p style="margin-top: 0.5rem;">Try clearing your search or switching to "All Areas" to see more options!</p>
+            <button class="btn-primary" style="margin-top: 1rem;" onclick="resetFilters()">Reset All Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(ev => {
+        const isSaved = savedEventIds.has(ev.id);
+        const tierClass = ev.proximityTier === 'closest' ? 'tier-closest' :
+                          ev.proximityTier === 'venice' ? 'tier-venice' : 'tier-near';
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.mapsQuery || (ev.venue + ', ' + ev.address))}`;
+
+        return `
+          <article class="event-card">
+            <div class="card-top">
+              <span class="proximity-badge ${tierClass}">
+                📍 ${ev.location} • ${ev.distanceMiles} mi (${ev.driveTime})
+              </span>
+              <button 
+                class="card-fav-btn ${isSaved ? 'is-saved' : ''}" 
+                onclick="toggleSaveEvent('${ev.id}')"
+                title="${isSaved ? 'Remove from My Planner' : 'Add to My Planner'}"
+                aria-label="Save to itinerary"
+              >
+                ${isSaved ? '❤️' : '🤍'}
+              </button>
+            </div>
+
+            <div class="card-body">
+              <h2 class="card-title">${ev.icon || '🎉'} ${ev.title}</h2>
+              
+              <div class="card-meta">
+                <div class="meta-row">
+                  <span class="meta-icon">📅</span>
+                  <span style="font-weight: 600; color: var(--text-main);">${ev.dateDisplay}</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-icon">⏰</span>
+                  <span>${ev.timeDisplay}</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-icon">📍</span>
+                  <span><strong>${ev.venue}</strong> — ${ev.address}</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-icon">🎟️</span>
+                  <span>${ev.cost}</span>
+                </div>
+              </div>
+
+              <p class="card-desc">${ev.description}</p>
+
+              ${ev.familyTip ? `
+                <div class="family-tip-box">
+                  <div class="tip-title">💡 Family Tip</div>
+                  <div>${ev.familyTip}</div>
+                </div>
+              ` : ''}
+
+              <div class="card-actions">
+                <a href="${mapsUrl}" target="_blank" rel="noopener" class="btn-action btn-maps">
+                  <span>🗺️</span> Directions
+                </a>
+                <button class="btn-action" onclick="exportSingleEventICS('${ev.id}')">
+                  <span>📅</span> Add to Cal
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Toggle Bookmarking / Itinerary
+    function toggleSaveEvent(id) {
+      if (savedEventIds.has(id)) {
+        savedEventIds.delete(id);
+      } else {
+        savedEventIds.add(id);
+      }
+      localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
+      updateSavedCount();
+      renderCards();
+      if (document.getElementById('itineraryModal').classList.contains('open')) {
+        renderItineraryModal();
+      }
+    }
+
+    function updateSavedCount() {
+      const badge = document.getElementById('itineraryCount');
+      if (badge) {
+        badge.textContent = savedEventIds.size;
+      }
+    }
+
+    // Filter Handlers
+    function handleSearch(val) {
+      activeFilter.search = val;
+      renderCards();
+    }
+
+    function setLocationFilter(tier) {
+      activeFilter.location = tier;
+      updateActiveChip('locationChips', tier);
+      renderCards();
+    }
+
+    function setSeasonFilter(season) {
+      activeFilter.season = season;
+      updateActiveChip('seasonChips', season);
+      renderCards();
+    }
+
+    function setCategoryFilter(cat) {
+      activeFilter.category = cat;
+      updateActiveChip('categoryChips', cat);
+      renderCards();
+    }
+
+    function toggleFilter(filterKey) {
+      activeFilter[filterKey] = !activeFilter[filterKey];
+      const btnMap = {
+        freeOnly: 'toggleFree',
+        strollerOnly: 'toggleStroller',
+        savedOnly: 'toggleSavedOnly'
+      };
+      const btn = document.getElementById(btnMap[filterKey]);
+      if (btn) {
+        btn.classList.toggle('active', activeFilter[filterKey]);
+      }
+      renderCards();
+    }
+
+    function handleSortChange(val) {
+      activeFilter.sortBy = val;
+      renderCards();
+    }
+
+    function resetFilters() {
+      activeFilter = {
+        search: '',
+        location: 'all',
+        season: 'all',
+        category: 'all',
+        freeOnly: false,
+        strollerOnly: false,
+        savedOnly: false,
+        sortBy: 'date'
+      };
+      document.getElementById('searchInput').value = '';
+      document.querySelectorAll('.filter-chips .chip').forEach(el => {
+        el.classList.remove('active');
+        if (el.dataset.filter === 'all') el.classList.add('active');
+      });
+      document.getElementById('toggleFree').classList.remove('active');
+      document.getElementById('toggleStroller').classList.remove('active');
+      document.getElementById('toggleSavedOnly').classList.remove('active');
+      document.getElementById('sortSelect').value = 'date';
+      renderCards();
+    }
+
+    function updateActiveChip(containerId, filterVal) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.querySelectorAll('.chip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filterVal);
+      });
+    }
+
+    // View Switching
+    function switchView(view) {
+      const isGrid = view === 'grid';
+      document.getElementById('cardsContainer').style.display = isGrid ? 'grid' : 'none';
+      document.getElementById('calendarContainer').classList.toggle('active', !isGrid);
+      document.getElementById('viewGridBtn').classList.toggle('active', isGrid);
+      document.getElementById('viewCalBtn').classList.toggle('active', !isGrid);
+
+      if (!isGrid) {
+        renderCalendar();
+      }
+    }
+
+    // Calendar View Engine
+    function renderCalendar() {
+      const year = currentCalDate.getFullYear();
+      const month = currentCalDate.getMonth();
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      
+      document.getElementById('calMonthTitle').textContent = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay(); // 0 is Sun
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+      const calGrid = document.getElementById('calendarGrid');
+      let html = `
+        <div class="cal-day-name">Sun</div>
+        <div class="cal-day-name">Mon</div>
+        <div class="cal-day-name">Tue</div>
+        <div class="cal-day-name">Wed</div>
+        <div class="cal-day-name">Thu</div>
+        <div class="cal-day-name">Fri</div>
+        <div class="cal-day-name">Sat</div>
+      `;
+
+      // Prev month filler
+      for (let i = firstDay - 1; i >= 0; i--) {
+        const d = daysInPrevMonth - i;
+        html += `<div class="cal-day other-month"><span class="day-num">${d}</span></div>`;
+      }
+
+      // Days of current month
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        // Find events on this day
+        const dayEvents = eventsData.filter(ev => {
+          if (ev.startDate === dateStr) return true;
+          if (ev.endDate && ev.startDate <= dateStr && ev.endDate >= dateStr) return true;
+          return false;
+        });
+
+        const isSelected = selectedCalDay === dateStr;
+
+        html += `
+          <div class="cal-day ${isSelected ? 'is-selected' : ''}" onclick="selectCalDay('${dateStr}')">
+            <span class="day-num">${day}</span>
+            ${dayEvents.slice(0, 3).map(ev => {
+              const chipClass = ev.location === 'Punta Gorda' ? 'chip-pg' :
+                                ev.location === 'Venice' ? 'chip-venice' : '';
+              return `<div class="cal-event-chip ${chipClass}" title="${ev.title}">${ev.icon || '📍'} ${ev.title}</div>`;
+            }).join('')}
+            ${dayEvents.length > 3 ? `<div style="font-size:0.65rem; color:var(--text-muted); font-weight:700;">+${dayEvents.length - 3} more</div>` : ''}
+          </div>
+        `;
+      }
+
+      // Trailing empty slots to make 7-day grid complete
+      const totalCells = firstDay + daysInMonth;
+      const remainingCells = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= remainingCells; i++) {
+        html += `<div class="cal-day other-month"><span class="day-num">${i}</span></div>`;
+      }
+
+      calGrid.innerHTML = html;
+    }
+
+    function prevMonth() {
+      currentCalDate.setMonth(currentCalDate.getMonth() - 1);
+      renderCalendar();
+    }
+
+    function nextMonth() {
+      currentCalDate.setMonth(currentCalDate.getMonth() + 1);
+      renderCalendar();
+    }
+
+    function resetToToday() {
+      currentCalDate = new Date(2026, 9, 1);
+      renderCalendar();
+    }
+
+    function selectCalDay(dateStr) {
+      selectedCalDay = dateStr;
+      renderCalendar();
+
+      const dayEvents = eventsData.filter(ev => {
+        if (ev.startDate === dateStr) return true;
+        if (ev.endDate && ev.startDate <= dateStr && ev.endDate >= dateStr) return true;
+        return false;
+      });
+
+      const detailsBox = document.getElementById('calDayDetails');
+      const listElem = document.getElementById('selectedDayList');
+      const heading = document.getElementById('selectedDayHeading');
+
+      const d = new Date(dateStr + 'T12:00:00');
+      const formatted = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+      heading.textContent = `Festivities on ${formatted}`;
+
+      if (dayEvents.length === 0) {
+        listElem.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No scheduled events on this date. Perfect day to plan a family dinner or holiday movie night!</p>`;
+      } else {
+        listElem.innerHTML = dayEvents.map(ev => `
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:8px; padding:0.75rem 1rem; margin-top:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong>${ev.icon || '🎉'} ${ev.title}</strong>
+              <div style="font-size:0.8rem; color:var(--text-muted);">${ev.timeDisplay} • ${ev.venue} (${ev.location})</div>
+            </div>
+            <button class="btn-action" style="flex:none;" onclick="toggleSaveEvent('${ev.id}')">
+              ${savedEventIds.has(ev.id) ? '❤️ Saved' : '🤍 Save'}
+            </button>
+          </div>
+        `).join('');
+      }
+
+      detailsBox.style.display = 'block';
+      detailsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Modal Operations
+    function openItineraryModal() {
+      renderItineraryModal();
+      document.getElementById('itineraryModal').classList.add('open');
+    }
+
+    function closeItineraryModal() {
+      document.getElementById('itineraryModal').classList.remove('open');
+    }
+
+    function openCustomEventModal() {
+      document.getElementById('customEventModal').classList.add('open');
+    }
+
+    function closeCustomEventModal() {
+      document.getElementById('customEventModal').classList.remove('open');
+    }
+
+    function closeModalOnBackdrop(e, modalId) {
+      if (e.target.id === modalId) {
+        document.getElementById(modalId).classList.remove('open');
+      }
+    }
+
+    function renderItineraryModal() {
+      const container = document.getElementById('itineraryListContainer');
+      const saved = eventsData.filter(ev => savedEventIds.has(ev.id))
+        .sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+      if (saved.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <span class="empty-state-icon">📋</span>
+            <h3>Your planner is empty</h3>
+            <p style="margin-top:0.4rem;">Click the heart ❤️ icon on any event card to add it to your family's personal holiday itinerary.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+          You have <strong>${saved.length}</strong> festive outings bookmarked.
+        </p>
+        ${saved.map(ev => `
+          <div class="itinerary-item">
+            <div class="itinerary-info">
+              <h4>${ev.icon || '🎉'} ${ev.title}</h4>
+              <p>📅 ${ev.dateDisplay} • ⏰ ${ev.timeDisplay}</p>
+              <p>📍 ${ev.venue}, ${ev.location} (${ev.distanceMiles} mi from home)</p>
+            </div>
+            <button class="btn-remove" onclick="toggleSaveEvent('${ev.id}')">Remove</button>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    // Save Custom Family Event
+    function saveCustomEvent(e) {
+      e.preventDefault();
+      const title = document.getElementById('custTitle').value.trim();
+      const location = document.getElementById('custLocation').value;
+      const date = document.getElementById('custDate').value;
+      const time = document.getElementById('custTime').value.trim() || 'All Day';
+      const address = document.getElementById('custAddress').value.trim() || location;
+      const desc = document.getElementById('custDesc').value.trim();
+
+      const newEv = {
+        id: 'cust-' + Date.now(),
+        title: title,
+        location: location,
+        venue: address,
+        address: address,
+        distanceMiles: location === 'Punta Gorda' ? 5 : (location === 'North Port' ? 16 : 26),
+        driveTime: location === 'Punta Gorda' ? '8 mins' : (location === 'North Port' ? '20 mins' : '30 mins'),
+        proximityTier: location === 'Punta Gorda' ? 'closest' : (location === 'North Port' ? 'north-port' : 'venice'),
+        season: date >= '2026-11-15' ? 'winter' : 'fall',
+        category: 'custom',
+        categoryLabel: 'Family Gathering',
+        startDate: date,
+        endDate: date,
+        dateDisplay: new Date(date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
+        timeDisplay: time,
+        cost: 'Family Event',
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: desc || 'Private family gathering and holiday celebration.',
+        familyTip: 'Custom event added by you.',
+        mapsQuery: address,
+        icon: '🏡'
+      };
+
+      customEvents.push(newEv);
+      localStorage.setItem('swfl_custom_events', JSON.stringify(customEvents));
+      savedEventIds.add(newEv.id);
+      localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
+
+      combineEvents();
+      updateSavedCount();
+      renderCards();
+      renderCalendar();
+      closeCustomEventModal();
+      document.getElementById('customEventForm').reset();
+    }
+
+    // Calendar Export (.ICS)
+    function exportSingleEventICS(eventId) {
+      const ev = eventsData.find(e => e.id === eventId);
+      if (!ev) return;
+      const ics = generateICS([ev]);
+      downloadFile(ics, `${ev.title.replace(/[^a-zA-Z0-9]/g, '_')}.ics`, 'text/calendar');
+    }
+
+    function exportAllToICS() {
+      const saved = eventsData.filter(ev => savedEventIds.has(ev.id));
+      if (saved.length === 0) {
+        alert('Please save at least one event to your itinerary first!');
+        return;
+      }
+      const ics = generateICS(saved);
+      downloadFile(ics, 'SWFL_Holiday_Itinerary_2026.ics', 'text/calendar');
+    }
+
+    function generateICS(events) {
+      let lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//SWFL Holiday Planner//Punta Gorda 33983//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH'
+      ];
+
+      events.forEach(ev => {
+        const startClean = ev.startDate.replace(/-/g, '');
+        lines.push('BEGIN:VEVENT');
+        lines.push(`UID:${ev.id}-${Date.now()}@swflholidayplanner.local`);
+        lines.push(`DTSTAMP:${formatICSDate(new Date())}`);
+        lines.push(`DTSTART;VALUE=DATE:${startClean}`);
+        lines.push(`SUMMARY:${escapeICS(ev.title)}`);
+        lines.push(`DESCRIPTION:${escapeICS(ev.description + ' (Time: ' + ev.timeDisplay + ')')}`);
+        lines.push(`LOCATION:${escapeICS(ev.venue + ', ' + ev.address)}`);
+        lines.push('STATUS:CONFIRMED');
+        lines.push('END:VEVENT');
+      });
+
+      lines.push('END:VCALENDAR');
+      return lines.join('\r\n');
+    }
+
+    function formatICSDate(d) {
+      return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    }
+
+    function escapeICS(str) {
+      return (str || '').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
+    }
+
+    function downloadFile(content, filename, type) {
+      const blob = new Blob([content], { type: `${type};charset=utf-8` });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Theme Picker
+    function setTheme(theme) {
+      document.body.className = '';
+      if (theme !== 'autumn') {
+        document.body.classList.add(`theme-${theme}`);
+      }
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.toLowerCase().includes(theme)) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    // Run on load
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
