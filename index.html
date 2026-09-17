@@ -264,7 +264,7 @@
       border: 1px solid var(--border-color);
       border-radius: 18px;
       padding: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       box-shadow: var(--card-shadow);
       display: flex;
       flex-direction: column;
@@ -456,6 +456,56 @@
       color: #6b21a8;
     }
 
+    /* COMMUNITY LIGHT SHOW CALLOUT BANNER */
+    .community-light-banner {
+      background: linear-gradient(135deg, #fef3c7 0%, #fff7ed 100%);
+      border: 1px solid #fde68a;
+      border-radius: 16px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .community-banner-text h4 {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #92400e;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .community-banner-text p {
+      font-size: 0.85rem;
+      color: #78350f;
+      margin-top: 0.2rem;
+    }
+
+    .btn-submit-home-show {
+      background: #d97706;
+      color: #ffffff;
+      border: none;
+      padding: 0.6rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-submit-home-show:hover {
+      background: #b45309;
+      transform: translateY(-1px);
+    }
+
     /* Controls & Filter Section */
     .control-panel {
       background: var(--bg-surface);
@@ -514,6 +564,7 @@
     .view-toggles {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 0.5rem;
     }
 
@@ -607,6 +658,18 @@
       border-color: var(--brand-accent);
     }
 
+    .chip-highlight {
+      background: #fdf4ff;
+      border-color: #f0abfc;
+      color: #86198f;
+    }
+
+    .chip-highlight.active {
+      background: #c026d3;
+      border-color: #c026d3;
+      color: #ffffff;
+    }
+
     .chip-checkbox {
       background: var(--bg-subtle);
     }
@@ -677,6 +740,11 @@
       border-color: #cbd5e1;
     }
 
+    .event-card.card-home-display {
+      border: 2px solid #e9d5ff;
+      background: linear-gradient(180deg, #faf5ff 0%, #ffffff 18%);
+    }
+
     .card-top {
       padding: 1.25rem 1.25rem 0.5rem;
       display: flex;
@@ -694,6 +762,20 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
+    }
+
+    .home-display-tag {
+      background: #f3e8ff;
+      color: #7e22ce;
+      border: 1px solid #d8b4fe;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-left: 0.35rem;
     }
 
     .card-fav-btn {
@@ -756,6 +838,20 @@
     .meta-icon {
       flex-shrink: 0;
       color: var(--brand-accent);
+    }
+
+    .radio-banner-row {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
     }
 
     .card-desc {
@@ -960,6 +1056,12 @@
       border-left-color: #ea580c;
     }
 
+    .cal-event-chip.chip-home {
+      background: #fce7f3;
+      color: #9d174d;
+      border-left-color: #ec4899;
+    }
+
     .cal-day-details {
       margin-top: 1.5rem;
       padding: 1.25rem;
@@ -974,14 +1076,14 @@
       margin-bottom: 0.75rem;
     }
 
-    /* Modal Drawer (Saved Itinerary) */
+    /* Modal Styles */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(4px);
       z-index: 100;
       display: none;
@@ -1098,9 +1200,15 @@
       display: block;
     }
 
-    /* Custom Event Form */
+    /* Form Styles */
     .form-group {
       margin-bottom: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
 
     .form-label {
@@ -1153,7 +1261,7 @@
 
     /* Print Styles */
     @media print {
-      header, .radar-banner, .control-panel, .card-actions, .card-fav-btn, .theme-picker, .countdown-grid {
+      header, .radar-banner, .community-light-banner, .control-panel, .card-actions, .card-fav-btn, .theme-picker, .countdown-grid {
         display: none !important;
       }
       body {
@@ -1196,6 +1304,9 @@
       .zip-input-wrapper {
         flex: 1;
       }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -1223,7 +1334,7 @@
 
       <h1 class="hero-title font-serif">Holiday & Festivities Planner</h1>
       <p class="hero-subtitle">
-        Your interactive guide to 2026 fall festivals, pumpkin patches, holiday lights, Christmas boat parades, and Santa visits across Punta Gorda, North Port, Venice, Sarasota, and Bradenton.
+        Your interactive family guide to 2026 fall festivals, pumpkin patches, holiday lights, Christmas boat parades, Santa visits, and neighborhood residential light shows across Punta Gorda, North Port, Venice, Sarasota, and Bradenton.
       </p>
 
       <!-- Holiday Countdowns -->
@@ -1298,6 +1409,17 @@
       </div>
     </div>
 
+    <!-- COMMUNITY RESIDENTIAL LIGHT SHOW BANNER -->
+    <div class="community-light-banner">
+      <div class="community-banner-text">
+        <h4>✨ Host a Holiday Light Show at Your Home?</h4>
+        <p>Add your house to our community map with your address, dates, and FM radio station so local families can enjoy your display!</p>
+      </div>
+      <button class="btn-submit-home-show" onclick="openSubmitHomeShowModal()">
+        <span>🏡</span> Submit Your Home Display
+      </button>
+    </div>
+
     <!-- Filter & Control Panel -->
     <section class="control-panel">
       <!-- Search & View Toggles -->
@@ -1308,7 +1430,7 @@
             type="text"
             id="searchInput"
             class="search-input"
-            placeholder="Search festivities (e.g. 'boat parade', 'selby', 'hunsader', 'lights', 'santa')..."
+            placeholder="Search festivities (e.g. 'radio', 'cedarwood', 'enander', 'boat parade', 'selby', 'santa')..."
             oninput="handleSearch(this.value)"
           />
         </div>
@@ -1322,8 +1444,11 @@
           <button class="view-btn itinerary-btn" onclick="openItineraryModal()">
             <span>❤️</span> My Planner <span class="badge-count" id="itineraryCount">0</span>
           </button>
+          <button class="view-btn" onclick="openSubmitHomeShowModal()" style="border-color:#d8b4fe; color:#7e22ce;">
+            <span>🏡</span> + Home Show
+          </button>
           <button class="view-btn" onclick="openCustomEventModal()">
-            <span>➕</span> Add Event
+            <span>➕</span> + Event
           </button>
         </div>
       </div>
@@ -1332,7 +1457,7 @@
       <div class="filter-group">
         <span class="filter-label">Filter by Area:</span>
         <div class="filter-chips" id="locationChips">
-          <button class="chip active" data-filter="all" onclick="setLocationFilter('all')">🌟 All Areas (30 Events)</button>
+          <button class="chip active" data-filter="all" onclick="setLocationFilter('all')">🌟 All Areas</button>
           <button class="chip" data-filter="closest" onclick="setLocationFilter('closest')">📍 Punta Gorda & PC</button>
           <button class="chip" data-filter="north-port" onclick="setLocationFilter('north-port')">🚗 North Port</button>
           <button class="chip" data-filter="wellen-park" onclick="setLocationFilter('wellen-park')">🎡 Wellen Park</button>
@@ -1357,11 +1482,12 @@
         <span class="filter-label">Filter by Category:</span>
         <div class="filter-chips" id="categoryChips">
           <button class="chip active" data-filter="all" onclick="setCategoryFilter('all')">All Festivities</button>
-          <button class="chip" data-filter="pumpkin-patches" onclick="setCategoryFilter('pumpkin-patches')">🎃 Pumpkin Patches</button>
-          <button class="chip" data-filter="trick-or-treat" onclick="setCategoryFilter('trick-or-treat')">🍬 Trick-or-Treat & Fall Fests</button>
+          <button class="chip chip-highlight" data-filter="home-lights" onclick="setCategoryFilter('home-lights')">🏡 Neighborhood & Home Light Shows</button>
+          <button class="chip" data-filter="light-displays" onclick="setCategoryFilter('light-displays')">🌟 Grand Light Displays</button>
           <button class="chip" data-filter="parades" onclick="setCategoryFilter('parades')">⛵ Boat & Street Parades</button>
-          <button class="chip" data-filter="light-displays" onclick="setCategoryFilter('light-displays')">🌟 Light Displays</button>
           <button class="chip" data-filter="tree-lighting" onclick="setCategoryFilter('tree-lighting')">🎅 Tree Lightings & Santa</button>
+          <button class="chip" data-filter="pumpkin-patches" onclick="setCategoryFilter('pumpkin-patches')">🎃 Pumpkin Patches</button>
+          <button class="chip" data-filter="trick-or-treat" onclick="setCategoryFilter('trick-or-treat')">🍬 Trick-or-Treat & Fests</button>
           <button class="chip" data-filter="concerts" onclick="setCategoryFilter('concerts')">🎶 Live Music & Night Fests</button>
         </div>
       </div>
@@ -1372,6 +1498,7 @@
         <div class="filter-chips">
           <button id="toggleFree" class="chip chip-checkbox" onclick="toggleFilter('freeOnly')">🆓 Free Admission Only</button>
           <button id="toggleStroller" class="chip chip-checkbox" onclick="toggleFilter('strollerOnly')">👶 Stroller / Toddler Friendly</button>
+          <button id="toggleRadio" class="chip chip-checkbox" onclick="toggleFilter('radioOnly')">📻 FM Radio Synced Only</button>
           <button id="toggleSavedOnly" class="chip chip-checkbox" onclick="toggleFilter('savedOnly')">❤️ Saved in My Planner Only</button>
         </div>
       </div>
@@ -1379,7 +1506,7 @@
 
     <!-- Results Status Bar -->
     <div class="results-bar">
-      <div class="results-count" id="resultsSummary">Showing all 30 festivities</div>
+      <div class="results-count" id="resultsSummary">Showing festivities</div>
       <div class="sort-control">
         <span>Sort by:</span>
         <select id="sortSelect" class="sort-select" onchange="handleSortChange(this.value)">
@@ -1417,6 +1544,87 @@
     </section>
 
   </main>
+
+  <!-- SUBMIT HOME LIGHT SHOW MODAL -->
+  <div class="modal-overlay" id="submitHomeShowModal" onclick="closeModalOnBackdrop(event, 'submitHomeShowModal')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>✨</span>
+          <span>Submit Your Holiday Home Display</span>
+        </div>
+        <button class="modal-close" onclick="closeSubmitHomeShowModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:1.2rem;">
+          Hosting a Christmas or Halloween light display at your house? Enter your address and details below so neighbors and local families can come enjoy your holiday cheer!
+        </p>
+        <form id="homeShowForm" onsubmit="saveHomeShowSubmission(event)">
+          <div class="form-group">
+            <label class="form-label">Display / Family Title *</label>
+            <input type="text" id="hsTitle" class="form-control" placeholder="e.g. The Miller Family Musical Holiday Lights" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Street Address *</label>
+              <input type="text" id="hsAddress" class="form-control" placeholder="e.g. 1234 Elm St" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Town / City *</label>
+              <select id="hsCity" class="form-control" required>
+                <option value="Punta Gorda">Punta Gorda</option>
+                <option value="Port Charlotte">Port Charlotte</option>
+                <option value="North Port">North Port</option>
+                <option value="Wellen Park">Wellen Park</option>
+                <option value="Venice">Venice</option>
+                <option value="Sarasota">Sarasota</option>
+                <option value="Bradenton">Bradenton</option>
+                <option value="Englewood">Englewood</option>
+                <option value="Other">Other SWFL Town</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">ZIP Code *</label>
+              <input type="text" id="hsZip" class="form-control" placeholder="e.g. 33983 or 34286" maxlength="5" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Music / Sound Sync</label>
+              <input type="text" id="hsRadio" class="form-control" placeholder="e.g. Tune to 95.5 FM or Outdoor Music" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Dates Active</label>
+              <input type="text" id="hsDates" class="form-control" placeholder="e.g. Dec 1 – Jan 1" value="Nightly, Dec 1 – Jan 1" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nightly Hours</label>
+              <input type="text" id="hsHours" class="form-control" placeholder="e.g. 6:00 PM – 10:00 PM" value="6:00 PM – 10:00 PM" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Display Highlights & Features</label>
+            <textarea id="hsDesc" class="form-control" rows="2" placeholder="e.g. 20,000 smart LEDs dancing to music, mega-tree, photo bench, accepting canned food donations for shelter..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Parking & Spectator Etiquette Tips</label>
+            <input type="text" id="hsTip" class="form-control" placeholder="e.g. Please dim headlights to parking lights and do not block neighbor driveways." />
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+            ✨ Add My Home Display to Community Planner
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- SAVED ITINERARY MODAL -->
   <div class="modal-overlay" id="itineraryModal" onclick="closeModalOnBackdrop(event, 'itineraryModal')">
@@ -1496,7 +1704,7 @@
   </div>
 
   <script>
-    // Embedded Database of 30 Festivities Across SWFL
+    // Embedded Database of 40 Festivities & Residential Light Displays Across SWFL
     const FESTIVITIES = [
   {
     "id": "prana-farms-pumpkin-fest",
@@ -2329,6 +2537,296 @@
     "familyTip": "Best public viewing with kids: Green Bridge pedestrian walkway (closed to vehicles during the parade) or anywhere along the Bradenton Riverwalk shoreline.",
     "mapsQuery": "Bradenton Riverwalk, Bradenton, FL 34205",
     "icon": "\ud83d\udee5\ufe0f"
+  },
+  {
+    "id": "enanders-winter-wonderland",
+    "title": "Enander's Winter Wonderland",
+    "location": "Venice",
+    "venue": "Enander Family Home",
+    "address": "2281 Mission Valley Blvd, Nokomis, FL 34275",
+    "lat": 27.152,
+    "lng": -82.427,
+    "distanceMiles": 22,
+    "driveTime": "26 mins",
+    "proximityTier": "venice",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "Walk-Through Sound & Outdoor Music",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "cost": "Free (Canned food & toy donations welcomed)",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A legendary Southwest Florida holiday home tradition for over 30 years! Features over 400,000 dazzling lights, thousands of handmade animated figures, life-size gingerbread men, toy soldier castle pathways, and snowmen across a beautifully landscaped estate.",
+    "familyTip": "Walk-through pathways allow kids to explore close up. Park carefully along Mission Valley Blvd and wear comfortable shoes. Bring a canned food donation for the community food bank.",
+    "mapsQuery": "2281 Mission Valley Blvd, Nokomis, FL 34275",
+    "icon": "\ud83c\udfe1"
+  },
+  {
+    "id": "cedarwood-musical-lights",
+    "title": "5534 Cedarwood Drive Musical Light Show",
+    "location": "Sarasota",
+    "venue": "Colonial Gables Residential",
+    "address": "5534 Cedarwood Dr, Sarasota, FL 34232",
+    "lat": 27.315,
+    "lng": -82.463,
+    "distanceMiles": 39,
+    "driveTime": "42 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "\ud83d\udcfb Tune Car Radio to 95.5 FM",
+    "startDate": "2026-11-26",
+    "endDate": "2027-01-02",
+    "dateDisplay": "Nightly, Thanksgiving \u2013 Jan 2, 2027",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM (Fri\u2013Sat until 10:30 PM)",
+    "cost": "Free Drive-By Show",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "One of Florida's most sophisticated computer-synchronized residential pixel shows! Over 50,000 smart pixels dancing to 40+ holiday, pop, and movie songs. Spectators can tune to 95.5 FM on their car radio and even vote for upcoming songs via their smartphone.",
+    "familyTip": "Dim your headlights to parking lights when pulling up to the curb. Do not block neighboring driveways or turnarounds.",
+    "mapsQuery": "5534 Cedarwood Dr, Sarasota, FL 34232",
+    "icon": "\ud83d\udcfb"
+  },
+  {
+    "id": "hayden-snow-wonderland",
+    "title": "5580 Hayden Boulevard Snow Flurry Home",
+    "location": "Sarasota",
+    "venue": "Colonial Gables Residential",
+    "address": "5580 Hayden Blvd, Sarasota, FL 34232",
+    "lat": 27.317,
+    "lng": -82.461,
+    "distanceMiles": 39,
+    "driveTime": "42 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "Outdoor Sound & Real Snow Machines",
+    "startDate": "2026-12-01",
+    "endDate": "2026-12-31",
+    "dateDisplay": "Nightly in December 2026",
+    "timeDisplay": "6:30 PM \u2013 9:30 PM",
+    "cost": "Free (Park & Walk)",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Famous for delighting local children with active faux-snow machines blowing flurry clouds into the yard! Features dozens of oversized illuminated inflatables, archway walk-throughs, and classic holiday carols playing on the lawn.",
+    "familyTip": "Located in the same Colonial Gables neighborhood as Cedarwood Dr, making it easy to visit both! Kids love catching the flying snow bubbles.",
+    "mapsQuery": "5580 Hayden Blvd, Sarasota, FL 34232",
+    "icon": "\u2744\ufe0f"
+  },
+  {
+    "id": "cedar-hollow-neighborhood-lights",
+    "title": "Cedar Hollow Christmas Neighborhood Trail",
+    "location": "Sarasota",
+    "venue": "Cedar Hollow Subdivision",
+    "address": "Cedar Hollow Cir (off Honore Ave), Sarasota, FL 34235",
+    "lat": 27.355,
+    "lng": -82.47,
+    "distanceMiles": 43,
+    "driveTime": "44 mins",
+    "proximityTier": "sarasota",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "Drive-Through Neighborhood Canopy",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly in December 2026",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "cost": "Free Drive-Through",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "The entire Cedar Hollow neighborhood joins together every December to create an unforgettable drive-through light tunnel! Scores of neighboring homes coordinate illuminated driveway arches, glowing palm trees, and festive front lawn dioramas.",
+    "familyTip": "Enter off Honore Ave just south of Fruitville Rd. Drive at 5 MPH with parking lights on so kids in the back seat can take in the entire loop.",
+    "mapsQuery": "Cedar Hollow Cir, Sarasota, FL 34235",
+    "icon": "\u2728"
+  },
+  {
+    "id": "arundel-musical-lights-north-port",
+    "title": "1563 Arundel Avenue Musical Light Show",
+    "location": "North Port",
+    "venue": "Arundel Residential Display",
+    "address": "1563 Arundel Ave, North Port, FL 34286",
+    "lat": 27.058,
+    "lng": -82.205,
+    "distanceMiles": 15,
+    "driveTime": "18 mins",
+    "proximityTier": "north-port",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "\ud83d\udcfb Tune Car Radio to 88.3 FM",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "cost": "Free Drive-By Show",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "North Port's favorite residential animated light spectacular! Features thousands of synchronized pixel LEDs programmed to dance to holiday hits and modern beats broadcast right to your vehicle's FM radio.",
+    "familyTip": "Easy drive from Punta Gorda (just off Price Blvd). Pull to the right side of the road, turn off headlights, and keep volume at an enjoyable car level.",
+    "mapsQuery": "1563 Arundel Ave, North Port, FL 34286",
+    "icon": "\ud83c\udfb6"
+  },
+  {
+    "id": "samovar-terrace-holiday-block",
+    "title": "Samovar Terrace Holiday Lights Block",
+    "location": "North Port",
+    "venue": "Samovar Terrace Neighborhood",
+    "address": "Samovar Terrace, North Port, FL 34286",
+    "lat": 27.064,
+    "lng": -82.185,
+    "distanceMiles": 16,
+    "driveTime": "19 mins",
+    "proximityTier": "north-port",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "Drive-By Neighborhood Lights",
+    "startDate": "2026-12-01",
+    "endDate": "2026-12-31",
+    "dateDisplay": "Nightly in December 2026",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "cost": "Free Drive-Through",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Frequently voted North Port's Best Decorated Street, where multiple families decorate contiguous yards with hundreds of illuminated inflatables, rooftop displays, and synchronized light trees.",
+    "familyTip": "A great family nightcap after grabbing dinner in North Port. Very quiet residential street with easy slow cruising.",
+    "mapsQuery": "Samovar Terrace, North Port, FL 34286",
+    "icon": "\ud83c\udf1f"
+  },
+  {
+    "id": "conestoga-musical-light-show",
+    "title": "4064 Conestoga Choreographed Light Show",
+    "location": "Port Charlotte",
+    "venue": "Conestoga Residential Display",
+    "address": "4064 Conestoga St, Port Charlotte, FL 33948",
+    "lat": 26.996,
+    "lng": -82.148,
+    "distanceMiles": 9,
+    "driveTime": "13 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "\ud83d\udcfb Tune Car Radio to 89.1 FM",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
+    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "cost": "Free Drive-By Show",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Charlotte County's standout DIY home digital light spectacular! Thousands of RGB pixels across the roofline, windows, yard trees, and singing Christmas trees perform high-energy musical sequences synced to FM radio.",
+    "familyTip": "Very close to Punta Gorda 33983 (just across the harbor bridge off Veterans Blvd / Midway). Great stop when touring local Charlotte County lights.",
+    "mapsQuery": "4064 Conestoga St, Port Charlotte, FL 33948",
+    "icon": "\ud83d\udca1"
+  },
+  {
+    "id": "burnt-store-meadows-lights",
+    "title": "Burnt Store Meadows Holiday Home Trail",
+    "location": "Punta Gorda",
+    "venue": "Soursop St & South Blue Sage",
+    "address": "Soursop St & S Blue Sage, Punta Gorda, FL 33955",
+    "lat": 26.835,
+    "lng": -82.015,
+    "distanceMiles": 10,
+    "driveTime": "14 mins",
+    "proximityTier": "closest",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "Drive-By Residential Trail",
+    "startDate": "2026-12-01",
+    "endDate": "2026-12-31",
+    "dateDisplay": "Nightly in December 2026",
+    "timeDisplay": "6:00 PM \u2013 9:30 PM",
+    "cost": "Free Drive-Through",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A beloved south Punta Gorda neighborhood tradition where enthusiastic homeowners decorate along the greenbelts and streets with dazzling palm tree wraps, glowing nativity sets, and lighted canal bridges.",
+    "familyTip": "Combine this with a drive through Fishermen's Village for a complete Punta Gorda holiday lights evening!",
+    "mapsQuery": "Soursop St and S Blue Sage, Punta Gorda, FL 33955",
+    "icon": "\ud83c\udf34"
+  },
+  {
+    "id": "bradenton-72nd-musical-lights",
+    "title": "1811 72nd Street NW Synchronized Light Show",
+    "location": "Bradenton",
+    "venue": "Bradenton Residential Display",
+    "address": "1811 72nd St NW, Bradenton, FL 34209",
+    "lat": 27.512,
+    "lng": -82.648,
+    "distanceMiles": 54,
+    "driveTime": "55 mins",
+    "proximityTier": "bradenton",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "\ud83d\udcfb Tune Car Radio to 88.5 FM",
+    "startDate": "2026-11-26",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly, Thanksgiving \u2013 Jan 1, 2027",
+    "timeDisplay": "Sun\u2013Thu 6:00\u201310:00 PM, Fri\u2013Sat 6:00\u201311:00 PM",
+    "cost": "Free Drive-By Show",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "One of Manatee County's most acclaimed residential musical light spectacles! Features tens of thousands of custom-programmed lights dancing to holiday classics and Trans-Siberian Orchestra songs transmitted directly to your FM radio.",
+    "familyTip": "Turn headlights to amber parking lights so everyone behind you can enjoy the dazzling light display. Please do not block neighbor driveways.",
+    "mapsQuery": "1811 72nd St NW, Bradenton, FL 34209",
+    "icon": "\ud83c\udfb5"
+  },
+  {
+    "id": "barbaza-barrington-ridge-lights",
+    "title": "Barbaza's Holiday Lights at Barrington Ridge",
+    "location": "Bradenton",
+    "venue": "Barrington Ridge Subdivision",
+    "address": "6133 41st St E, Bradenton, FL 34203",
+    "lat": 27.438,
+    "lng": -82.512,
+    "distanceMiles": 46,
+    "driveTime": "47 mins",
+    "proximityTier": "bradenton",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "radioSync": "Walk-Up & Drive-By Display",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
+    "timeDisplay": "5:00 PM \u2013 11:00 PM",
+    "cost": "Free (Canned food donation box)",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "A heartwarming Bradenton family holiday tradition with over 10,000 sparkling lights, cheerful holiday characters, a festive photo booth bench for family pictures, and a community canned food donation collection box.",
+    "familyTip": "Park safely along 41st St E. Friendly homeowners welcome families to take holiday photos by the front walkway!",
+    "mapsQuery": "6133 41st St E, Bradenton, FL 34203",
+    "icon": "\ud83c\udfe1"
   }
 ];
 
@@ -2397,6 +2895,7 @@
     // State Management
     let eventsData = [...FESTIVITIES];
     let customEvents = JSON.parse(localStorage.getItem('swfl_custom_events') || '[]');
+    let communityHomeShows = JSON.parse(localStorage.getItem('swfl_community_home_shows') || '[]');
     let savedEventIds = new Set(JSON.parse(localStorage.getItem('swfl_saved_events') || '[]'));
 
     // User Location State
@@ -2412,6 +2911,7 @@
       category: 'all',
       freeOnly: false,
       strollerOnly: false,
+      radioOnly: false,
       savedOnly: false,
       sortBy: 'distance'
     };
@@ -2459,7 +2959,7 @@
     }
 
     function combineEvents() {
-      eventsData = [...FESTIVITIES, ...customEvents];
+      eventsData = [...FESTIVITIES, ...communityHomeShows, ...customEvents];
     }
 
     // Set Location by Custom ZIP Code or Town Name
@@ -2628,7 +3128,7 @@
         // Search query
         if (activeFilter.search) {
           const q = activeFilter.search.toLowerCase();
-          const matchText = `${ev.title} ${ev.venue} ${ev.location} ${ev.description} ${ev.categoryLabel}`.toLowerCase();
+          const matchText = `${ev.title} ${ev.venue} ${ev.address} ${ev.location} ${ev.description} ${ev.categoryLabel} ${ev.radioSync || ''}`.toLowerCase();
           if (!matchText.includes(q)) return false;
         }
 
@@ -2665,6 +3165,9 @@
         // Stroller Only
         if (activeFilter.strollerOnly && !ev.strollerFriendly) return false;
 
+        // Radio Only
+        if (activeFilter.radioOnly && (!ev.radioSync || !ev.radioSync.toLowerCase().includes('fm'))) return false;
+
         // Saved Only
         if (activeFilter.savedOnly && !savedEventIds.has(ev.id)) return false;
 
@@ -2687,7 +3190,7 @@
       const filtered = getFilteredEvents();
       
       document.getElementById('resultsSummary').textContent = 
-        `Showing ${filtered.length} of ${eventsData.length} festivities`;
+        `Showing ${filtered.length} of ${eventsData.length} festivities & home light shows`;
 
       if (filtered.length === 0) {
         container.innerHTML = `
@@ -2725,11 +3228,14 @@
         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.mapsQuery || (ev.venue + ', ' + ev.address))}`;
 
         return `
-          <article class="event-card">
+          <article class="event-card ${ev.isHomeDisplay ? 'card-home-display' : ''}">
             <div class="card-top">
-              <span class="proximity-badge ${tierClass}">
-                📍 ${ev.location} • ${dist} mi (${drive}) • ${tierLabel}
-              </span>
+              <div style="display:flex; align-items:center; flex-wrap:wrap; gap:0.35rem;">
+                <span class="proximity-badge ${tierClass}">
+                  📍 ${ev.location} • ${dist} mi (${drive}) • ${tierLabel}
+                </span>
+                ${ev.isHomeDisplay ? `<span class="home-display-tag">🏡 Home Show</span>` : ''}
+              </div>
               <button 
                 class="card-fav-btn ${isSaved ? 'is-saved' : ''}" 
                 onclick="toggleSaveEvent('${ev.id}')"
@@ -2742,6 +3248,12 @@
 
             <div class="card-body">
               <h2 class="card-title">${ev.icon || '🎉'} ${ev.title}</h2>
+
+              ${ev.radioSync ? `
+                <div class="radio-banner-row">
+                  <span>${ev.radioSync}</span>
+                </div>
+              ` : ''}
               
               <div class="card-meta">
                 <div class="meta-row">
@@ -2766,7 +3278,7 @@
 
               ${ev.familyTip ? `
                 <div class="family-tip-box">
-                  <div class="tip-title">💡 Family Tip</div>
+                  <div class="tip-title">${ev.isHomeDisplay ? '🚗 Spectator Etiquette & Tip' : '💡 Family Tip'}</div>
                   <div>${ev.familyTip}</div>
                 </div>
               ` : ''}
@@ -2836,6 +3348,7 @@
       const btnMap = {
         freeOnly: 'toggleFree',
         strollerOnly: 'toggleStroller',
+        radioOnly: 'toggleRadio',
         savedOnly: 'toggleSavedOnly'
       };
       const btn = document.getElementById(btnMap[filterKey]);
@@ -2858,6 +3371,7 @@
         category: 'all',
         freeOnly: false,
         strollerOnly: false,
+        radioOnly: false,
         savedOnly: false,
         sortBy: 'distance'
       };
@@ -2868,6 +3382,7 @@
       });
       document.getElementById('toggleFree').classList.remove('active');
       document.getElementById('toggleStroller').classList.remove('active');
+      document.getElementById('toggleRadio').classList.remove('active');
       document.getElementById('toggleSavedOnly').classList.remove('active');
       document.getElementById('sortSelect').value = 'distance';
       renderCards();
@@ -2943,7 +3458,8 @@
           <div class="cal-day ${isSelected ? 'is-selected' : ''}" onclick="selectCalDay('${dateStr}')">
             <span class="day-num">${day}</span>
             ${dayEvents.slice(0, 3).map(ev => {
-              const chipClass = ev.location === 'Punta Gorda' ? 'chip-pg' :
+              const chipClass = ev.isHomeDisplay ? 'chip-home' :
+                                ev.location === 'Punta Gorda' ? 'chip-pg' :
                                 ev.location === 'Venice' ? 'chip-venice' : 
                                 ev.location === 'Sarasota' ? 'chip-sarasota' : 
                                 ev.location === 'Bradenton' ? 'chip-bradenton' : '';
@@ -2995,7 +3511,7 @@
 
       const d = new Date(dateStr + 'T12:00:00');
       const formatted = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-      heading.textContent = `Festivities on ${formatted}`;
+      heading.textContent = `Festivities & Light Shows on ${formatted}`;
 
       if (dayEvents.length === 0) {
         listElem.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem;">No scheduled events on this date. Perfect day to plan a family dinner or holiday movie night!</p>`;
@@ -3035,6 +3551,14 @@
       document.getElementById('customEventModal').classList.remove('open');
     }
 
+    function openSubmitHomeShowModal() {
+      document.getElementById('submitHomeShowModal').classList.add('open');
+    }
+
+    function closeSubmitHomeShowModal() {
+      document.getElementById('submitHomeShowModal').classList.remove('open');
+    }
+
     function closeModalOnBackdrop(e, modalId) {
       if (e.target.id === modalId) {
         document.getElementById(modalId).classList.remove('open');
@@ -3069,12 +3593,82 @@
                 <h4>${ev.icon || '🎉'} ${ev.title}</h4>
                 <p>📅 ${ev.dateDisplay} • ⏰ ${ev.timeDisplay}</p>
                 <p>📍 ${ev.venue}, ${ev.location} (~${dist} mi from your location)</p>
+                ${ev.radioSync ? `<p style="color:#16a34a; font-weight:700;">${ev.radioSync}</p>` : ''}
               </div>
               <button class="btn-remove" onclick="toggleSaveEvent('${ev.id}')">Remove</button>
             </div>
           `;
         }).join('')}
       `;
+    }
+
+    // Community Home Light Show Submission
+    function saveHomeShowSubmission(e) {
+      e.preventDefault();
+      const title = document.getElementById('hsTitle').value.trim();
+      const address = document.getElementById('hsAddress').value.trim();
+      const city = document.getElementById('hsCity').value;
+      const zip = document.getElementById('hsZip').value.trim();
+      const radio = document.getElementById('hsRadio').value.trim();
+      const dates = document.getElementById('hsDates').value.trim() || 'Nightly in December';
+      const hours = document.getElementById('hsHours').value.trim() || '6:00 PM – 10:00 PM';
+      const desc = document.getElementById('hsDesc').value.trim();
+      const tip = document.getElementById('hsTip').value.trim() || 'Please dim headlights to parking lights and do not block neighbor driveways.';
+
+      // Determine coordinates from ZIP
+      let lat = currentUserLat;
+      let lng = currentUserLng;
+      if (ZIP_COORDINATES[zip]) {
+        lat = ZIP_COORDINATES[zip].lat;
+        lng = ZIP_COORDINATES[zip].lng;
+      }
+
+      const newHomeShow = {
+        id: 'home-show-' + Date.now(),
+        title: title,
+        location: city,
+        venue: address,
+        address: `${address}, ${city}, FL ${zip}`,
+        lat: lat,
+        lng: lng,
+        distanceMiles: 10,
+        driveTime: '15 mins',
+        proximityTier: city.toLowerCase().replace(/\s+/g, '-'),
+        season: 'winter',
+        category: 'home-lights',
+        categoryLabel: 'Home & Neighborhood Light Shows',
+        isHomeDisplay: true,
+        isCommunitySubmitted: true,
+        radioSync: radio || '',
+        startDate: '2026-12-01',
+        endDate: '2027-01-01',
+        dateDisplay: dates,
+        timeDisplay: hours,
+        cost: 'Free Drive-By Show',
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: desc || `Spectacular residential holiday light show hosted by local homeowners at ${address}.`,
+        familyTip: tip,
+        mapsQuery: `${address}, ${city}, FL ${zip}`,
+        icon: '🏡'
+      };
+
+      communityHomeShows.push(newHomeShow);
+      localStorage.setItem('swfl_community_home_shows', JSON.stringify(communityHomeShows));
+
+      // Also automatically bookmark for easy reference
+      savedEventIds.add(newHomeShow.id);
+      localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
+
+      combineEvents();
+      applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
+      updateSavedCount();
+      renderCalendar();
+      closeSubmitHomeShowModal();
+      document.getElementById('homeShowForm').reset();
+
+      alert(`🎉 Thank you! "${title}" has been added to the community planner. Neighbors can now find it and get driving directions!`);
     }
 
     // Save Custom Family Event
@@ -3162,7 +3756,7 @@
         lines.push(`DTSTAMP:${formatICSDate(new Date())}`);
         lines.push(`DTSTART;VALUE=DATE:${startClean}`);
         lines.push(`SUMMARY:${escapeICS(ev.title)}`);
-        lines.push(`DESCRIPTION:${escapeICS(ev.description + ' (Time: ' + ev.timeDisplay + ')')}`);
+        lines.push(`DESCRIPTION:${escapeICS(ev.description + (ev.radioSync ? ' [' + ev.radioSync + ']' : '') + ' (Time: ' + ev.timeDisplay + ')')}`);
         lines.push(`LOCATION:${escapeICS(ev.venue + ', ' + ev.address)}`);
         lines.push('STATUS:CONFIRMED');
         lines.push('END:VEVENT');

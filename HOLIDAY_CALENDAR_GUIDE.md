@@ -232,7 +232,84 @@
 
 ---
 
+## 🏡 Neighborhood & Residential Light Shows (Drive-By & FM Radio Sync)
+
+### 30. Enander's Winter Wonderland (Nokomis / Venice)
+- **Where:** 2281 Mission Valley Blvd, Nokomis, FL 34275 *(~22 miles from PG)*
+- **When:** Nightly, Dec 1, 2026 – Jan 1, 2027 (6:00 PM – 10:00 PM)
+- **Sound:** Walk-through outdoor holiday music
+- **Admission:** **FREE** (Accepting canned food & toy donations)
+- **Highlights:** 30+ year tradition with 400,000+ lights, animated gingerbread men, toy soldier castle pathways, and snowmen.
+
+### 31. 5534 Cedarwood Drive Musical Light Show (Sarasota)
+- **Where:** 5534 Cedarwood Dr, Sarasota, FL 34232 *(Colonial Gables • ~39 miles)*
+- **When:** Nightly, Thanksgiving – Jan 2, 2027 (6:00 PM – 10:00 PM; weekends until 10:30 PM)
+- **Sound:** 📻 **Tune Car Radio to 95.5 FM** (Interactive smartphone song voting available!)
+- **Admission:** **FREE Drive-By**
+- **Highlights:** 50,000+ computer-synchronized smart pixels dancing to 40+ holiday, pop, and movie songs.
+
+### 32. 5580 Hayden Boulevard "Snow Flurry" Home (Sarasota)
+- **Where:** 5580 Hayden Blvd, Sarasota, FL 34232 *(Colonial Gables • ~39 miles)*
+- **When:** Nightly in December 2026 (6:30 PM – 9:30 PM)
+- **Sound:** Outdoor classic holiday carols & active snow machines
+- **Admission:** **FREE (Park & Walk)**
+- **Highlights:** Real faux-snow machines blowing flurry clouds into the front yard, illuminated inflatables, and glowing archways.
+
+### 33. Cedar Hollow Christmas Neighborhood Trail (Sarasota)
+- **Where:** Cedar Hollow Cir (off Honore Ave south of Fruitville), Sarasota, FL 34235 *(~43 miles)*
+- **When:** Nightly in December 2026 (6:00 PM – 10:00 PM)
+- **Sound:** Drive-through neighborhood canopy
+- **Admission:** **FREE Drive-Through**
+- **Highlights:** Entire neighborhood collaborates on illuminated driveway arches, glowing palm trees, and front lawn holiday scenes.
+
+### 34. 1563 Arundel Avenue Musical Light Show (North Port)
+- **Where:** 1563 Arundel Ave, North Port, FL 34286 *(~15 miles from PG)*
+- **When:** Nightly, Dec 1, 2026 – Jan 1, 2027 (6:00 PM – 10:00 PM)
+- **Sound:** 📻 **Tune Car Radio to 88.3 FM**
+- **Admission:** **FREE Drive-By**
+- **Highlights:** Thousands of synchronized pixel LEDs programmed to dance to holiday hits broadcast right to your vehicle's FM radio.
+
+### 35. Samovar Terrace Holiday Lights Block (North Port)
+- **Where:** Samovar Terrace, North Port, FL 34286 *(~16 miles from PG)*
+- **When:** Nightly in December 2026 (6:00 PM – 10:00 PM)
+- **Admission:** **FREE Drive-Through**
+- **Highlights:** Block of neighbors collaborating on high-density holiday inflatables, illuminated rooftops, and tree canopies.
+
+### 36. 4064 Conestoga Choreographed Light Show (Port Charlotte)
+- **Where:** 4064 Conestoga St, Port Charlotte, FL 33948 *(~9 miles from PG 33983)*
+- **When:** Nightly, Dec 1, 2026 – Jan 1, 2027 (6:00 PM – 10:00 PM)
+- **Sound:** 📻 **Tune Car Radio to 89.1 FM**
+- **Admission:** **FREE Drive-By**
+- **Highlights:** Thousands of smart LEDs across rooflines, windows, and singing Christmas trees synced to energetic tunes.
+
+### 37. Burnt Store Meadows Holiday Home Trail (Punta Gorda)
+- **Where:** Soursop St & S Blue Sage, Punta Gorda, FL 33955 *(~10 miles from PG 33983)*
+- **When:** Nightly in December 2026 (6:00 PM – 9:30 PM)
+- **Admission:** **FREE Drive-Through**
+- **Highlights:** Neighborhood holiday trail with illuminated palm trees, canal bridge lights, and front yard nativity scenes.
+
+### 38. 1811 72nd Street NW Synchronized Light Show (Bradenton)
+- **Where:** 1811 72nd St NW, Bradenton, FL 34209 *(~54 miles from PG)*
+- **When:** Nightly, Thanksgiving – Jan 1, 2027 (Sun–Thu 6–10 PM, Fri–Sat 6–11 PM)
+- **Sound:** 📻 **Tune Car Radio to 88.5 FM**
+- **Admission:** **FREE Drive-By**
+- **Highlights:** Tens of thousands of custom-programmed lights dancing to holiday classics and Trans-Siberian Orchestra songs.
+
+### 39. Barbaza's Holiday Lights at Barrington Ridge (Bradenton)
+- **Where:** 6133 41st St E, Bradenton, FL 34203 *(~46 miles from PG)*
+- **When:** Nightly, Dec 1, 2026 – Jan 1, 2027 (5:00 PM – 11:00 PM)
+- **Admission:** **FREE** (Community canned food donation box)
+- **Highlights:** Over 10,000 sparkling lights, holiday characters, and a photo booth bench for family pictures.
+
+---
+
+## ✨ Host a Display? Submit Your Home Light Show!
+Anyone hosting a residential Christmas or Halloween light display can click the **"🏡 Submit Your Home Display"** button in the web app. Enter your address, dates, and FM radio frequency, and it will immediately appear on the map and calendar for local families to visit!
+
+---
+
 ## 📲 Progressive Web App & Offline Features
 - Open the live app at: **[https://jooshoo11.github.io/swfl-holiday-planner/](https://jooshoo11.github.io/swfl-holiday-planner/)**
-- Enter your exact ZIP code or tap **🎯 GPS** to automatically calculate drive times to all 30 events!
+- Enter your exact ZIP code or tap **🎯 GPS** to automatically calculate drive times to all 40 events and home shows!
+- Filter by **"🏡 Neighborhood & Home Light Shows"** or toggle **"📻 FM Radio Synced Only"** for your evening car rides!
 - Install to your home screen with 1 tap via the **"📲 Install App"** button.
