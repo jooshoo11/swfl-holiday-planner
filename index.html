@@ -3671,7 +3671,8 @@
     };
 
     // State Management
-    let eventsData = [...FESTIVITIES];
+    let liveFestivities = [...FESTIVITIES];
+    let eventsData = [...liveFestivities];
     let customEvents = JSON.parse(localStorage.getItem('swfl_custom_events') || '[]');
     let communityHomeShows = JSON.parse(localStorage.getItem('swfl_community_home_shows') || '[]');
     let pendingHomeShows = JSON.parse(localStorage.getItem('swfl_pending_home_shows') || '[]');
@@ -3745,6 +3746,9 @@
       const savedTheme = localStorage.getItem('swfl_theme') || 'autumn';
       setTheme(savedTheme);
       initAmbientSystem(savedTheme);
+
+      // Dynamically load latest live events published via Admin Dashboard
+      loadLiveEventsData();
     }
 
     function combineEvents() {
@@ -3760,7 +3764,30 @@
       localStorage.setItem('swfl_custom_events', JSON.stringify(customEvents));
       localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingHomeShows));
 
-      eventsData = [...FESTIVITIES, ...communityHomeShows, ...customEvents];
+      eventsData = [...liveFestivities, ...communityHomeShows, ...customEvents];
+    }
+
+    // Dynamic Live Events Database Sync
+    async function loadLiveEventsData() {
+      try {
+        const res = await fetch(`./events.json?t=${Date.now()}`);
+        if (res.ok) {
+          const liveData = await res.json();
+          if (Array.isArray(liveData) && liveData.length > 0) {
+            liveFestivities = liveData;
+            combineEvents();
+            applyLocationCoordinates(currentUserLat, currentUserLng, currentLocationName, currentZip, false);
+            renderCards();
+            renderResidentialTrail();
+            renderCalendar();
+            if (currentView === 'map' && leafletMap) {
+              renderMapMarkers();
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Using bundled events database fallback:', err);
+      }
     }
 
     // Set Location by Custom ZIP Code or Town Name
@@ -4478,7 +4505,8 @@
     function openAdminPrompt() {
       const code = prompt('Enter Creator Admin Passkey:');
       if (code === 'admin' || code === 'swfl2026' || code === 'creator') {
-        openAdminReviewModal();
+        sessionStorage.setItem('swfl_admin_auth', 'true');
+        window.location.href = './admin.html';
       } else if (code !== null) {
         alert('Incorrect passkey. This portal is reserved strictly for the site creator.');
       }

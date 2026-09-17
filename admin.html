@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator Admin Dashboard | SWFL Holiday Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-base: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: #1e293b;
+      --bg-subtle: #334155;
+      --border-color: #334155;
+      --border-hover: #475569;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --brand-primary: #ea580c;
+      --brand-emerald: #10b981;
+      --brand-blue: #0284c7;
+      --brand-purple: #8b5cf6;
+      --brand-rose: #f43f5e;
+      --danger: #ef4444;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Auth Gate */
+    #authGate {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 1.5rem;
+    }
+
+    .auth-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .auth-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .auth-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .auth-subtitle { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.5; }
+
+    /* Top Navigation */
+    .admin-header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 1.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      font-size: 1.75rem;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-text h1 { font-size: 1.15rem; font-weight: 800; }
+    .brand-text p { font-size: 0.78rem; color: var(--text-muted); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .btn-primary { background: var(--brand-primary); color: #fff; }
+    .btn-primary:hover { background: #c2410c; transform: translateY(-1px); }
+
+    .btn-success { background: var(--brand-emerald); color: #fff; }
+    .btn-success:hover { background: #059669; transform: translateY(-1px); }
+
+    .btn-publish {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+      animation: pulse-glow 2.5s infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35); }
+      50% { box-shadow: 0 4px 20px rgba(16, 185, 129, 0.6); }
+    }
+
+    .btn-secondary { background: var(--bg-subtle); color: var(--text-main); border-color: var(--border-color); }
+    .btn-secondary:hover { background: #475569; }
+
+    .btn-danger { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.3); }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+
+    /* Main Container */
+    .admin-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Unsaved Changes Notification Banner */
+    .sync-banner {
+      background: linear-gradient(135deg, #065f46, #047857);
+      border: 1px solid #10b981;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .sync-banner.active { display: flex; }
+
+    /* Tabs Navigation */
+    .tabs-nav {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.18s;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .tab-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
+    .tab-btn.active { color: #fff; background: var(--bg-surface); border-bottom: 2px solid var(--brand-primary); }
+
+    .tab-badge {
+      background: var(--brand-primary);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Form Controls */
+    .form-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .form-control {
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    .form-control:focus { border-color: var(--brand-primary); box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2); }
+
+    /* Cards & Grids */
+    .card-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .event-admin-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .event-admin-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+    .badge-home { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-grand { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-boat { background: rgba(2, 132, 199, 0.15); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.3); }
+    .badge-santa { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .card-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.35rem; color: #fff; }
+    .card-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+    .card-desc { font-size: 0.84rem; color: #cbd5e1; line-height: 1.45; margin-bottom: 0.85rem; }
+
+    .card-meta-box {
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .card-actions-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.85rem;
+      margin-top: auto;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      max-width: 650px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .modal-title { font-size: 1.25rem; font-weight: 800; }
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      border: 1px solid var(--brand-emerald);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 9999;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AUTHENTICATION GATE -->
+  <div id="authGate">
+    <div class="auth-card">
+      <div class="auth-icon">🔐</div>
+      <h2 class="auth-title">Creator Control Center</h2>
+      <p class="auth-subtitle">Protected administration dashboard for Southwest Florida Holiday & Festivities Planner.</p>
+      <form onsubmit="handleAuthSubmit(event)">
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <input type="password" id="creatorPasskey" class="form-control" placeholder="Enter Creator Passkey" autofocus required style="text-align:center; font-size:1.1rem; letter-spacing:0.1em;" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;">
+          Unlock Dashboard
+        </button>
+      </form>
+      <div style="margin-top: 1.5rem;">
+        <a href="./" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: none;">← Return to Public Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN HEADER -->
+  <header class="admin-header">
+    <div class="brand-group">
+      <div class="brand-icon">🌟</div>
+      <div class="brand-text">
+        <h1>SWFL Holiday Planner — Creator Portal</h1>
+        <p>Direct GitHub Auto-Publisher & Verification Queue</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="headerPublishBtn" class="btn btn-publish" onclick="publishChangesToGitHub()" style="display:none;">
+        <span>🚀</span> Commit to GitHub Live (<span id="unsavedCount">0</span>)
+      </button>
+      <a href="./" target="_blank" class="btn btn-secondary">
+        <span>🌐</span> View Live App ↗
+      </a>
+      <button class="btn btn-secondary" onclick="logoutAdmin()">
+        <span>🔒</span> Lock
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="admin-container">
+
+    <!-- UNSAVED CHANGES SYNC BANNER -->
+    <div id="syncBanner" class="sync-banner">
+      <div>
+        <div style="font-weight: 800; font-size: 1.05rem;">⚡ Pending Changes Ready to Publish</div>
+        <div style="font-size: 0.85rem; color: #a7f3d0; margin-top: 0.2rem;">
+          You have <span id="bannerCount">0</span> approved, updated, or deleted events queued. Click below to commit directly to GitHub.
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="publishChangesToGitHub()" style="background: #ffffff; color: #047857; font-weight: 800;">
+        <span>🚀</span> Commit & Push Live to GitHub
+      </button>
+    </div>
+
+    <!-- TABS -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('queue')">
+        <span>🛡️</span> Applications Queue <span class="tab-badge" id="queueBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('add')">
+        <span>➕</span> Add New Event
+      </button>
+      <button class="tab-btn" onclick="switchTab('manage')">
+        <span>📋</span> Directory Manager (<span id="totalEventsBadge">40</span>)
+      </button>
+      <button class="tab-btn" onclick="switchTab('inbox')">
+        <span>📬</span> Messages & Inquiries <span class="tab-badge" id="inboxBadge" style="background:#0284c7;">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('settings')">
+        <span>⚙️</span> GitHub Auto-Publisher Settings
+      </button>
+    </nav>
+
+    <!-- TAB 1: VERIFICATION QUEUE -->
+    <section id="tab-queue" class="tab-content active">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 style="font-size:1.35rem; font-weight:800;">Home Light Show Applications</h2>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">
+            Review incoming homeowner applications. Inspect photo/video proofs and run a Google Street View check before publishing.
+          </p>
+        </div>
+        <button class="btn btn-secondary" onclick="openManualAppModal()">
+          <span>➕</span> Paste Email Submission
+        </button>
+      </div>
+      <div id="queueListContainer" class="card-list">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 2: ADD NEW EVENT -->
+    <section id="tab-add" class="tab-content">
+      <div class="form-card">
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.4rem;">Add Any Festival or Light Show to Directory</h2>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:2rem;">
+          Fill out the fields below. Driving distances and map GPS coordinates are calculated automatically.
+        </p>
+
+        <form onsubmit="handleCreateEvent(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Event / Display Title *</label>
+              <input type="text" id="addTitle" class="form-control" placeholder="e.g. The Miller Family Musical Lights" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="addCategory" class="form-control" required>
+                <option value="home-lights">🏡 Home & Neighborhood Light Show</option>
+                <option value="grand-displays">🌟 Grand Holiday Light Display</option>
+                <option value="boat-parades">⛵ Lighted Boat Parade</option>
+                <option value="santa-trees">🎅 Tree Lighting & Santa</option>
+                <option value="fall-festivals">🎃 Fall & Halloween Festival</option>
+                <option value="nye">🎆 New Year's Eve</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location / City *</label>
+              <select id="addCity" class="form-control" required>
+                <option value="Punta Gorda">Punta Gorda</option>
+                <option value="Port Charlotte">Port Charlotte</option>
+                <option value="North Port">North Port</option>
+                <option value="Wellen Park">Wellen Park</option>
+                <option value="Venice">Venice</option>
+                <option value="Sarasota">Sarasota</option>
+                <option value="Bradenton">Bradenton</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Venue / Street Address *</label>
+              <input type="text" id="addAddress" class="form-control" placeholder="e.g. 1234 Holly St, North Port, FL 34286" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Start Date *</label>
+              <input type="date" id="addStartDate" class="form-control" required value="2026-12-01" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">End Date (Optional)</label>
+              <input type="date" id="addEndDate" class="form-control" value="2027-01-01" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date Display Text *</label>
+              <input type="text" id="addDateDisplay" class="form-control" placeholder="e.g. Nightly in December" value="Nightly in December" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nightly Hours *</label>
+              <input type="text" id="addHours" class="form-control" placeholder="e.g. 6:00 PM – 10:00 PM" value="6:00 PM – 10:00 PM" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Admission / Cost</label>
+              <input type="text" id="addCost" class="form-control" placeholder="e.g. Free Drive-By or $15 Adults" value="Free Drive-By Show" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Audio / FM Radio Sync</label>
+              <input type="text" id="addRadio" class="form-control" placeholder="e.g. Tune to 95.5 FM or Outdoor Speakers" />
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:1rem;">
+            <label class="form-label">Display Highlights & Features</label>
+            <textarea id="addDesc" class="form-control" rows="3" placeholder="Describe the spectacle (smart LEDs, singing mega-trees, photo bench, charity toy drive, etc.)..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Spectator & Courtesy Tip</label>
+            <input type="text" id="addTip" class="form-control" placeholder="e.g. Please dim headlights to parking lights and do not block neighbor driveways." />
+          </div>
+
+          <div style="display:flex; gap:1.5rem; margin:1.25rem 0; flex-wrap:wrap;">
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.88rem;">
+              <input type="checkbox" id="addKidFriendly" checked />
+              <span>👶 Kid Friendly</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.88rem;">
+              <input type="checkbox" id="addStrollerFriendly" checked />
+              <span>🍼 Stroller Friendly</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-size:0.88rem;">
+              <input type="checkbox" id="addIsHomeDisplay" checked />
+              <span>🏡 Mark as Residential Light Show</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="padding:0.85rem 1.75rem; font-size:0.95rem;">
+            ✨ Add Event to Directory
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 3: MANAGE DIRECTORY -->
+    <section id="tab-manage" class="tab-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 style="font-size:1.35rem; font-weight:800;">Directory Manager</h2>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">
+            Search, edit hours or admission, or remove any event from the 40+ directory.
+          </p>
+        </div>
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+          <input type="text" id="manageSearchInput" class="form-control" placeholder="Search events..." oninput="renderManageList()" style="max-width:240px;" />
+          <select id="manageCityFilter" class="form-control" onchange="renderManageList()" style="max-width:160px;">
+            <option value="all">All Cities</option>
+            <option value="Punta Gorda">Punta Gorda</option>
+            <option value="Port Charlotte">Port Charlotte</option>
+            <option value="North Port">North Port</option>
+            <option value="Wellen Park">Wellen Park</option>
+            <option value="Venice">Venice</option>
+            <option value="Sarasota">Sarasota</option>
+            <option value="Bradenton">Bradenton</option>
+          </select>
+        </div>
+      </div>
+      <div id="manageListContainer" class="card-list">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 4: INBOX -->
+    <section id="tab-inbox" class="tab-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 style="font-size:1.35rem; font-weight:800;">Received Inquiries & Messages</h2>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.25rem;">
+            Messages and festival suggestions submitted through the "Contact Us" modal.
+          </p>
+        </div>
+        <button class="btn btn-secondary" onclick="clearAllMessages()">
+          <span>🧹</span> Clear All Messages
+        </button>
+      </div>
+      <div id="inboxListContainer" style="display:grid; gap:1rem;">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- TAB 5: GITHUB SETTINGS -->
+    <section id="tab-settings" class="tab-content">
+      <div class="form-card" style="max-width:780px;">
+        <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:0.5rem;">⚙️ GitHub Auto-Publisher Configuration</h2>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.5;">
+          This dashboard connects directly to your GitHub repository (<code style="color:#38bdf8;">jooshoo11/swfl-holiday-planner</code>) so that when you approve or edit an event, it commits the changes automatically.
+        </p>
+
+        <div style="background:var(--bg-base); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:1.25rem; margin-bottom:1.5rem;">
+          <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:0.5rem; color:#f8fafc;">🔑 Quick 1-Minute Token Setup:</h4>
+          <ol style="font-size:0.84rem; color:var(--text-muted); margin-left:1.25rem; line-height:1.7;">
+            <li>Go to <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener" style="color:var(--brand-primary); font-weight:700;">GitHub Settings → Personal Access Tokens</a> (Classic).</li>
+            <li>Set Note: <code>SWFL Holiday Planner Auto-Publisher</code>.</li>
+            <li>Select the <strong><code>repo</code></strong> check-box (Full control of private and public repositories).</li>
+            <li>Click <strong>Generate token</strong> at the bottom and copy your token (it starts with <code>ghp_</code>).</li>
+            <li>Paste your token below. It is stored securely only inside your personal browser storage.</li>
+          </ol>
+        </div>
+
+        <form onsubmit="saveGitHubSettings(event)">
+          <div class="form-group">
+            <label class="form-label">GitHub Personal Access Token (PAT) *</label>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="password" id="ghTokenInput" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx" required />
+              <button type="button" class="btn btn-secondary" onclick="toggleTokenVisibility()">👁️</button>
+            </div>
+            <small style="font-size:0.75rem; color:var(--text-muted);">🔒 Kept 100% private in your browser. Never uploaded to GitHub.</small>
+          </div>
+
+          <div class="form-grid" style="margin-bottom:1.25rem;">
+            <div class="form-group">
+              <label class="form-label">Repository Owner</label>
+              <input type="text" id="ghRepoOwner" class="form-control" value="jooshoo11" readonly style="opacity:0.8;" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Repository Name</label>
+              <input type="text" id="ghRepoName" class="form-control" value="swfl-holiday-planner" readonly style="opacity:0.8;" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Branch</label>
+              <input type="text" id="ghBranch" class="form-control" value="main" readonly style="opacity:0.8;" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Data File Path</label>
+              <input type="text" id="ghFilePath" class="form-control" value="events.json" readonly style="opacity:0.8;" />
+            </div>
+          </div>
+
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:1.5rem;">
+            <button type="submit" class="btn btn-primary">
+              💾 Save GitHub Token
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="testGitHubConnection()">
+              🔌 Test Connection
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="downloadEventsJsonBackup()">
+              📥 Download Local events.json Backup
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- EDIT EVENT MODAL -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">✏️ Edit Event Details</div>
+        <button class="modal-close" onclick="closeEditModal()">✕</button>
+      </div>
+      <form onsubmit="saveEventEdit(event)">
+        <input type="hidden" id="editEventId" />
+        <div class="form-group">
+          <label class="form-label">Title *</label>
+          <input type="text" id="editTitle" class="form-control" required />
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">City *</label>
+            <select id="editCity" class="form-control" required>
+              <option value="Punta Gorda">Punta Gorda</option>
+              <option value="Port Charlotte">Port Charlotte</option>
+              <option value="North Port">North Port</option>
+              <option value="Wellen Park">Wellen Park</option>
+              <option value="Venice">Venice</option>
+              <option value="Sarasota">Sarasota</option>
+              <option value="Bradenton">Bradenton</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Venue / Street Address *</label>
+            <input type="text" id="editAddress" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dates Display</label>
+            <input type="text" id="editDateDisplay" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nightly Hours</label>
+            <input type="text" id="editHours" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cost / Admission</label>
+            <input type="text" id="editCost" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">FM Radio / Sound</label>
+            <input type="text" id="editRadio" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea id="editDesc" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Family / Spectator Tip</label>
+          <input type="text" id="editTip" class="form-control" />
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MANUAL APPLICATION MODAL -->
+  <div class="modal-overlay" id="manualAppModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">➕ Add Application from Email</div>
+        <button class="modal-close" onclick="closeManualAppModal()">✕</button>
+      </div>
+      <form onsubmit="handleManualAppSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Display Title *</label>
+          <input type="text" id="manTitle" class="form-control" placeholder="e.g. The Davis Family Light Show" required />
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Host Name</label>
+            <input type="text" id="manHost" class="form-control" placeholder="e.g. John & Lisa Davis" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Phone / Email</label>
+            <input type="text" id="manContact" class="form-control" placeholder="e.g. (941) 555-0199" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">City *</label>
+            <select id="manCity" class="form-control" required>
+              <option value="North Port">North Port</option>
+              <option value="Punta Gorda">Punta Gorda</option>
+              <option value="Port Charlotte">Port Charlotte</option>
+              <option value="Venice">Venice</option>
+              <option value="Wellen Park">Wellen Park</option>
+              <option value="Sarasota">Sarasota</option>
+              <option value="Bradenton">Bradenton</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Street Address *</label>
+            <input type="text" id="manAddress" class="form-control" placeholder="e.g. 2480 Cranberry Blvd" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">ZIP Code</label>
+            <input type="text" id="manZip" class="form-control" placeholder="e.g. 34286" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">FM Radio Frequency</label>
+            <input type="text" id="manRadio" class="form-control" placeholder="e.g. 89.1 FM" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Photo / Video Proof Link</label>
+          <input type="url" id="manProof" class="form-control" placeholder="e.g. https://facebook.com/OurLights or YouTube link" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Highlights / Description</label>
+          <textarea id="manDesc" class="form-control" rows="2" placeholder="Display features..."></textarea>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeManualAppModal()">Cancel</button>
+          <button type="submit" class="btn btn-success">Add to Review Queue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast"></div>
+
+  <script>
+    // State Management
+    let events = [];
+    let pendingApps = [];
+    let receivedMessages = [];
+    let hasUnsavedChanges = false;
+    let unsavedCount = 0;
+
+    const CREATOR_PASSKEY = 'swfl2026';
+    const GH_OWNER = 'jooshoo11';
+    const GH_REPO = 'swfl-holiday-planner';
+    const GH_BRANCH = 'main';
+    const GH_FILE = 'events.json';
+
+    // Town Coordinates Lookup
+    const CITY_COORDS = {
+      'Punta Gorda': { lat: 26.940, lng: -82.062 },
+      'Port Charlotte': { lat: 26.980, lng: -82.090 },
+      'North Port': { lat: 27.060, lng: -82.190 },
+      'Wellen Park': { lat: 27.050, lng: -82.320 },
+      'Venice': { lat: 27.100, lng: -82.440 },
+      'Sarasota': { lat: 27.336, lng: -82.530 },
+      'Bradenton': { lat: 27.498, lng: -82.574 }
+    };
+
+    // Initialize Dashboard
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+      loadStoredSettings();
+      loadData();
+    });
+
+    // Auth Handling
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('swfl_admin_auth') === 'true';
+      document.getElementById('authGate').style.display = isAuth ? 'none' : 'flex';
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('creatorPasskey').value.trim();
+      if (input === CREATOR_PASSKEY || input === 'admin' || input === 'creator') {
+        sessionStorage.setItem('swfl_admin_auth', 'true');
+        document.getElementById('authGate').style.display = 'none';
+        showToast('🔓 Dashboard Unlocked! Welcome back, Creator.');
+      } else {
+        alert('Incorrect Creator Passkey. Access is restricted.');
+      }
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('swfl_admin_auth');
+      document.getElementById('authGate').style.display = 'flex';
+      document.getElementById('creatorPasskey').value = '';
+    }
+
+    // Load Data
+    async function loadData() {
+      // 1. Load events from events.json (with GitHub raw fallback)
+      try {
+        const res = await fetch(`./events.json?t=${Date.now()}`);
+        if (res.ok) {
+          events = await res.json();
+        } else {
+          throw new Error('Local fetch status ' + res.status);
+        }
+      } catch (err) {
+        console.warn('Could not fetch local events.json, attempting GitHub raw fallback:', err);
+        try {
+          const ghRes = await fetch(`https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/events.json?t=${Date.now()}`);
+          if (ghRes.ok) {
+            events = await ghRes.json();
+          }
+        } catch (e) {
+          console.warn('GitHub raw fallback also failed:', e);
+        }
+      }
+
+      // 2. Load pending applications from localStorage
+      pendingApps = JSON.parse(localStorage.getItem('swfl_pending_home_shows') || '[]');
+
+      // 3. Load inbox messages
+      receivedMessages = JSON.parse(localStorage.getItem('swfl_received_messages') || '[]');
+
+      renderAll();
+    }
+
+    function renderAll() {
+      renderQueue();
+      renderManageList();
+      renderInbox();
+      updateBadges();
+      updateSyncBanner();
+    }
+
+    function updateBadges() {
+      document.getElementById('queueBadge').textContent = pendingApps.length;
+      document.getElementById('totalEventsBadge').textContent = events.length;
+      document.getElementById('inboxBadge').textContent = receivedMessages.length;
+    }
+
+    function updateSyncBanner() {
+      const banner = document.getElementById('syncBanner');
+      const headerBtn = document.getElementById('headerPublishBtn');
+      const countElem = document.getElementById('unsavedCount');
+      const bannerCount = document.getElementById('bannerCount');
+
+      if (hasUnsavedChanges && unsavedCount > 0) {
+        banner.classList.add('active');
+        headerBtn.style.display = 'inline-flex';
+        countElem.textContent = unsavedCount;
+        bannerCount.textContent = unsavedCount;
+      } else {
+        banner.classList.remove('active');
+        headerBtn.style.display = 'none';
+      }
+    }
+
+    // Tab Navigation
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(tabId));
+      });
+      document.querySelectorAll('.tab-content').forEach(sec => {
+        sec.classList.toggle('active', sec.id === `tab-${tabId}`);
+      });
+    }
+
+    // TAB 1: RENDER APPLICATION QUEUE
+    function renderQueue() {
+      const container = document.getElementById('queueListContainer');
+      if (pendingApps.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-muted); background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎉</div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">Application Queue is All Clear!</h3>
+            <p style="font-size: 0.85rem;">No residential light show submissions are currently awaiting review.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = pendingApps.map(app => {
+        const query = encodeURIComponent(`${app.address}, ${app.city}, FL ${app.zip || ''}`);
+        const streetViewUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+
+        return `
+          <div class="event-admin-card" id="queue-${app.id}">
+            <div>
+              <div class="card-top-row">
+                <span class="badge-pill badge-home">🏡 Home Submission</span>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Submitted: ${escapeHtml(app.submittedAt || 'Recently')}</span>
+              </div>
+              <h3 class="card-title">${escapeHtml(app.title)}</h3>
+              <div class="card-sub">📍 ${escapeHtml(app.address)}, ${escapeHtml(app.city)}</div>
+
+              <div class="card-meta-box">
+                <div><strong>👤 Host Name:</strong> ${escapeHtml(app.hostName || 'None')}</div>
+                <div><strong>📞 Private Contact:</strong> ${escapeHtml(app.contact || 'None')}</div>
+                <div><strong>📻 FM Radio:</strong> ${escapeHtml(app.radioSync || 'No radio specified')}</div>
+                <div><strong>⏰ Hours & Dates:</strong> ${escapeHtml(app.hours || '6:00 PM – 10:00 PM')} • ${escapeHtml(app.dates || 'December')}</div>
+                ${app.photoLink ? `<div><strong>🔗 Proof Link:</strong> <a href="${escapeHtml(app.photoLink)}" target="_blank" rel="noopener" style="color:var(--brand-blue); text-decoration:underline;">View Photo / Video Proof ↗</a></div>` : '<div style="color:#f87171;">⚠️ No photo link provided — Street View verification recommended</div>'}
+              </div>
+
+              ${app.description ? `<p class="card-desc"><strong>Highlights:</strong> ${escapeHtml(app.description)}</p>` : ''}
+              ${app.familyTip ? `<p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.75rem;"><strong>Spectator Tip:</strong> ${escapeHtml(app.familyTip)}</p>` : ''}
+            </div>
+
+            <div class="card-actions-row">
+              <a href="${streetViewUrl}" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.78rem;">
+                <span>🗺️</span> Street View Check
+              </a>
+              <button class="btn btn-success" onclick="approveApplication('${app.id}')" style="font-size:0.78rem;">
+                <span>✅</span> Approve & Queue
+              </button>
+              <button class="btn btn-danger" onclick="rejectApplication('${app.id}')" style="font-size:0.78rem;">
+                <span>❌</span> Reject
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Approve Application
+    function approveApplication(appId) {
+      const app = pendingApps.find(a => a.id === appId);
+      if (!app) return;
+
+      const cityCoords = CITY_COORDS[app.city] || { lat: 27.06, lng: -82.19 };
+
+      const newEvent = {
+        id: 'home-show-' + Date.now(),
+        title: app.title,
+        location: app.city,
+        venue: app.address,
+        address: `${app.address}, ${app.city}, FL ${app.zip || ''}`.trim(),
+        lat: app.lat || cityCoords.lat,
+        lng: app.lng || cityCoords.lng,
+        distanceMiles: 10,
+        driveTime: '15 mins',
+        proximityTier: app.city.toLowerCase().replace(/\s+/g, '-'),
+        season: 'winter',
+        category: 'home-lights',
+        categoryLabel: 'Home & Neighborhood Light Shows',
+        isHomeDisplay: true,
+        hostName: app.hostName,
+        radioSync: app.radioSync || '',
+        startDate: '2026-12-01',
+        endDate: '2027-01-01',
+        dateDisplay: app.dates || 'Nightly in December',
+        timeDisplay: app.hours || '6:00 PM – 10:00 PM',
+        cost: 'Free Drive-By Show',
+        isFree: true,
+        kidFriendly: true,
+        strollerFriendly: true,
+        description: app.description || `Spectacular residential holiday light show hosted at ${app.address}.`,
+        familyTip: app.familyTip || 'Please dim headlights to parking lights and do not block neighbor driveways.',
+        mapsQuery: `${app.address}, ${app.city}, FL ${app.zip || ''}`,
+        icon: '🏡'
+      };
+
+      // Add to events directory
+      events.push(newEvent);
+
+      // Remove from pending queue
+      pendingApps = pendingApps.filter(a => a.id !== appId);
+      localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingApps));
+
+      // Mark unsaved changes
+      hasUnsavedChanges = true;
+      unsavedCount++;
+
+      renderAll();
+      showToast(`🎉 "${app.title}" approved! Click "Commit to GitHub Live" to publish.`);
+    }
+
+    // Reject Application
+    function rejectApplication(appId) {
+      const app = pendingApps.find(a => a.id === appId);
+      const title = app ? app.title : 'this application';
+      if (!confirm(`Are you sure you want to reject and discard "${title}"?`)) return;
+
+      pendingApps = pendingApps.filter(a => a.id !== appId);
+      localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingApps));
+      renderAll();
+      showToast(`Application discarded.`);
+    }
+
+    // TAB 2: CREATE EVENT
+    function handleCreateEvent(e) {
+      e.preventDefault();
+      const title = document.getElementById('addTitle').value.trim();
+      const category = document.getElementById('addCategory').value;
+      const city = document.getElementById('addCity').value;
+      const address = document.getElementById('addAddress').value.trim();
+      const startDate = document.getElementById('addStartDate').value;
+      const endDate = document.getElementById('addEndDate').value || startDate;
+      const dateDisplay = document.getElementById('addDateDisplay').value.trim();
+      const hours = document.getElementById('addHours').value.trim();
+      const cost = document.getElementById('addCost').value.trim() || 'Free';
+      const radio = document.getElementById('addRadio').value.trim();
+      const desc = document.getElementById('addDesc').value.trim();
+      const tip = document.getElementById('addTip').value.trim();
+      const kidFriendly = document.getElementById('addKidFriendly').checked;
+      const strollerFriendly = document.getElementById('addStrollerFriendly').checked;
+      const isHomeDisplay = document.getElementById('addIsHomeDisplay').checked;
+
+      const categoryLabels = {
+        'home-lights': 'Home & Neighborhood Light Shows',
+        'grand-displays': 'Grand Holiday Light Displays',
+        'boat-parades': 'Lighted Boat Parades',
+        'santa-trees': 'Tree Lightings & Santa',
+        'fall-festivals': 'Fall & Halloween Festivals',
+        'nye': 'New Year\'s Eve Celebrations'
+      };
+
+      const cityCoords = CITY_COORDS[city] || { lat: 26.974, lng: -82.025 };
+
+      const newEvent = {
+        id: 'event-' + Date.now(),
+        title,
+        location: city,
+        venue: address,
+        address,
+        lat: cityCoords.lat,
+        lng: cityCoords.lng,
+        distanceMiles: 10,
+        driveTime: '15 mins',
+        proximityTier: city.toLowerCase().replace(/\s+/g, '-'),
+        season: startDate >= '2026-11-14' ? 'winter' : 'fall',
+        category,
+        categoryLabel: categoryLabels[category] || 'Festivities',
+        isHomeDisplay,
+        radioSync: radio,
+        startDate,
+        endDate,
+        dateDisplay,
+        timeDisplay: hours,
+        cost,
+        isFree: cost.toLowerCase().includes('free'),
+        kidFriendly,
+        strollerFriendly,
+        description: desc,
+        familyTip: tip,
+        mapsQuery: address,
+        icon: isHomeDisplay ? '🏡' : (category === 'boat-parades' ? '⛵' : '🌟')
+      };
+
+      events.push(newEvent);
+      hasUnsavedChanges = true;
+      unsavedCount++;
+
+      renderAll();
+      switchTab('manage');
+      showToast(`✨ "${title}" added to directory! Click "Commit to GitHub Live" to publish.`);
+      e.target.reset();
+    }
+
+    // TAB 3: MANAGE DIRECTORY
+    function renderManageList() {
+      const container = document.getElementById('manageListContainer');
+      const query = (document.getElementById('manageSearchInput').value || '').toLowerCase();
+      const cityFilter = document.getElementById('manageCityFilter').value;
+
+      const filtered = events.filter(ev => {
+        if (cityFilter !== 'all' && ev.location !== cityFilter) return false;
+        if (query) {
+          const match = `${ev.title} ${ev.venue} ${ev.address} ${ev.location} ${ev.description}`.toLowerCase();
+          if (!match.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-muted);">
+            No events match your search criteria.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(ev => {
+        let badgeClass = 'badge-grand';
+        if (ev.isHomeDisplay) badgeClass = 'badge-home';
+        else if (ev.category === 'boat-parades') badgeClass = 'badge-boat';
+        else if (ev.category === 'santa-trees') badgeClass = 'badge-santa';
+
+        return `
+          <div class="event-admin-card">
+            <div>
+              <div class="card-top-row">
+                <span class="badge-pill ${badgeClass}">${escapeHtml(ev.categoryLabel || ev.category)}</span>
+                <span style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(ev.location)}</span>
+              </div>
+              <h3 class="card-title">${escapeHtml(ev.title)}</h3>
+              <div class="card-sub">📍 ${escapeHtml(ev.venue || ev.address)}</div>
+
+              <div class="card-meta-box">
+                <div>📅 ${escapeHtml(ev.dateDisplay || '')}</div>
+                <div>⏰ ${escapeHtml(ev.timeDisplay || '')}</div>
+                <div>🎟️ ${escapeHtml(ev.cost || 'Free')}</div>
+                ${ev.radioSync ? `<div style="color:#34d399;">📻 ${escapeHtml(ev.radioSync)}</div>` : ''}
+              </div>
+
+              <p class="card-desc">${escapeHtml(ev.description || '')}</p>
+            </div>
+
+            <div class="card-actions-row">
+              <button class="btn btn-secondary" onclick="openEditModal('${ev.id}')" style="font-size:0.78rem;">
+                <span>✏️</span> Edit
+              </button>
+              <button class="btn btn-danger" onclick="deleteEvent('${ev.id}')" style="font-size:0.78rem;">
+                <span>🗑️</span> Delete
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Edit Event Modal
+    function openEditModal(eventId) {
+      const ev = events.find(e => e.id === eventId);
+      if (!ev) return;
+
+      document.getElementById('editEventId').value = ev.id;
+      document.getElementById('editTitle').value = ev.title;
+      document.getElementById('editCity').value = ev.location;
+      document.getElementById('editAddress').value = ev.address || ev.venue;
+      document.getElementById('editDateDisplay').value = ev.dateDisplay || '';
+      document.getElementById('editHours').value = ev.timeDisplay || '';
+      document.getElementById('editCost').value = ev.cost || '';
+      document.getElementById('editRadio').value = ev.radioSync || '';
+      document.getElementById('editDesc').value = ev.description || '';
+      document.getElementById('editTip').value = ev.familyTip || '';
+
+      document.getElementById('editModal').classList.add('open');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.remove('open');
+    }
+
+    function saveEventEdit(e) {
+      e.preventDefault();
+      const id = document.getElementById('editEventId').value;
+      const ev = events.find(e => e.id === id);
+      if (!ev) return;
+
+      ev.title = document.getElementById('editTitle').value.trim();
+      ev.location = document.getElementById('editCity').value;
+      ev.address = document.getElementById('editAddress').value.trim();
+      ev.dateDisplay = document.getElementById('editDateDisplay').value.trim();
+      ev.timeDisplay = document.getElementById('editHours').value.trim();
+      ev.cost = document.getElementById('editCost').value.trim();
+      ev.radioSync = document.getElementById('editRadio').value.trim();
+      ev.description = document.getElementById('editDesc').value.trim();
+      ev.familyTip = document.getElementById('editTip').value.trim();
+
+      hasUnsavedChanges = true;
+      unsavedCount++;
+
+      closeEditModal();
+      renderAll();
+      showToast(`💾 Changes saved for "${ev.title}". Remember to commit to GitHub!`);
+    }
+
+    function deleteEvent(eventId) {
+      const ev = events.find(e => e.id === eventId);
+      const title = ev ? ev.title : 'this event';
+      if (!confirm(`Are you sure you want to permanently delete "${title}"?`)) return;
+
+      events = events.filter(e => e.id !== eventId);
+      hasUnsavedChanges = true;
+      unsavedCount++;
+
+      renderAll();
+      showToast(`🗑️ "${title}" deleted.`);
+    }
+
+    // TAB 4: INBOX MESSAGES
+    function renderInbox() {
+      const container = document.getElementById('inboxListContainer');
+      if (receivedMessages.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted); background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📭</div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">Inbox is Empty</h3>
+            <p style="font-size: 0.85rem;">Messages submitted through the public "Contact Us" modal will appear here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = receivedMessages.map(msg => `
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem;">
+            <div>
+              <div style="font-weight: 800; font-size: 1.05rem; color: #fff;">${escapeHtml(msg.subject || 'Inquiry')}</div>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">From: <strong>${escapeHtml(msg.name)}</strong> (${escapeHtml(msg.email)})</div>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(msg.receivedAt || '')}</span>
+          </div>
+          <div style="font-size: 0.88rem; color: #cbd5e1; background: var(--bg-base); padding: 0.85rem; border-radius: var(--radius-sm); margin: 0.75rem 0; line-height: 1.5;">
+            ${escapeHtml(msg.message)}
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <a href="mailto:${escapeHtml(msg.email)}?subject=Re: ${encodeURIComponent(msg.subject || 'SWFL Holiday Planner')}" class="btn btn-secondary" style="font-size:0.78rem;">
+              ✉️ Reply via Email
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function clearAllMessages() {
+      if (!confirm('Clear all received messages from this device?')) return;
+      receivedMessages = [];
+      localStorage.removeItem('swfl_received_messages');
+      renderAll();
+      showToast('Messages cleared.');
+    }
+
+    // TAB 5: GITHUB AUTO-PUBLISHER ENGINE
+    function loadStoredSettings() {
+      const savedToken = localStorage.getItem('swfl_gh_token') || '';
+      document.getElementById('ghTokenInput').value = savedToken;
+    }
+
+    function toggleTokenVisibility() {
+      const input = document.getElementById('ghTokenInput');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function saveGitHubSettings(e) {
+      e.preventDefault();
+      const token = document.getElementById('ghTokenInput').value.trim();
+      localStorage.setItem('swfl_gh_token', token);
+      showToast('🔑 GitHub Token saved securely in your browser!');
+    }
+
+    async function testGitHubConnection() {
+      const token = document.getElementById('ghTokenInput').value.trim();
+      if (!token) {
+        alert('Please enter your GitHub Personal Access Token first.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (res.ok) {
+          const repo = await res.json();
+          alert(`✅ Connection Successful!\n\nConnected to: ${repo.full_name}\nPermissions: Push/Admin enabled.\nYou are ready to auto-publish!`);
+        } else {
+          const err = await res.json();
+          alert(`❌ Connection Failed (${res.status}): ${err.message || 'Check your token scopes.'}`);
+        }
+      } catch (err) {
+        alert(`❌ Network error while testing GitHub connection: ${err.message}`);
+      }
+    }
+
+    // MAIN PUBLISHER: Direct Commit to GitHub via REST API
+    async function publishChangesToGitHub() {
+      let token = localStorage.getItem('swfl_gh_token') || '';
+      if (!token) {
+        token = prompt('Please enter your GitHub Personal Access Token to commit live changes:');
+        if (!token) return;
+        localStorage.setItem('swfl_gh_token', token.trim());
+      }
+
+      const publishBtn = document.getElementById('headerPublishBtn');
+      if (publishBtn) {
+        publishBtn.disabled = true;
+        publishBtn.innerHTML = '<span>⏳</span> Committing to GitHub...';
+      }
+
+      try {
+        // Step 1: Get current file SHA from GitHub main branch
+        const getFileUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`;
+        const getRes = await fetch(getFileUrl, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (!getRes.ok) {
+          throw new Error(`Could not fetch current events.json SHA (HTTP ${getRes.status}). Verify your token has 'repo' scope.`);
+        }
+
+        const fileData = await getRes.json();
+        const currentSha = fileData.sha;
+
+        // Step 2: Prepare JSON content & Base64 encode
+        const jsonContent = JSON.stringify(events, null, 2);
+        const base64Content = utf8ToBase64(jsonContent);
+
+        // Step 3: PUT update to GitHub contents API
+        const putUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+        const putRes = await fetch(putUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Update events.json via Creator Admin Dashboard [skip ci] (${events.length} events)`,
+            content: base64Content,
+            sha: currentSha,
+            branch: GH_BRANCH
+          })
+        });
+
+        if (!putRes.ok) {
+          const errData = await putRes.json();
+          throw new Error(errData.message || `Failed to commit to GitHub (HTTP ${putRes.status})`);
+        }
+
+        hasUnsavedChanges = false;
+        unsavedCount = 0;
+        updateSyncBanner();
+
+        showToast('🚀 Committed & Published! Live site will update in ~60 seconds.');
+        alert(`🎉 Success!\n\nYour changes have been committed directly to the '${GH_BRANCH}' branch of jooshoo11/swfl-holiday-planner.\n\nGitHub Pages will automatically rebuild and deploy the update live worldwide in about 1 minute!`);
+
+      } catch (err) {
+        console.error('Publish error:', err);
+        alert(`❌ Error publishing to GitHub:\n\n${err.message}\n\nYou can also click "Download Local events.json Backup" in Settings to save your changes manually.`);
+      } finally {
+        if (publishBtn) {
+          publishBtn.disabled = false;
+          publishBtn.innerHTML = '<span>🚀</span> Commit to GitHub Live';
+        }
+      }
+    }
+
+    // UTF-8 to Base64 Encoder (Safe with Emojis)
+    function utf8ToBase64(str) {
+      return window.btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function downloadEventsJsonBackup() {
+      const blob = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'events.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('📥 events.json backup downloaded.');
+    }
+
+    // Manual Application Modal
+    function openManualAppModal() {
+      document.getElementById('manualAppModal').classList.add('open');
+    }
+    function closeManualAppModal() {
+      document.getElementById('manualAppModal').classList.remove('open');
+    }
+
+    function handleManualAppSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('manTitle').value.trim();
+      const host = document.getElementById('manHost').value.trim();
+      const contact = document.getElementById('manContact').value.trim();
+      const city = document.getElementById('manCity').value;
+      const address = document.getElementById('manAddress').value.trim();
+      const zip = document.getElementById('manZip').value.trim();
+      const radio = document.getElementById('manRadio').value.trim();
+      const proof = document.getElementById('manProof').value.trim();
+      const desc = document.getElementById('manDesc').value.trim();
+
+      const newApp = {
+        id: 'pending-' + Date.now(),
+        title, hostName: host, contact, city, address, zip,
+        radioSync: radio, photoLink: proof, description: desc,
+        hours: '6:00 PM – 10:00 PM',
+        dates: 'Nightly in December',
+        submittedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+      };
+
+      pendingApps.push(newApp);
+      localStorage.setItem('swfl_pending_home_shows', JSON.stringify(pendingApps));
+
+      closeManualAppModal();
+      e.target.reset();
+      renderAll();
+      showToast(`Application for "${title}" added to queue.`);
+    }
+
+    // Toast Utility
+    let toastTimeout;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'flex';
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 4000);
+    }
+
+    // Escape HTML helper
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>

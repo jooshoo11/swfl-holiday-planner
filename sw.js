@@ -1,8 +1,9 @@
 // Service Worker for SWFL Holiday & Festivities Planner
-const CACHE_NAME = 'swfl-holidays-v7';
+const CACHE_NAME = 'swfl-holidays-v8';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './admin.html',
   './manifest.json',
   './events.json',
   './icons/icon-192.png',
@@ -42,6 +43,22 @@ self.addEventListener('fetch', event => {
 
   // Ignore chrome-extension or external analytics if any
   const url = new URL(event.request.url);
+
+  // Network-first for dynamic live data queries to get immediate live updates
+  if (url.pathname.endsWith('events.json') && url.search) {
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put('./events.json', copy));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match('./events.json'))
+    );
+    return;
+  }
   
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
