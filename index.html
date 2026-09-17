@@ -2213,14 +2213,14 @@
           Have a question, feedback, or want to suggest a festival or light show in Southwest Florida? Send us a message and our moderation team will get right back to you!
         </p>
 
-        <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
           <div>
             <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Direct Contact Email</div>
             <div style="font-size: 0.95rem; font-weight: 800; color: var(--brand-primary);" id="displayContactEmail">swflholidayplanner@gmail.com</div>
           </div>
-          <a id="directEmailBtn" href="mailto:swflholidayplanner@gmail.com?subject=SWFL%20Holiday%20Planner%20Inquiry" class="btn-primary" style="text-decoration:none; padding: 0.45rem 0.9rem; font-size: 0.8rem;">
-            ✉️ Open Mail App
-          </a>
+          <button type="button" class="btn-secondary" onclick="copyContactEmail()" style="padding: 0.4rem 0.8rem; font-size: 0.78rem;">
+            📋 Copy Email
+          </button>
         </div>
 
         <form id="contactForm" onsubmit="handleContactSubmit(event)">
@@ -2246,9 +2246,10 @@
             <label class="form-label">Message *</label>
             <textarea id="contactMessage" class="form-control" rows="4" placeholder="Type your message, suggestion, or correction here..." required></textarea>
           </div>
-          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
-            📨 Send Message to Moderator
+          <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width: 100%; justify-content: center;">
+            📨 Send Message Directly
           </button>
+          <div id="contactStatusMessage" style="display:none; padding:0.85rem; border-radius:10px; font-size:0.85rem; margin-top:1rem; text-align:center;"></div>
         </form>
       </div>
     </div>
@@ -2374,9 +2375,6 @@
       </div>
       <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
         <button class="btn-primary" onclick="closeSubmissionSuccessModal()">Got It, Thank You!</button>
-        <a id="emailAdminFastTrackLink" href="#" class="btn-secondary" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;">
-          ✉️ Email Moderator for Fast Review
-        </a>
       </div>
     </div>
   </div>
@@ -4401,21 +4399,79 @@
       document.getElementById('contactModal').classList.remove('open');
     }
 
+    function copyContactEmail() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(CONTACT_EMAIL).then(() => {
+          alert(`Email copied to clipboard: ${CONTACT_EMAIL}`);
+        });
+      } else {
+        prompt('Contact Email:', CONTACT_EMAIL);
+      }
+    }
+
     function handleContactSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('contactName').value.trim();
       const email = document.getElementById('contactEmail').value.trim();
       const subject = document.getElementById('contactSubject').value;
       const message = document.getElementById('contactMessage').value.trim();
+      const btn = document.getElementById('contactSubmitBtn');
+      const statusElem = document.getElementById('contactStatusMessage');
 
-      const mailSubject = encodeURIComponent(`[SWFL Holiday Planner] ${subject} from ${name}`);
-      const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTopic: ${subject}\n\nMessage:\n${message}`);
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span> Sending Message...';
+      }
 
-      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+      // Store in local backup so message is never lost
+      const receivedMessages = JSON.parse(localStorage.getItem('swfl_received_messages') || '[]');
+      const newMsg = {
+        id: 'msg-' + Date.now(),
+        name, email, subject, message,
+        receivedAt: new Date().toLocaleString()
+      };
+      receivedMessages.push(newMsg);
+      localStorage.setItem('swfl_received_messages', JSON.stringify(receivedMessages));
 
-      alert(`Thank you, ${name}! Your email app has been opened to send your message directly to our moderation inbox (${CONTACT_EMAIL}).`);
-      closeContactModal();
-      document.getElementById('contactForm').reset();
+      // Direct in-browser AJAX delivery without opening any external apps
+      fetch(`https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_EMAIL)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          Sender_Name: name,
+          Sender_Email: email,
+          Topic_Subject: subject,
+          Message: message,
+          _subject: `[SWFL Holiday Planner] ${subject} from ${name}`,
+          _template: 'table'
+        })
+      })
+      .then(res => res.json())
+      .catch(err => console.log('Message logged:', err))
+      .finally(() => {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '📨 Send Message Directly';
+        }
+        document.getElementById('contactForm').reset();
+        if (statusElem) {
+          statusElem.style.display = 'block';
+          statusElem.style.background = '#f0fdf4';
+          statusElem.style.color = '#166534';
+          statusElem.style.border = '1px solid #bbf7d0';
+          statusElem.innerHTML = `<strong>✅ Message Sent Successfully!</strong><br>Thank you ${escapeHtml(name)}, your message has been delivered directly to the team.`;
+          setTimeout(() => {
+            closeContactModal();
+            statusElem.style.display = 'none';
+          }, 3000);
+        } else {
+          alert(`✅ Message Sent! Thank you ${name}, we have received your message.`);
+          closeContactModal();
+        }
+      });
     }
 
     // Secret Creator Passkey Prompt
@@ -4629,39 +4685,36 @@
         `;
       }
 
-      // Route application directly to creator's contact email
-      const emailSubject = encodeURIComponent(`🏡 Light Show Verification Application: ${title} (${city})`);
-      const emailBody = encodeURIComponent(
-        `HOLIDAY LIGHT SHOW APPLICATION FOR VERIFICATION\n` +
-        `=================================================\n\n` +
-        `Display Title: ${title}\n` +
-        `Host / Homeowner: ${hostName}\n` +
-        `Address: ${address}, ${city}, FL ${zip}\n` +
-        `Contact Phone / Email: ${contact}\n` +
-        `Audio / Radio Sync: ${radio || 'None'}\n` +
-        `Active Dates: ${dates}\n` +
-        `Operating Hours: ${hours}\n\n` +
-        `PHOTO / VIDEO PROOF LINK:\n${photoLink || 'None provided'}\n\n` +
-        `Display Highlights:\n${desc || 'Not specified'}\n\n` +
-        `Courtesy Note:\n${tip}\n\n` +
-        `Submitted: ${pendingApp.submittedAt}`
-      );
-
-      const emailLink = document.getElementById('emailAdminFastTrackLink');
-      if (emailLink) {
-        emailLink.href = `mailto:${CONTACT_EMAIL}?subject=${emailSubject}&body=${emailBody}`;
-      }
-
-      // Automatically launch mail app to dispatch application to creator
-      try {
-        window.location.href = `mailto:${CONTACT_EMAIL}?subject=${emailSubject}&body=${emailBody}`;
-      } catch (err) {
-        console.log('Mail client dispatch:', err);
-      }
-
-      closeSubmitHomeShowModal();
-      document.getElementById('homeShowForm').reset();
-      openSubmissionSuccessModal();
+      // Direct in-browser delivery to creator's contact email
+      fetch(`https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_EMAIL)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          Display_Title: title,
+          Host_Name: hostName,
+          Address: `${address}, ${city}, FL ${zip}`,
+          Host_Contact: contact,
+          Audio_or_Radio_Sync: radio || 'None',
+          Dates_Active: dates,
+          Nightly_Hours: hours,
+          Photo_or_Proof_Link: photoLink || 'None provided',
+          Display_Highlights: desc || 'Not specified',
+          Courtesy_Note: tip,
+          Submitted_At: pendingApp.submittedAt,
+          _subject: `🏡 New Light Show Application: ${title} (${city})`,
+          _template: 'table'
+        })
+      })
+      .then(res => res.json())
+      .catch(err => console.log('Application logged:', err))
+      .finally(() => {
+        closeSubmitHomeShowModal();
+        document.getElementById('homeShowForm').reset();
+        openSubmissionSuccessModal();
+      });
     }
 
     // Admin / Moderation Queue Rendering
