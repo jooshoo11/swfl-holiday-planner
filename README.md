@@ -1,7 +1,10 @@
 # SWFL Holiday & Festivities Planner 2026
-**Punta Gorda (33983) • Port Charlotte • North Port • Venice**
+**Punta Gorda • Port Charlotte • North Port • Venice • Sarasota • Bradenton**
 
-An interactive holiday planner and calendar designed specifically for families based in Punta Gorda (33983) with relatives in North Port and Venice.
+### 🌐 [Click Here to Launch the Live Website](https://jooshoo11.github.io/swfl-holiday-planner/)
+**Live Web App Link:** [https://jooshoo11.github.io/swfl-holiday-planner/](https://jooshoo11.github.io/swfl-holiday-planner/)
+
+An interactive holiday planner, interactive map, and neighborhood light show trail for families across Southwest Florida.
 
 ---
 
