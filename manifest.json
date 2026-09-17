@@ -1,0 +1,38 @@
+{
+  "name": "SWFL Holiday & Festivities Planner",
+  "short_name": "SWFL Holidays",
+  "description": "Family guide and calendar for holiday lights, fall festivals, pumpkin patches, and Christmas boat parades across Punta Gorda, North Port, and Venice, FL.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fdfbf7",
+  "theme_color": "#1e293b",
+  "lang": "en-US",
+  "categories": ["lifestyle", "entertainment", "family", "travel"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

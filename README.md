@@ -12,6 +12,13 @@ Simply double-click **[`index.html`](file:///C:/Users/user/swfl_holiday_planner/
 - No server or command-line installation required.
 - Works 100% offline.
 
+### 2. Install as a Progressive Web App (PWA)
+You can install this app directly onto your phone, tablet, or computer like a native app:
+- **Online URL**: [https://jooshoo11.github.io/swfl-holiday-planner/](https://jooshoo11.github.io/swfl-holiday-planner/)
+- **On Android & Chrome / Edge**: Click the **"📲 Install App"** button in the header bar (or browser menu -> *Install App* / *Add to Home screen*).
+- **On iPhone / iPad (Safari)**: Tap the **Share** button (box with upward arrow) -> scroll down and select **"Add to Home Screen"**.
+- **Offline Capable**: The app runs offline using a built-in Service Worker cache, so you can check events even when on the go with poor reception.
+
 ---
 
 ## 🚀 Key Features

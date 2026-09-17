@@ -4,6 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Holiday & Festivities Planner | Punta Gorda, North Port & Venice</title>
+  
+  <!-- Progressive Web App (PWA) Meta & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e293b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SWFL Holidays">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
@@ -1016,6 +1027,26 @@
         justify-content: space-between;
       }
     }
+
+    .btn-install {
+      background: #ea580c;
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-install:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.45);
+    }
   </style>
 </head>
 <body>
@@ -1028,10 +1059,15 @@
           <span>📍</span>
           <span>Home: Punta Gorda, FL (33983) • Family in North Port & Venice</span>
         </div>
-        <div class="theme-picker">
-          <button class="theme-btn active" onclick="setTheme('autumn')">🍂 Autumn</button>
-          <button class="theme-btn" onclick="setTheme('winter')">❄️ Winter</button>
-          <button class="theme-btn" onclick="setTheme('coastal')">🌴 Coastal</button>
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <button id="installAppBtn" class="btn-install" style="display:none;" onclick="triggerInstallPrompt()">
+            <span>📲</span> Install App
+          </button>
+          <div class="theme-picker">
+            <button class="theme-btn active" onclick="setTheme('autumn')">🍂 Autumn</button>
+            <button class="theme-btn" onclick="setTheme('winter')">❄️ Winter</button>
+            <button class="theme-btn" onclick="setTheme('coastal')">🌴 Coastal</button>
+          </div>
         </div>
       </div>
 
@@ -2435,6 +2471,52 @@
 
     // Run on load
     window.addEventListener('DOMContentLoaded', init);
+
+    // Progressive Web App (PWA): Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => {
+            console.log('SW registered successfully with scope:', reg.scope);
+          })
+          .catch(err => {
+            console.error('SW registration failed:', err);
+          });
+      });
+    }
+
+    // PWA Install Prompt Handling
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent browser's default banner
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      const installBtn = document.getElementById('installAppBtn');
+      if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+      }
+    });
+
+    function triggerInstallPrompt() {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the PWA install prompt');
+        } else {
+          console.log('User dismissed the PWA install prompt');
+        }
+        deferredInstallPrompt = null;
+        const installBtn = document.getElementById('installAppBtn');
+        if (installBtn) installBtn.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      console.log('SWFL Holiday Planner installed as PWA');
+      const installBtn = document.getElementById('installAppBtn');
+      if (installBtn) installBtn.style.display = 'none';
+    });
   </script>
 </body>
 </html>
