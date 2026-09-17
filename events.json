@@ -13,8 +13,8 @@
     "categoryLabel": "Pumpkin Patches & Farms",
     "startDate": "2026-10-15",
     "endDate": "2026-10-25",
-    "dateDisplay": "Oct 15 \u2013 Oct 25, 2026 (Thurs\u2013Sun)",
-    "timeDisplay": "10:00 AM \u2013 5:00 PM",
+    "dateDisplay": "Oct 15 – Oct 25, 2026 (Thurs–Sun)",
+    "timeDisplay": "10:00 AM – 5:00 PM",
     "cost": "$12 Admission (Kids under 2 Free)",
     "isFree": false,
     "kidFriendly": true,
@@ -22,7 +22,7 @@
     "description": "Punta Gorda's premier family autumn tradition featuring thousands of farm-fresh pumpkins, walk-through butterfly encounters, friendly farm animal petting zoo, inflatables, barrel train rides, and rustic fall photo setups.",
     "familyTip": "Wear closed-toe shoes for the farm paths. Mornings around 10:00 AM have the lightest crowds and best photo lighting!",
     "mapsQuery": "Prana Farms, 6026 Sweden Blvd, Punta Gorda, FL 33982",
-    "icon": "\ud83c\udf83",
+    "icon": "🎃",
     "badgeColor": "orange",
     "lat": 26.965,
     "lng": -81.985
@@ -42,7 +42,7 @@
     "startDate": "2026-10-17",
     "endDate": "2026-10-17",
     "dateDisplay": "Saturday, Oct 17, 2026",
-    "timeDisplay": "12:00 PM \u2013 4:00 PM",
+    "timeDisplay": "12:00 PM – 4:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -50,7 +50,7 @@
     "description": "A wholesome waterfront autumn festival on the harbor with trick-or-treating stations, inflatables, lawn games, live kids DJ entertainment, food trucks, and a costume contest with prizes by age group.",
     "familyTip": "Parking is available along Nesbit St and near the marina. Bring candy buckets and sunscreen since it's an afternoon outdoor event on the lawn.",
     "mapsQuery": "Laishley Park, 100 Nesbit St, Punta Gorda, FL 33950",
-    "icon": "\ud83d\udc7b",
+    "icon": "👻",
     "badgeColor": "orange",
     "lat": 26.937,
     "lng": -82.046
@@ -69,8 +69,8 @@
     "categoryLabel": "Trick-or-Treat & Spooky Fun",
     "startDate": "2026-10-16",
     "endDate": "2026-10-31",
-    "dateDisplay": "Oct 16\u201318, 23\u201325, & 29\u201331, 2026",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "dateDisplay": "Oct 16–18, 23–25, & 29–31, 2026",
+    "timeDisplay": "6:00 PM – 10:00 PM",
     "cost": "$15 General Admission (Kids 3 & under Free)",
     "isFree": false,
     "kidFriendly": true,
@@ -78,7 +78,7 @@
     "description": "Charlotte County's flagship Halloween attraction with a dual experience: a friendly daytime-style carnival midway with pumpkin patches, bounce houses, petting zoo, safe trick-or-treat booths, alongside separately enclosed spooky walk-through haunted zones for braver kids and teens.",
     "familyTip": "Families with toddlers and younger kids should stick to the illuminated family midway area. Arrive right at 6:00 PM when gates open.",
     "mapsQuery": "Charlotte County Fairgrounds, 2333 El Jobean Rd, Port Charlotte, FL 33948",
-    "icon": "\ud83c\udfaa",
+    "icon": "🎪",
     "badgeColor": "amber",
     "lat": 26.994,
     "lng": -82.163
@@ -98,7 +98,7 @@
     "startDate": "2026-10-17",
     "endDate": "2026-10-17",
     "dateDisplay": "Saturday, Oct 17, 2026",
-    "timeDisplay": "5:00 PM \u2013 10:00 PM",
+    "timeDisplay": "5:00 PM – 10:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -106,7 +106,7 @@
     "description": "Coastal evening celebration right on the Gulf featuring a costumed pet parade, youth costume promenade, live bands, artisan craft vendors, and 20+ local food trucks against a scenic Gulf sunset.",
     "familyTip": "Great excuse to visit Venice family! Bring beach chairs and blankets to sit on the grass lawn while listening to the band.",
     "mapsQuery": "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
-    "icon": "\ud83d\udc3e",
+    "icon": "🐾",
     "badgeColor": "purple",
     "lat": 27.078,
     "lng": -82.449
@@ -126,7 +126,7 @@
     "startDate": "2026-10-23",
     "endDate": "2026-10-23",
     "dateDisplay": "Friday, Oct 23, 2026",
-    "timeDisplay": "5:00 PM \u2013 8:00 PM",
+    "timeDisplay": "5:00 PM – 8:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -134,7 +134,7 @@
     "description": "North Port's most beloved family Halloween night! Features the famous illuminated Pumpkin Trail with dozens of local business booths handing out candy, a DJ-led Monster Mash dance pit, costume contests, and food vendors.",
     "familyTip": "Very popular event! Parking fills up quickly at City Center; carpool with North Port family or arrive 20 minutes before 5:00 PM.",
     "mapsQuery": "George Mullen Activity Center, 4956 City Center Blvd, North Port, FL",
-    "icon": "\ud83c\udf6c",
+    "icon": "🍬",
     "badgeColor": "orange",
     "lat": 27.048,
     "lng": -82.228
@@ -154,7 +154,7 @@
     "startDate": "2026-10-24",
     "endDate": "2026-10-24",
     "dateDisplay": "Saturday, Oct 24, 2026",
-    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "timeDisplay": "6:00 PM – 9:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -162,7 +162,7 @@
     "description": "An eco-friendly solar town Halloween celebration featuring an extravagant decorated golf cart parade, lakeside trick-or-treating stations, spooky maze fun, food trucks, and music around Founder's Square boardwalk.",
     "familyTip": "The golf cart parade is a massive crowd pleaser for toddlers and kids. Grab a spot along Crescent Loop around 5:45 PM.",
     "mapsQuery": "Founder's Square, 42850 Crescent Loop, Babcock Ranch, FL",
-    "icon": "\ud83d\udefa",
+    "icon": "🛺",
     "badgeColor": "amber",
     "lat": 26.797,
     "lng": -81.728
@@ -182,7 +182,7 @@
     "startDate": "2026-10-30",
     "endDate": "2026-10-30",
     "dateDisplay": "Friday, Oct 30, 2026",
-    "timeDisplay": "4:00 PM \u2013 7:00 PM",
+    "timeDisplay": "4:00 PM – 7:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -190,7 +190,7 @@
     "description": "Downtown Wellen turns into an open-air Halloween plaza! Stroll the beautiful pedestrian promenade around the lake for trick-or-treating at local merchants, interactive lawn games, live DJ music, and family costume contests.",
     "familyTip": "Perfect meeting point halfway between Punta Gorda and Venice! Paved, wide walkways make it 100% stroller and wagon friendly.",
     "mapsQuery": "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
-    "icon": "\ud83c\udf83",
+    "icon": "🎃",
     "badgeColor": "orange",
     "lat": 27.062,
     "lng": -82.348
@@ -210,7 +210,7 @@
     "startDate": "2026-10-31",
     "endDate": "2026-10-31",
     "dateDisplay": "Saturday, Oct 31, 2026 (Halloween)",
-    "timeDisplay": "4:00 PM \u2013 6:00 PM",
+    "timeDisplay": "4:00 PM – 6:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -218,7 +218,7 @@
     "description": "A long-held Venice holiday tradition where hundreds of costumed children and parents stroll under the palm trees along Tampa, Venice, and Miami Avenues. Friendly shopkeepers and downtown merchants hand out treats outside their stores.",
     "familyTip": "Ends at 6:00 PM, leaving plenty of time to grab an early family dinner downtown before traditional neighborhood trick-or-treating!",
     "mapsQuery": "West Venice Ave, Venice, FL 34285",
-    "icon": "\ud83e\uddd9\u200d\u2640\ufe0f",
+    "icon": "🧙‍♀️",
     "badgeColor": "purple",
     "lat": 27.1,
     "lng": -82.448
@@ -238,7 +238,7 @@
     "startDate": "2026-10-31",
     "endDate": "2026-10-31",
     "dateDisplay": "Saturday, Oct 31, 2026 (Halloween)",
-    "timeDisplay": "5:30 PM \u2013 8:00 PM",
+    "timeDisplay": "5:30 PM – 8:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -246,7 +246,7 @@
     "description": "A vibrant North Port neighborhood trick-or-treating street walk with decorated tents, safe community treat zones, music, and kid photo stations.",
     "familyTip": "Convenient for families visiting relatives in North Port on Halloween evening.",
     "mapsQuery": "164 Eric St, North Port, FL 34287",
-    "icon": "\ud83e\udd87",
+    "icon": "🦇",
     "badgeColor": "amber",
     "lat": 27.06,
     "lng": -82.19
@@ -266,7 +266,7 @@
     "startDate": "2026-11-14",
     "endDate": "2026-11-14",
     "dateDisplay": "Saturday, Nov 14, 2026",
-    "timeDisplay": "5:00 PM \u2013 9:00 PM (Lighting at Dusk)",
+    "timeDisplay": "5:00 PM – 9:00 PM (Lighting at Dusk)",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -274,7 +274,7 @@
     "description": "The official grand kickoff of Southwest Florida's Christmas season! Count down with Santa and Mrs. Claus as over one million dazzling lights simultaneously illuminate throughout the village, accompanied by bagpipers, carolers, and holiday cheer.",
     "familyTip": "Punta Gorda's signature event of the year! Arrive by 4:30 PM to secure parking in the main lot or take the overflow shuttle.",
     "mapsQuery": "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
-    "icon": "\u2728",
+    "icon": "✨",
     "badgeColor": "emerald",
     "lat": 26.94,
     "lng": -82.062
@@ -293,16 +293,16 @@
     "categoryLabel": "Light Displays & Shopping",
     "startDate": "2026-11-15",
     "endDate": "2026-12-31",
-    "dateDisplay": "Daily, Nov 15 \u2013 Dec 31, 2026",
+    "dateDisplay": "Daily, Nov 15 – Dec 31, 2026",
     "timeDisplay": "All Day & Evening (Lights turn on at 5:30 PM)",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
     "strollerFriendly": true,
     "description": "Ranked among Florida's top holiday destinations! Stroll through a winter wonderland of over 1,000,000 sparkling lights, themed Christmas trees in every concourse, visits with Santa, live holiday musical entertainment, and waterfront shopping.",
-    "familyTip": "Because it runs daily through New Year's Eve, weekday evenings (Monday\u2013Wednesday) offer the same magical lights with much lighter crowds and easiest stroller navigation.",
+    "familyTip": "Because it runs daily through New Year's Eve, weekday evenings (Monday–Wednesday) offer the same magical lights with much lighter crowds and easiest stroller navigation.",
     "mapsQuery": "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
-    "icon": "\ud83c\udf1f",
+    "icon": "🌟",
     "badgeColor": "emerald",
     "lat": 26.94,
     "lng": -82.062
@@ -330,7 +330,7 @@
     "description": "A historic milestone! The 50th Golden Anniversary of the Venice Holiday Parade features over 100 lighted floats, marching bands, dancers, festive vehicles, and Santa Claus arriving to cap off Thanksgiving weekend.",
     "familyTip": "Spectators typically set out chairs along Venice Ave early in the afternoon. Make a day of it with family in Venice!",
     "mapsQuery": "West Venice Ave, Venice, FL 34285",
-    "icon": "\ud83c\udfba",
+    "icon": "🎺",
     "badgeColor": "rose",
     "lat": 27.1,
     "lng": -82.448
@@ -356,9 +356,9 @@
     "kidFriendly": true,
     "strollerFriendly": false,
     "description": "Board a comfortable sightseeing tour boat from Fishermen's Village to tour the protected residential canals of Punta Gorda Isles. View multi-million dollar homes and docks competing in neighborhood holiday light and music competitions.",
-    "familyTip": "Must book several weeks ahead online at kingfisherfleet.com \u2014 tickets sell out quickly every single year! Bring a light jacket for the breeze on the water.",
+    "familyTip": "Must book several weeks ahead online at kingfisherfleet.com — tickets sell out quickly every single year! Bring a light jacket for the breeze on the water.",
     "mapsQuery": "King Fisher Fleet, 1200 W Retta St, Punta Gorda, FL 33950",
-    "icon": "\ud83d\udea2",
+    "icon": "🚢",
     "badgeColor": "cyan",
     "lat": 26.94,
     "lng": -82.062
@@ -378,7 +378,7 @@
     "startDate": "2026-12-04",
     "endDate": "2026-12-04",
     "dateDisplay": "Friday, Dec 4, 2026",
-    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "timeDisplay": "6:00 PM – 9:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -386,7 +386,7 @@
     "description": "Kick off December with the lighting of Wellen Park's 32-foot lakeside holiday tree! Enjoy holiday carolers, free photos with Santa and Mrs. Claus, the 'Cottages for Kids' gingerbread trail, and seasonal drinks and treats.",
     "familyTip": "Great open grassy areas for kids to run around while waiting for the tree lighting. Bring picnic blankets.",
     "mapsQuery": "Downtown Wellen, 19745 Wellen Pkwy, Venice, FL 34293",
-    "icon": "\ud83c\udf84",
+    "icon": "🎄",
     "badgeColor": "emerald",
     "lat": 27.062,
     "lng": -82.348
@@ -406,7 +406,7 @@
     "startDate": "2026-12-05",
     "endDate": "2026-12-05",
     "dateDisplay": "Saturday, Dec 5, 2026",
-    "timeDisplay": "Festival 4:00 PM \u2013 8:00 PM (Parade at 5:00 PM)",
+    "timeDisplay": "Festival 4:00 PM – 8:00 PM (Parade at 5:00 PM)",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -414,7 +414,7 @@
     "description": "North Port's biggest holiday celebration of the year! The 'Sleigh the Night Away' parade rolls down Sumter Blvd featuring lighted floats and vehicles, followed by the ceremonial lighting of the City Hall holiday tree, Santa's workshop, and mobile food vendors.",
     "familyTip": "Sumter Blvd closes for the parade at 4:30 PM, so approach via Price Blvd or West Price to access City Center parking lots.",
     "mapsQuery": "North Port City Center, 4970 City Center Blvd, North Port, FL",
-    "icon": "\ud83c\udf3a",
+    "icon": "🌺",
     "badgeColor": "rose",
     "lat": 27.048,
     "lng": -82.228
@@ -442,7 +442,7 @@
     "description": "A dazzling aquatic parade of illuminated yachts, pontoon boats, and sailboats decorated with moving light sculptures, holiday scenes, and sounding boat horns cruising south down the Intracoastal Waterway.",
     "familyTip": "Top public viewing spots with easy stroller access: Venetian Waterway Park trail, Venice Marina, or along the waterfront parks near the north jetty.",
     "mapsQuery": "Venetian Waterway Park, Venice, FL 34285",
-    "icon": "\u26f5",
+    "icon": "⛵",
     "badgeColor": "cyan",
     "lat": 27.115,
     "lng": -82.464
@@ -462,7 +462,7 @@
     "startDate": "2026-12-05",
     "endDate": "2026-12-05",
     "dateDisplay": "Saturday, Dec 5, 2026",
-    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "timeDisplay": "6:00 PM – 9:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -470,7 +470,7 @@
     "description": "Wrap your bicycles and strollers in glow sticks and string lights for a scenic, family-friendly slow roll around the 80-acre Grand Lake, followed by lively holiday dueling pianos under the stars at Solis Hall.",
     "familyTip": "Bring battery-powered fairy lights to clip onto kids' scooters, trikes, or strollers so they can participate in the glow!",
     "mapsQuery": "Solis Hall, Downtown Wellen, Venice, FL 34293",
-    "icon": "\ud83d\udeb2",
+    "icon": "🚲",
     "badgeColor": "purple",
     "lat": 27.062,
     "lng": -82.348
@@ -490,7 +490,7 @@
     "startDate": "2026-12-10",
     "endDate": "2026-12-10",
     "dateDisplay": "Thursday, Dec 10, 2026",
-    "timeDisplay": "5:00 PM \u2013 8:00 PM",
+    "timeDisplay": "5:00 PM – 8:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -498,7 +498,7 @@
     "description": "Step into a Hallmark-movie-style evening in historic Venice! Children can sit on Santa's lap in the park gazebo, listen to school and church youth choirs singing carols, and sip free hot cider while strolling decorated shop fronts.",
     "familyTip": "Centennial Park has a wonderful interactive children's splash pad and playground right next to the gazebo if the little ones need playtime.",
     "mapsQuery": "Centennial Park, 200 W Venice Ave, Venice, FL 34285",
-    "icon": "\ud83c\udf85",
+    "icon": "🎅",
     "badgeColor": "emerald",
     "lat": 27.101,
     "lng": -82.447
@@ -517,8 +517,8 @@
     "categoryLabel": "Light Displays & Art",
     "startDate": "2026-12-11",
     "endDate": "2026-12-20",
-    "dateDisplay": "Dec 11\u201313 & Dec 18\u201320, 2026",
-    "timeDisplay": "6:00 PM \u2013 9:00 PM",
+    "dateDisplay": "Dec 11–13 & Dec 18–20, 2026",
+    "timeDisplay": "6:00 PM – 9:00 PM",
     "cost": "$15 Adults / $7 Kids (3 and under Free)",
     "isFree": false,
     "kidFriendly": true,
@@ -526,7 +526,7 @@
     "description": "Punta Gorda's enchanting nature-immersed light experience. Thousands of glowing fairy lights and botanical light sculptures illuminate the walking paths along the Peace River, accompanied by live acoustic holiday musicians, s'mores roasting pits, and hot chocolate stations.",
     "familyTip": "Pre-purchase timed tickets online at peacerivergardens.org. Boardwalks and trails are smooth and easy for strollers.",
     "mapsQuery": "Peace River Botanical & Sculpture Gardens, 5827 Riverside Dr, Punta Gorda, FL 33982",
-    "icon": "\ud83c\udf3f",
+    "icon": "🌿",
     "badgeColor": "emerald",
     "lat": 26.96,
     "lng": -81.995
@@ -554,7 +554,7 @@
     "description": "Known as 'The Saturday Night Before Christmas Eve Boat Parade,' this cherished Punta Gorda Isles tradition features dozens of extravagantly illuminated motor yachts, sailboats, and catamarans navigating 4 miles of residential canals.",
     "familyTip": "Great public viewing spots with easy parking: along the rim canal bridges, Ponce de Leon Park, or join neighbors who host shoreline lawn watch parties.",
     "mapsQuery": "Ponce de Leon Park, Punta Gorda, FL 33950",
-    "icon": "\ud83d\udee5\ufe0f",
+    "icon": "🛥️",
     "badgeColor": "cyan",
     "lat": 26.918,
     "lng": -82.075
@@ -574,7 +574,7 @@
     "startDate": "2026-12-19",
     "endDate": "2026-12-19",
     "dateDisplay": "Saturday, Dec 19, 2026",
-    "timeDisplay": "5:00 PM \u2013 7:00 PM",
+    "timeDisplay": "5:00 PM – 7:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -582,7 +582,7 @@
     "description": "Sing your favorite holiday carols with local choral groups as the sun sets over the Gulf of Mexico. Song sheets are handed out to everyone, with festive cookies and cider available.",
     "familyTip": "Bring lawn chairs, cozy sweaters, and battery candles for the kids when dusk falls.",
     "mapsQuery": "Maxine Barritt Park, 1800 Harbor Dr S, Venice, FL 34285",
-    "icon": "\ud83c\udfb5",
+    "icon": "🎵",
     "badgeColor": "purple",
     "lat": 27.078,
     "lng": -82.449
@@ -602,15 +602,15 @@
     "startDate": "2026-12-31",
     "endDate": "2026-12-31",
     "dateDisplay": "Thursday, Dec 31, 2026",
-    "timeDisplay": "6:00 PM \u2013 12:30 AM (Fireworks at Midnight)",
+    "timeDisplay": "6:00 PM – 12:30 AM (Fireworks at Midnight)",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
     "strollerFriendly": true,
     "description": "Southwest Florida's biggest family-friendly New Year's Eve blowout! Features multiple stages of live music, magicians, face painters, balloon artists, glow souvenirs, dancing, and a midnight fireworks display launched over Charlotte Harbor.",
-    "familyTip": "If celebrating with younger toddlers who can't stay up until midnight, the 6:00 PM \u2013 8:30 PM window is packed with fun kids entertainment, glowing lights, and treats without the late night squeeze!",
+    "familyTip": "If celebrating with younger toddlers who can't stay up until midnight, the 6:00 PM – 8:30 PM window is packed with fun kids entertainment, glowing lights, and treats without the late night squeeze!",
     "mapsQuery": "Fishermen's Village, 1200 W Retta St, Punta Gorda, FL 33950",
-    "icon": "\ud83c\udf86",
+    "icon": "🎆",
     "badgeColor": "rose",
     "lat": 26.94,
     "lng": -82.062
@@ -631,16 +631,16 @@
     "categoryLabel": "Pumpkin Patches & Country Fairs",
     "startDate": "2026-10-10",
     "endDate": "2026-10-25",
-    "dateDisplay": "Oct 10\u201311, 17\u201318, & 24\u201325, 2026",
-    "timeDisplay": "9:00 AM \u2013 5:00 PM",
-    "cost": " Admission (Kids 10 & under Free) \u2022  Parking",
+    "dateDisplay": "Oct 10–11, 17–18, & 24–25, 2026",
+    "timeDisplay": "9:00 AM – 5:00 PM",
+    "cost": " Admission (Kids 10 & under Free) •  Parking",
     "isFree": false,
     "kidFriendly": true,
     "strollerFriendly": true,
     "description": "The biggest, most famous agricultural fall festival on the Suncoast! Features an enormous pumpkin patch, craft booths, corn maze, live bluegrass and country bands, petting zoo, monster truck rides, circus stunt shows, pony rides, and homemade pumpkin pie.",
     "familyTip": "Bring cash for parking and food stands. Strollers and wagons navigate the farm easily. Arrive before 10:30 AM to beat the mid-day rush on CR 675.",
     "mapsQuery": "Hunsader Farms, 5500 CR 675, Bradenton, FL 34211",
-    "icon": "\ud83c\udf83"
+    "icon": "🎃"
   },
   {
     "id": "bradenton-riverwalk-fall-fest",
@@ -659,7 +659,7 @@
     "startDate": "2026-10-24",
     "endDate": "2026-10-24",
     "dateDisplay": "Saturday, Oct 24, 2026",
-    "timeDisplay": "11:00 AM \u2013 4:00 PM",
+    "timeDisplay": "11:00 AM – 4:00 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -667,7 +667,7 @@
     "description": "Lively riverside community festival along the beautiful Manatee Riverwalk. Features costume parades for children and pets, bounce houses, face painting, live family music, trick-or-treat candy booths, and local food trucks.",
     "familyTip": "Free parking along 3rd Ave W and downtown parking garages. The Riverwalk has an awesome modern splash pad and playground right next to the event pavilion!",
     "mapsQuery": "Bradenton Riverwalk Pavilion, Bradenton, FL 34205",
-    "icon": "\ud83d\udc7b"
+    "icon": "👻"
   },
   {
     "id": "st-armands-night-of-lights",
@@ -686,7 +686,7 @@
     "startDate": "2026-12-04",
     "endDate": "2026-12-04",
     "dateDisplay": "Friday, Dec 4, 2026",
-    "timeDisplay": "5:30 PM \u2013 8:30 PM",
+    "timeDisplay": "5:30 PM – 8:30 PM",
     "cost": "Free Admission",
     "isFree": true,
     "kidFriendly": true,
@@ -694,7 +694,7 @@
     "description": "Sarasota barrier island elegance meets holiday wonder! Kick off Christmas with the ceremonial lighting of the spectacular 60-foot Christmas tree in the center of the Circle, followed by Santa and Mrs. Claus arrival in a horse carriage, choir concerts, and festive shop open houses.",
     "familyTip": "Circle parking fills by 5:00 PM. Take the free Bay Runner trolley from downtown Sarasota directly to St. Armands Circle to skip parking traffic!",
     "mapsQuery": "St. Armands Circle, Sarasota, FL 34236",
-    "icon": "\ud83c\udf84"
+    "icon": "🎄"
   },
   {
     "id": "sarasota-holiday-parade",
@@ -721,11 +721,11 @@
     "description": "Sarasota's premier evening holiday procession, drawing thousands to Main Street. Features 100+ illuminated floats, marching bands from high schools across Sarasota and Manatee counties, equestrian units, antique cars, and Santa Claus.",
     "familyTip": "Bring folding chairs and set up between Lemon Ave and Palm Ave. Park in the Palm Ave or State Street garages before 5:30 PM.",
     "mapsQuery": "Main St and Lemon Ave, Sarasota, FL 34236",
-    "icon": "\ud83c\udfba"
+    "icon": "🎺"
   },
   {
     "id": "selby-lights-in-bloom",
-    "title": "Lights in Bloom\u00ae at Marie Selby Botanical Gardens",
+    "title": "Lights in Bloom® at Marie Selby Botanical Gardens",
     "location": "Sarasota",
     "venue": "Marie Selby Botanical Gardens (Downtown Campus)",
     "address": "1534 Mound St, Sarasota, FL 34236",
@@ -739,8 +739,8 @@
     "categoryLabel": "Botanical Light Displays",
     "startDate": "2026-12-05",
     "endDate": "2027-01-02",
-    "dateDisplay": "Dec 5, 2026 \u2013 Jan 2, 2027 (Nightly)",
-    "timeDisplay": "6:30 PM \u2013 9:00 PM (Early entry 5:30 PM)",
+    "dateDisplay": "Dec 5, 2026 – Jan 2, 2027 (Nightly)",
+    "timeDisplay": "6:30 PM – 9:00 PM (Early entry 5:30 PM)",
     "cost": " Adults /  Kids (4 and under Free)",
     "isFree": false,
     "kidFriendly": true,
@@ -748,7 +748,7 @@
     "description": "Nationally acclaimed by USA Today as one of America's best botanical light shows! Over two million lights transform the 15-acre bayfront botanical gardens into an enchanting wonderland. Walk through glowing tunnels, lit giant banyan trees, sensory light fields, and visit with Santa.",
     "familyTip": "Tickets must be purchased online in advance at selby.org as time slots frequently sell out. All paved paths are stroller and wheelchair accessible.",
     "mapsQuery": "Marie Selby Botanical Gardens, 1534 Mound St, Sarasota, FL 34236",
-    "icon": "\u2728"
+    "icon": "✨"
   },
   {
     "id": "holidays-at-utc",
@@ -766,8 +766,8 @@
     "categoryLabel": "Light Shows & Winter Wonderland",
     "startDate": "2026-11-15",
     "endDate": "2027-01-03",
-    "dateDisplay": "Nightly, Nov 15, 2026 \u2013 Jan 3, 2027",
-    "timeDisplay": "Shows every 30 min from 6:30 PM \u2013 9:30 PM",
+    "dateDisplay": "Nightly, Nov 15, 2026 – Jan 3, 2027",
+    "timeDisplay": "Shows every 30 min from 6:30 PM – 9:30 PM",
     "cost": "Free Light Shows & Movie Nights (Ice Skating is ticketed)",
     "isFree": true,
     "kidFriendly": true,
@@ -775,7 +775,7 @@
     "description": "A massive holiday destination featuring over 4 million choreographed lights set to seasonal music across Cattlemen Rd, an outdoor real-ice skating rink (The Rink at UTC), free outdoor holiday movies under the stars on weekends, Saturday night fireworks, and Santa photos.",
     "familyTip": "Very easy parking at UTC mall. Kids love the synchronized light shows and horse-drawn carriage rides around the lake!",
     "mapsQuery": "University Town Center, 140 University Town Center Dr, Sarasota, FL",
-    "icon": "\u26f8\ufe0f"
+    "icon": "⛸️"
   },
   {
     "id": "sarasota-boat-parade-of-lights",
@@ -802,7 +802,7 @@
     "description": "An iconic Sarasota tradition organized by Suncoast Charities for Children. Scores of lavishly illuminated motor yachts, sailboats, and party catamarans cruise across Sarasota Bay, passing right in front of Marina Jack and Bayfront Park.",
     "familyTip": "Bayfront Park and the lawn around Marina Jack provide panoramic open viewing. Bring blankets, lawn chairs, and an unwrapped toy donation for local kids in need.",
     "mapsQuery": "Marina Jack, 2 Marina Plaza, Sarasota, FL 34236",
-    "icon": "\u26f5"
+    "icon": "⛵"
   },
   {
     "id": "manatee-river-boat-parade",
@@ -821,7 +821,7 @@
     "startDate": "2026-12-12",
     "endDate": "2026-12-12",
     "dateDisplay": "Saturday, Dec 12, 2026",
-    "timeDisplay": "6:00 PM \u2013 8:30 PM",
+    "timeDisplay": "6:00 PM – 8:30 PM",
     "cost": "Free Public Viewing",
     "isFree": true,
     "kidFriendly": true,
@@ -829,7 +829,7 @@
     "description": "Manatee County's largest holiday waterfront event! Lit vessels cruise down the Manatee River between Bradenton and Palmetto, competing for boat decor honors under brilliant evening lights.",
     "familyTip": "Best public viewing with kids: Green Bridge pedestrian walkway (closed to vehicles during the parade) or anywhere along the Bradenton Riverwalk shoreline.",
     "mapsQuery": "Bradenton Riverwalk, Bradenton, FL 34205",
-    "icon": "\ud83d\udee5\ufe0f"
+    "icon": "🛥️"
   },
   {
     "id": "enanders-winter-wonderland",
@@ -849,8 +849,8 @@
     "radioSync": "Walk-Through Sound & Outdoor Music",
     "startDate": "2026-12-01",
     "endDate": "2027-01-01",
-    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "dateDisplay": "Nightly, Dec 1, 2026 – Jan 1, 2027",
+    "timeDisplay": "6:00 PM – 10:00 PM",
     "cost": "Free (Canned food & toy donations welcomed)",
     "isFree": true,
     "kidFriendly": true,
@@ -858,7 +858,7 @@
     "description": "A legendary Southwest Florida holiday home tradition for over 30 years! Features over 400,000 dazzling lights, thousands of handmade animated figures, life-size gingerbread men, toy soldier castle pathways, and snowmen across a beautifully landscaped estate.",
     "familyTip": "Walk-through pathways allow kids to explore close up. Park carefully along Mission Valley Blvd and wear comfortable shoes. Bring a canned food donation for the community food bank.",
     "mapsQuery": "2281 Mission Valley Blvd, Nokomis, FL 34275",
-    "icon": "\ud83c\udfe1"
+    "icon": "🏡"
   },
   {
     "id": "cedarwood-musical-lights",
@@ -875,11 +875,11 @@
     "category": "home-lights",
     "categoryLabel": "Home & Neighborhood Light Shows",
     "isHomeDisplay": true,
-    "radioSync": "\ud83d\udcfb Tune Car Radio to 95.5 FM",
+    "radioSync": "📻 Tune Car Radio to 95.5 FM",
     "startDate": "2026-11-26",
     "endDate": "2027-01-02",
-    "dateDisplay": "Nightly, Thanksgiving \u2013 Jan 2, 2027",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM (Fri\u2013Sat until 10:30 PM)",
+    "dateDisplay": "Nightly, Thanksgiving – Jan 2, 2027",
+    "timeDisplay": "6:00 PM – 10:00 PM (Fri–Sat until 10:30 PM)",
     "cost": "Free Drive-By Show",
     "isFree": true,
     "kidFriendly": true,
@@ -887,7 +887,7 @@
     "description": "One of Florida's most sophisticated computer-synchronized residential pixel shows! Over 50,000 smart pixels dancing to 40+ holiday, pop, and movie songs. Spectators can tune to 95.5 FM on their car radio and even vote for upcoming songs via their smartphone.",
     "familyTip": "Dim your headlights to parking lights when pulling up to the curb. Do not block neighboring driveways or turnarounds.",
     "mapsQuery": "5534 Cedarwood Dr, Sarasota, FL 34232",
-    "icon": "\ud83d\udcfb"
+    "icon": "📻"
   },
   {
     "id": "hayden-snow-wonderland",
@@ -908,7 +908,7 @@
     "startDate": "2026-12-01",
     "endDate": "2026-12-31",
     "dateDisplay": "Nightly in December 2026",
-    "timeDisplay": "6:30 PM \u2013 9:30 PM",
+    "timeDisplay": "6:30 PM – 9:30 PM",
     "cost": "Free (Park & Walk)",
     "isFree": true,
     "kidFriendly": true,
@@ -916,7 +916,7 @@
     "description": "Famous for delighting local children with active faux-snow machines blowing flurry clouds into the yard! Features dozens of oversized illuminated inflatables, archway walk-throughs, and classic holiday carols playing on the lawn.",
     "familyTip": "Located in the same Colonial Gables neighborhood as Cedarwood Dr, making it easy to visit both! Kids love catching the flying snow bubbles.",
     "mapsQuery": "5580 Hayden Blvd, Sarasota, FL 34232",
-    "icon": "\u2744\ufe0f"
+    "icon": "❄️"
   },
   {
     "id": "cedar-hollow-neighborhood-lights",
@@ -937,7 +937,7 @@
     "startDate": "2026-12-01",
     "endDate": "2027-01-01",
     "dateDisplay": "Nightly in December 2026",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "timeDisplay": "6:00 PM – 10:00 PM",
     "cost": "Free Drive-Through",
     "isFree": true,
     "kidFriendly": true,
@@ -945,7 +945,7 @@
     "description": "The entire Cedar Hollow neighborhood joins together every December to create an unforgettable drive-through light tunnel! Scores of neighboring homes coordinate illuminated driveway arches, glowing palm trees, and festive front lawn dioramas.",
     "familyTip": "Enter off Honore Ave just south of Fruitville Rd. Drive at 5 MPH with parking lights on so kids in the back seat can take in the entire loop.",
     "mapsQuery": "Cedar Hollow Cir, Sarasota, FL 34235",
-    "icon": "\u2728"
+    "icon": "✨"
   },
   {
     "id": "arundel-musical-lights-north-port",
@@ -962,11 +962,11 @@
     "category": "home-lights",
     "categoryLabel": "Home & Neighborhood Light Shows",
     "isHomeDisplay": true,
-    "radioSync": "\ud83d\udcfb Tune Car Radio to 88.3 FM",
+    "radioSync": "📻 Tune Car Radio to 88.3 FM",
     "startDate": "2026-12-01",
     "endDate": "2027-01-01",
-    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "dateDisplay": "Nightly, Dec 1, 2026 – Jan 1, 2027",
+    "timeDisplay": "6:00 PM – 10:00 PM",
     "cost": "Free Drive-By Show",
     "isFree": true,
     "kidFriendly": true,
@@ -974,7 +974,7 @@
     "description": "North Port's favorite residential animated light spectacular! Features thousands of synchronized pixel LEDs programmed to dance to holiday hits and modern beats broadcast right to your vehicle's FM radio.",
     "familyTip": "Easy drive from Punta Gorda (just off Price Blvd). Pull to the right side of the road, turn off headlights, and keep volume at an enjoyable car level.",
     "mapsQuery": "1563 Arundel Ave, North Port, FL 34286",
-    "icon": "\ud83c\udfb6"
+    "icon": "🎶"
   },
   {
     "id": "samovar-terrace-holiday-block",
@@ -995,7 +995,7 @@
     "startDate": "2026-12-01",
     "endDate": "2026-12-31",
     "dateDisplay": "Nightly in December 2026",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "timeDisplay": "6:00 PM – 10:00 PM",
     "cost": "Free Drive-Through",
     "isFree": true,
     "kidFriendly": true,
@@ -1003,7 +1003,7 @@
     "description": "Frequently voted North Port's Best Decorated Street, where multiple families decorate contiguous yards with hundreds of illuminated inflatables, rooftop displays, and synchronized light trees.",
     "familyTip": "A great family nightcap after grabbing dinner in North Port. Very quiet residential street with easy slow cruising.",
     "mapsQuery": "Samovar Terrace, North Port, FL 34286",
-    "icon": "\ud83c\udf1f"
+    "icon": "🌟"
   },
   {
     "id": "conestoga-musical-light-show",
@@ -1020,11 +1020,11 @@
     "category": "home-lights",
     "categoryLabel": "Home & Neighborhood Light Shows",
     "isHomeDisplay": true,
-    "radioSync": "\ud83d\udcfb Tune Car Radio to 89.1 FM",
+    "radioSync": "📻 Tune Car Radio to 89.1 FM",
     "startDate": "2026-12-01",
     "endDate": "2027-01-01",
-    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
-    "timeDisplay": "6:00 PM \u2013 10:00 PM",
+    "dateDisplay": "Nightly, Dec 1, 2026 – Jan 1, 2027",
+    "timeDisplay": "6:00 PM – 10:00 PM",
     "cost": "Free Drive-By Show",
     "isFree": true,
     "kidFriendly": true,
@@ -1032,7 +1032,7 @@
     "description": "Charlotte County's standout DIY home digital light spectacular! Thousands of RGB pixels across the roofline, windows, yard trees, and singing Christmas trees perform high-energy musical sequences synced to FM radio.",
     "familyTip": "Very close to Punta Gorda 33983 (just across the harbor bridge off Veterans Blvd / Midway). Great stop when touring local Charlotte County lights.",
     "mapsQuery": "4064 Conestoga St, Port Charlotte, FL 33948",
-    "icon": "\ud83d\udca1"
+    "icon": "💡"
   },
   {
     "id": "burnt-store-meadows-lights",
@@ -1053,7 +1053,7 @@
     "startDate": "2026-12-01",
     "endDate": "2026-12-31",
     "dateDisplay": "Nightly in December 2026",
-    "timeDisplay": "6:00 PM \u2013 9:30 PM",
+    "timeDisplay": "6:00 PM – 9:30 PM",
     "cost": "Free Drive-Through",
     "isFree": true,
     "kidFriendly": true,
@@ -1061,7 +1061,7 @@
     "description": "A beloved south Punta Gorda neighborhood tradition where enthusiastic homeowners decorate along the greenbelts and streets with dazzling palm tree wraps, glowing nativity sets, and lighted canal bridges.",
     "familyTip": "Combine this with a drive through Fishermen's Village for a complete Punta Gorda holiday lights evening!",
     "mapsQuery": "Soursop St and S Blue Sage, Punta Gorda, FL 33955",
-    "icon": "\ud83c\udf34"
+    "icon": "🌴"
   },
   {
     "id": "bradenton-72nd-musical-lights",
@@ -1078,11 +1078,11 @@
     "category": "home-lights",
     "categoryLabel": "Home & Neighborhood Light Shows",
     "isHomeDisplay": true,
-    "radioSync": "\ud83d\udcfb Tune Car Radio to 88.5 FM",
+    "radioSync": "📻 Tune Car Radio to 88.5 FM",
     "startDate": "2026-11-26",
     "endDate": "2027-01-01",
-    "dateDisplay": "Nightly, Thanksgiving \u2013 Jan 1, 2027",
-    "timeDisplay": "Sun\u2013Thu 6:00\u201310:00 PM, Fri\u2013Sat 6:00\u201311:00 PM",
+    "dateDisplay": "Nightly, Thanksgiving – Jan 1, 2027",
+    "timeDisplay": "Sun–Thu 6:00–10:00 PM, Fri–Sat 6:00–11:00 PM",
     "cost": "Free Drive-By Show",
     "isFree": true,
     "kidFriendly": true,
@@ -1090,7 +1090,7 @@
     "description": "One of Manatee County's most acclaimed residential musical light spectacles! Features tens of thousands of custom-programmed lights dancing to holiday classics and Trans-Siberian Orchestra songs transmitted directly to your FM radio.",
     "familyTip": "Turn headlights to amber parking lights so everyone behind you can enjoy the dazzling light display. Please do not block neighbor driveways.",
     "mapsQuery": "1811 72nd St NW, Bradenton, FL 34209",
-    "icon": "\ud83c\udfb5"
+    "icon": "🎵"
   },
   {
     "id": "barbaza-barrington-ridge-lights",
@@ -1110,8 +1110,8 @@
     "radioSync": "Walk-Up & Drive-By Display",
     "startDate": "2026-12-01",
     "endDate": "2027-01-01",
-    "dateDisplay": "Nightly, Dec 1, 2026 \u2013 Jan 1, 2027",
-    "timeDisplay": "5:00 PM \u2013 11:00 PM",
+    "dateDisplay": "Nightly, Dec 1, 2026 – Jan 1, 2027",
+    "timeDisplay": "5:00 PM – 11:00 PM",
     "cost": "Free (Canned food donation box)",
     "isFree": true,
     "kidFriendly": true,
@@ -1119,6 +1119,36 @@
     "description": "A heartwarming Bradenton family holiday tradition with over 10,000 sparkling lights, cheerful holiday characters, a festive photo booth bench for family pictures, and a community canned food donation collection box.",
     "familyTip": "Park safely along 41st St E. Friendly homeowners welcome families to take holiday photos by the front walkway!",
     "mapsQuery": "6133 41st St E, Bradenton, FL 34203",
-    "icon": "\ud83c\udfe1"
+    "icon": "🏡"
+  },
+  {
+    "id": "home-show-1789672970985",
+    "title": "gfhf",
+    "location": "Venice",
+    "venue": "3389 Daturard",
+    "address": "3389 Daturard, Venice, FL 34293",
+    "lat": 27.06,
+    "lng": -82.35,
+    "distanceMiles": 10,
+    "driveTime": "15 mins",
+    "proximityTier": "venice",
+    "season": "winter",
+    "category": "home-lights",
+    "categoryLabel": "Home & Neighborhood Light Shows",
+    "isHomeDisplay": true,
+    "hostName": "uyryt",
+    "radioSync": "",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-01",
+    "dateDisplay": "Nightly, Dec 1 – Jan 1",
+    "timeDisplay": "6:00 PM – 10:00 PM",
+    "cost": "Free Drive-By Show",
+    "isFree": true,
+    "kidFriendly": true,
+    "strollerFriendly": true,
+    "description": "Spectacular residential holiday light show hosted by uyryt at 3389 Daturard.",
+    "familyTip": "please turn off lights",
+    "mapsQuery": "3389 Daturard, Venice, FL 34293",
+    "icon": "🏡"
   }
 ]
