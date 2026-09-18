@@ -2439,14 +2439,14 @@
           />
         </div>
         <div class="view-toggles">
-          <button id="viewGridBtn" class="view-btn active" onclick="switchView('grid')">
-            <span>📋</span> Cards
+          <button id="viewGridBtn" class="view-btn active" onclick="switchView('grid')" title="View festivities as Cards Directory">
+            <span>📋</span> Cards View
           </button>
-          <button id="viewCalBtn" class="view-btn" onclick="switchView('calendar')">
-            <span>📅</span> Calendar
+          <button id="viewCalBtn" class="view-btn" onclick="switchView('calendar')" title="View festivities on monthly Calendar">
+            <span>📅</span> Calendar View
           </button>
-          <button id="viewMapBtn" class="view-btn" onclick="switchView('map')">
-            <span>🗺️</span> Map
+          <button id="viewMapBtn" class="view-btn" onclick="switchView('map')" title="View festivities on interactive SWFL Map">
+            <span>🗺️</span> Map View
           </button>
           <button class="view-btn itinerary-btn" onclick="openItineraryModal()">
             <span>❤️</span> My Planner <span class="badge-count" id="itineraryCount">0</span>
@@ -4828,11 +4828,24 @@
 
       if (isCal) {
         renderCalendar();
+        const calContainer = document.getElementById('calendarContainer');
+        if (calContainer) {
+          calContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       } else if (isMap) {
         initOrUpdateMap();
         setTimeout(() => {
           if (leafletMap) leafletMap.invalidateSize();
         }, 150);
+        const mContainer = document.getElementById('mapContainer');
+        if (mContainer) {
+          mContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else if (isGrid) {
+        const resultsBar = document.querySelector('.results-bar');
+        if (resultsBar) {
+          resultsBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     }
 
