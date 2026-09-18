@@ -1,9 +1,8 @@
 // Service Worker for SWFL Holiday & Festivities Planner
-const CACHE_NAME = 'swfl-holidays-v14';
+const CACHE_NAME = 'swfl-holidays-v15';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './admin.html',
   './manifest.json',
   './events.json',
   './swfl-holiday-scavenger-hunt.pdf',
@@ -79,6 +78,7 @@ self.addEventListener('fetch', event => {
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
+        return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
       });
 
       // Return cached version immediately if found, else wait for network

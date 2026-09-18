@@ -78,8 +78,11 @@ export default {
         params.append('line_items[0][price_data][unit_amount]', String(amountCents));
         params.append('line_items[0][quantity]', '1');
 
-        params.append('success_url', successUrl || 'https://jooshoo11.github.io/swfl-holiday-planner/?tip_success=true');
-        params.append('cancel_url', cancelUrl || 'https://jooshoo11.github.io/swfl-holiday-planner/');
+        const SAFE_ORIGIN = 'https://jooshoo11.github.io';
+        const isSafeUrl = (url) => url && url.startsWith(SAFE_ORIGIN);
+        
+        params.append('success_url', isSafeUrl(successUrl) ? successUrl : `${SAFE_ORIGIN}/swfl-holiday-planner/?tip_success=true`);
+        params.append('cancel_url', isSafeUrl(cancelUrl) ? cancelUrl : `${SAFE_ORIGIN}/swfl-holiday-planner/`);
 
         params.append('metadata[eventId]', eventId || '');
         params.append('metadata[cheerMessage]', cheerMessage || '');
@@ -87,7 +90,7 @@ export default {
         // If host has onboarded with Stripe Connect, split payment automatically
         if (stripeAccountId && stripeAccountId.startsWith('acct_')) {
           params.append('payment_intent_data[transfer_data][destination]', stripeAccountId);
-          params.append('payment_intent_data[application_fee_amount]', String(platformFeeCents || Math.round(amountCents * 0.10)));
+          params.append('payment_intent_data[application_fee_amount]', String(Math.round(amountCents * 0.10)));
         }
 
         // Call Stripe REST API directly

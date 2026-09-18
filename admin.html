@@ -863,7 +863,7 @@
     function handleAuthSubmit(e) {
       e.preventDefault();
       const input = document.getElementById('creatorPasskey').value.trim();
-      if (input === CREATOR_PASSKEY || input === 'admin' || input === 'creator') {
+      if (input === CREATOR_PASSKEY) {
         sessionStorage.setItem('swfl_admin_auth', 'true');
         document.getElementById('authGate').style.display = 'none';
         showToast('🔓 Dashboard Unlocked! Welcome back, Creator.');

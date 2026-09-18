@@ -37,6 +37,7 @@
       --bg-primary: #fdfbf7;
       --bg-surface: #ffffff;
       --bg-subtle: #f7f4ec;
+      --bg-card: var(--bg-surface);
       --text-main: #1f2937;
       --text-muted: #64748b;
       --brand-primary: #b45309;
@@ -1832,6 +1833,12 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1.25rem;
+    }
+
+    @media (max-width: 360px) {
+      .residential-cards-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .res-card {
@@ -4381,6 +4388,7 @@
     let currentView = 'grid'; // 'grid', 'calendar', 'map'
     let leafletMap = null;
     let mapMarkersGroup = null;
+    let cheerAudioCtx = null; // Shared AudioContext — reused to avoid resource leak
 
     // User Location State
     let currentZip = localStorage.getItem('swfl_user_zip') || '33983';
@@ -4457,7 +4465,7 @@
       // Auto-scrub any test entries from local storage
       const isTestShow = (item) => {
         const text = `${item.title || ''} ${item.address || ''} ${item.venue || ''} ${item.description || ''} ${item.hostName || ''}`.toLowerCase();
-        return text.includes('test') || text.includes('testing') || text.includes('sample');
+        return /\b(test|testing|sample)\b/.test(text);
       };
       communityHomeShows = communityHomeShows.filter(item => !isTestShow(item));
       customEvents = customEvents.filter(item => !isTestShow(item));
@@ -4655,7 +4663,7 @@
         const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
         const elem = document.getElementById(elemId);
         if (elem) {
-          elem.textContent = diffDays > 0 ? `${diffDays}d` : 'Today!';
+          elem.textContent = diffDays > 0 ? `${diffDays}d` : diffDays === 0 ? 'Today!' : 'Passed';
         }
       }
     }
@@ -4794,39 +4802,39 @@
             </div>
 
             <div class="card-body">
-              <h2 class="card-title">${ev.icon || '🎉'} ${ev.title}</h2>
+              <h2 class="card-title">${ev.icon || '🎉'} ${escapeHtml(ev.title)}</h2>
 
               ${ev.radioSync ? `
                 <div class="radio-banner-row">
-                  <span>${ev.radioSync}</span>
+                  <span>${escapeHtml(ev.radioSync)}</span>
                 </div>
               ` : ''}
               
               <div class="card-meta">
                 <div class="meta-row">
                   <span class="meta-icon">📅</span>
-                  <span style="font-weight: 600; color: var(--text-main);">${ev.dateDisplay}</span>
+                  <span style="font-weight: 600; color: var(--text-main);">${escapeHtml(ev.dateDisplay)}</span>
                 </div>
                 <div class="meta-row">
                   <span class="meta-icon">⏰</span>
-                  <span>${ev.timeDisplay}</span>
+                  <span>${escapeHtml(ev.timeDisplay)}</span>
                 </div>
                 <div class="meta-row">
                   <span class="meta-icon">📍</span>
-                  <span><strong>${ev.venue}</strong> — ${ev.address}</span>
+                  <span><strong>${escapeHtml(ev.venue)}</strong> — ${escapeHtml(ev.address)}</span>
                 </div>
                 <div class="meta-row">
                   <span class="meta-icon">🎟️</span>
-                  <span>${ev.cost}</span>
+                  <span>${escapeHtml(ev.cost)}</span>
                 </div>
               </div>
 
-              <p class="card-desc">${ev.description}</p>
+              <p class="card-desc">${escapeHtml(ev.description)}</p>
 
               ${ev.familyTip ? `
                 <div class="family-tip-box">
                   <div class="tip-title">${ev.isHomeDisplay ? '🚗 Spectator Etiquette & Tip' : '💡 Family Tip'}</div>
-                  <div>${ev.familyTip}</div>
+                  <div>${escapeHtml(ev.familyTip)}</div>
                 </div>
               ` : ''}
 
@@ -4872,8 +4880,7 @@
       }
       localStorage.setItem('swfl_saved_events', JSON.stringify([...savedEventIds]));
       updateSavedCount();
-      renderCards();
-      renderResidentialTrail();
+      renderCards(); // renderResidentialTrail() is called internally by renderCards()
       if (document.getElementById('itineraryModal').classList.contains('open')) {
         renderItineraryModal();
       }
@@ -5322,14 +5329,11 @@
           _template: 'table'
         })
       })
-      .then(res => res.json())
-      .catch(err => console.log('Message logged:', err))
-      .finally(() => {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '📨 Send Message Directly';
-        }
-        document.getElementById('contactForm').reset();
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(() => {
         if (statusElem) {
           statusElem.style.display = 'block';
           statusElem.style.background = '#f0fdf4';
@@ -5344,13 +5348,30 @@
           alert(`✅ Message Sent! Thank you ${name}, we have received your message.`);
           closeContactModal();
         }
+      })
+      .catch(err => {
+        console.log('Message logged locally instead due to network error:', err);
+        if (statusElem) {
+          statusElem.style.display = 'block';
+          statusElem.style.background = '#fffbeb';
+          statusElem.style.color = '#b45309';
+          statusElem.style.border = '1px solid #fde68a';
+          statusElem.innerHTML = `<strong>⚠️ Saved Offline</strong><br>We couldn't connect, but your message is saved on your device and will sync later.`;
+        }
+      })
+      .finally(() => {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '📨 Send Message Directly';
+        }
+        document.getElementById('contactForm').reset();
       });
     }
 
     // Secret Creator Passkey Prompt
     function openAdminPrompt() {
       const code = prompt('Enter Creator Admin Passkey:');
-      if (code === 'admin' || code === 'swfl2026' || code === 'creator') {
+      if (code === 'swfl2026') {
         sessionStorage.setItem('swfl_admin_auth', 'true');
         window.location.href = './admin.html';
       } else if (code !== null) {
@@ -5438,15 +5459,6 @@
       }
     }
 
-    // Auto-open review queue if ?admin=1 in URL
-    if (window.location.search.includes('admin=1') || window.location.search.includes('admin=true')) {
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          openAdminReviewModal();
-        }, 500);
-      });
-    }
-
     function closeModalOnBackdrop(e, modalId) {
       if (e.target.id === modalId) {
         document.getElementById(modalId).classList.remove('open');
@@ -5478,10 +5490,10 @@
           return `
             <div class="itinerary-item">
               <div class="itinerary-info">
-                <h4>${ev.icon || '🎉'} ${ev.title}</h4>
-                <p>📅 ${ev.dateDisplay} • ⏰ ${ev.timeDisplay}</p>
-                <p>📍 ${ev.venue}, ${ev.location} (~${dist} mi from your location)</p>
-                ${ev.radioSync ? `<p style="color:#16a34a; font-weight:700;">${ev.radioSync}</p>` : ''}
+                <h4>${ev.icon || '🎉'} ${escapeHtml(ev.title)}</h4>
+                <p>📅 ${escapeHtml(ev.dateDisplay)} • ⏰ ${escapeHtml(ev.timeDisplay)}</p>
+                <p>📍 ${escapeHtml(ev.venue)}, ${escapeHtml(ev.location)} (~${dist} mi from your location)</p>
+                ${ev.radioSync ? `<p style="color:#16a34a; font-weight:700;">${escapeHtml(ev.radioSync)}</p>` : ''}
               </div>
               <button class="btn-remove" onclick="toggleSaveEvent('${ev.id}')">Remove</button>
             </div>
@@ -5553,7 +5565,7 @@
             <div><strong>Host / Homeowner:</strong> ${escapeHtml(hostName)}</div>
             <div><strong>Address:</strong> ${escapeHtml(address)}, ${escapeHtml(city)}, FL ${escapeHtml(zip)}</div>
             <div><strong>Private Contact:</strong> ${escapeHtml(contact)}</div>
-            ${photoLink ? `<div><strong>Proof / Social Link:</strong> <a href="${escapeHtml(photoLink)}" target="_blank" rel="noopener" style="color:#0284c7;">${escapeHtml(photoLink)}</a></div>` : ''}
+            ${photoLink ? `<div><strong>Proof / Social Link:</strong> <a href="${(() => { try { const u = new URL(photoLink); return (u.protocol === 'https:' || u.protocol === 'http:') ? escapeHtml(photoLink) : '#'; } catch(e) { return '#'; } })()}" target="_blank" rel="noopener" style="color:#0284c7;">${escapeHtml(photoLink)}</a></div>` : ''}
             <div style="color:var(--text-muted); font-size:0.75rem; margin-top:0.4rem;">Submitted: ${escapeHtml(pendingApp.submittedAt)}</div>
           </div>
         `;
@@ -5622,7 +5634,7 @@
               <div><strong>📻 Audio:</strong> ${escapeHtml(item.radioSync || 'No synchronized audio')}</div>
               <div><strong>⏰ Hours:</strong> ${escapeHtml(item.hours)}</div>
               <div><strong>📅 Dates:</strong> ${escapeHtml(item.dates)}</div>
-              ${item.photoLink ? `<div><strong>🔗 Proof:</strong> <a href="${escapeHtml(item.photoLink)}" target="_blank" rel="noopener" style="color:#0284c7;">View Photo/Video ↗</a></div>` : '<div><strong>🔗 Proof:</strong> None provided</div>'}
+              ${item.photoLink ? `<div><strong>🔗 Proof:</strong> <a href="${(() => { try { const u = new URL(item.photoLink); return (u.protocol === 'https:' || u.protocol === 'http:') ? escapeHtml(item.photoLink) : '#'; } catch(e) { return '#'; } })()}" target="_blank" rel="noopener" style="color:#0284c7;">View Photo/Video ↗</a></div>` : '<div><strong>🔗 Proof:</strong> None provided</div>'}
               <div><strong>🕒 Submitted:</strong> ${escapeHtml(item.submittedAt || 'Recently')}</div>
             </div>
             <div style="font-size: 0.82rem; color: var(--text-main); margin: 0.5rem 0;">
@@ -5977,16 +5989,16 @@
         if (ev.isHomeDisplay) {
           markerClass = 'marker-home';
           markerEmoji = '🏡';
-        } else if (ev.category === 'boat-parades') {
+        } else if (ev.category === 'parades') {
           markerClass = 'marker-boat';
           markerEmoji = '⛵';
-        } else if (ev.category === 'grand-displays') {
+        } else if (ev.category === 'light-displays') {
           markerClass = 'marker-grand';
           markerEmoji = '🌟';
-        } else if (ev.category === 'santa-trees') {
+        } else if (ev.category === 'tree-lighting') {
           markerClass = 'marker-santa';
           markerEmoji = '🎅';
-        } else if (ev.category === 'fall-festivals') {
+        } else if (ev.category === 'pumpkin-patches' || ev.category === 'trick-or-treat') {
           markerClass = 'marker-fall';
           markerEmoji = '🎃';
         } else {
@@ -6141,7 +6153,7 @@
       ];
 
       events.forEach(ev => {
-        const startClean = ev.startDate.replace(/-/g, '');
+        const startClean = (ev.startDate || '').replace(/-/g, '') || formatICSDate(new Date());
         lines.push('BEGIN:VEVENT');
         lines.push(`UID:${ev.id}-${Date.now()}@swflholidayplanner.local`);
         lines.push(`DTSTAMP:${formatICSDate(new Date())}`);
@@ -6762,9 +6774,13 @@
           setTimeout(() => heart.remove(), 800);
         }
 
-        // Synthetic web audio chime
+        // Synthetic web audio chime — reuse shared context to avoid resource leak
         try {
-          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (!cheerAudioCtx || cheerAudioCtx.state === 'closed') {
+            cheerAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          const ctx = cheerAudioCtx;
+          if (ctx.state === 'suspended') ctx.resume();
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sine';
