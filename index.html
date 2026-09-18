@@ -1885,6 +1885,143 @@
       cursor: pointer;
     }
     .btn-copy-json:hover { background: #475569; }
+
+    /* Kids Scavenger Hunt Components */
+    .scavenger-banner-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 78, 59, 0.28));
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .scavenger-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      min-width: 260px;
+    }
+    .scavenger-badge-icon {
+      font-size: 2.2rem;
+      background: rgba(16, 185, 129, 0.2);
+      border-radius: 12px;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      line-height: 1;
+    }
+    .scavenger-banner-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #ffffff;
+    }
+    .scavenger-banner-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      line-height: 1.45;
+    }
+    .scavenger-banner-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .scavenger-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+    .scavenger-item-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      user-select: none;
+    }
+    .scavenger-item-card:hover {
+      border-color: #10b981;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
+    }
+    .scavenger-item-card.found {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 78, 59, 0.25));
+      border-color: #10b981;
+    }
+    .scavenger-item-card .scav-check {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+    .scavenger-item-card.found .scav-check {
+      background: #10b981;
+      border-color: #10b981;
+      color: #ffffff;
+    }
+    .scavenger-item-card .scav-num {
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border-radius: 4px;
+      padding: 0.1rem 0.35rem;
+    }
+    .scavenger-item-card .scav-icon {
+      font-size: 2.2rem;
+      margin: 0.8rem 0 0.4rem;
+      line-height: 1;
+    }
+    .scavenger-item-card .scav-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+    .scavenger-item-card .scav-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+    .scavenger-progress-bar-wrap {
+      background: var(--bg-surface);
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid var(--border-color);
+    }
+    .scavenger-progress-bar-fill {
+      background: linear-gradient(90deg, #10b981, #059669, #34d399);
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
   </style>
 
   <!-- Leaflet Interactive Maps CSS & JS -->
@@ -1904,6 +2041,9 @@
           <span>Home Base: Punta Gorda (33983) • Family in North Port, Venice, Sarasota & Bradenton</span>
         </div>
         <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <button class="theme-btn" onclick="openScavengerHuntModal()" style="font-weight:800; background:rgba(16, 185, 129, 0.2); border-color:#10b981; color:#34d399;" title="Kids Backseat Scavenger Hunt & Printable PDF">
+            <span>🎯</span> Kids Scavenger Hunt
+          </button>
           <button class="theme-btn" onclick="openContactModal()" style="font-weight:700;">
             <span>✉️</span> Contact Us
           </button>
@@ -2023,6 +2163,25 @@
           <div class="etiquette-item"><span>📻</span> <div><strong>FM Radio:</strong> Tune car stereo to the specific frequency posted on each house sign.</div></div>
           <div class="etiquette-item"><span>🚫</span> <div><strong>Driveways:</strong> Never block neighbor driveways, mailboxes, or oncoming traffic flow.</div></div>
           <div class="etiquette-item"><span>⏰</span> <div><strong>Hours:</strong> Most home displays turn off at 10:00 PM out of residential courtesy.</div></div>
+        </div>
+      </div>
+
+      <!-- Kids Backseat Scavenger Hunt Banner -->
+      <div class="scavenger-banner-card">
+        <div class="scavenger-banner-left">
+          <span class="scavenger-badge-icon">🎯</span>
+          <div>
+            <div class="scavenger-banner-title">Kids' Backseat Holiday Scavenger Hunt & Car Bingo! 🎅</div>
+            <div class="scavenger-banner-desc">Keep kids entertained looking out the window between light displays! Spot 16 festive Florida holiday sights. Play interactively on your phone/tablet or download the free printable PDF.</div>
+          </div>
+        </div>
+        <div class="scavenger-banner-actions">
+          <button class="btn-primary" onclick="openScavengerHuntModal()" style="background:#10b981; border:none; padding:0.6rem 1.1rem; font-size:0.88rem; font-weight:800; border-radius:8px; cursor:pointer;">
+            <span>📱</span> Play on Phone
+          </button>
+          <a href="swfl-holiday-scavenger-hunt.pdf" download="swfl-holiday-scavenger-hunt.pdf" class="btn-secondary" style="text-decoration:none; padding:0.6rem 1.1rem; font-size:0.88rem; font-weight:700; border-radius:8px; display:inline-flex; align-items:center; gap:0.4rem;" target="_blank">
+            <span>📥</span> Download Printable PDF
+          </a>
         </div>
       </div>
 
@@ -2192,7 +2351,7 @@
       <div style="display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; font-size: 0.82rem;">
         <button onclick="openContactModal()" style="background: none; border: none; color: var(--brand-primary); cursor: pointer; font-weight: 700; font-family: inherit;">✉️ Contact Us & Event Inquiries</button>
         <button onclick="openSubmitHomeShowModal()" style="background: none; border: none; color: #10b981; cursor: pointer; font-weight: 700; font-family: inherit;">🏡 Host Light Show Application</button>
-        <button onclick="clearAllTestLocations()" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.8rem; font-family: inherit;">🧹 Reset Test Data</button>
+        <button onclick="openScavengerHuntModal()" style="background: none; border: none; color: #38bdf8; cursor: pointer; font-weight: 700; font-family: inherit;">🎯 Kids' Scavenger Hunt & Printable PDF</button>
         <button onclick="openAdminPrompt()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.76rem; opacity: 0.5; font-family: inherit;" title="Creator moderation portal">🔐 Creator Login</button>
       </div>
     </div>
@@ -2477,6 +2636,74 @@
             Save to Planner
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- KIDS' BACKSEAT SCAVENGER HUNT MODAL -->
+  <div class="modal-overlay" id="scavengerHuntModal" onclick="closeModalOnBackdrop(event, 'scavengerHuntModal')">
+    <div class="modal-card" style="max-width: 860px; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.85rem;">
+        <div class="modal-title">
+          <span>🎯</span>
+          <span>Kids' Backseat Holiday Scavenger Hunt & Car Bingo!</span>
+        </div>
+        <button class="modal-close" onclick="closeScavengerHuntModal()">✕</button>
+      </div>
+
+      <div class="modal-body" style="overflow-y: auto; padding: 1.25rem 1.5rem;">
+        <!-- Top Info & Action Toolbar -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fff;">🚗 Touring SWFL Lights Tonight?</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">Spot items out your car window! Tap each square when you spot it, or download the free printable 8.5x11 PDF to color with crayons.</div>
+          </div>
+          <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;">
+            <a href="swfl-holiday-scavenger-hunt.pdf" download="swfl-holiday-scavenger-hunt.pdf" class="btn-primary" style="text-decoration: none; padding: 0.5rem 0.9rem; font-size: 0.82rem; font-weight: 700; background: #059669; display: inline-flex; align-items: center; gap: 0.35rem;" target="_blank">
+              <span>📥</span> Download PDF
+            </a>
+            <button class="btn-secondary" onclick="window.open('swfl-holiday-scavenger-hunt.pdf', '_blank')" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">
+              <span>🖨️</span> Open & Print
+            </button>
+            <button class="btn-secondary" onclick="resetScavengerProgress()" style="padding: 0.5rem 0.8rem; font-size: 0.82rem; color: #f87171;" title="Reset checkboxes">
+              <span>🔄</span> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Tracker Bar -->
+        <div style="margin-top: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 700;">
+            <span id="scavengerProgressLabel" style="color: var(--text-main);">Sights Spotted: 0 of 16 (0%)</span>
+            <span id="scavengerBadgeLabel" style="color: #10b981; font-weight: 800;">Looking for #1... 🔍</span>
+          </div>
+          <div class="scavenger-progress-bar-wrap">
+            <div class="scavenger-progress-bar-fill" id="scavengerProgressBar"></div>
+          </div>
+        </div>
+
+        <!-- Interactive 16-Tile Grid -->
+        <div class="scavenger-grid" id="scavengerGridContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Bonus Backseat Challenges Card -->
+        <div style="margin-top: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.1rem 1.25rem;">
+          <div style="font-weight: 800; font-size: 0.92rem; color: #f59e0b; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.75rem;">
+            <span>⭐</span> Bonus Backseat Challenges
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem; font-size: 0.82rem;">
+            <div>
+              <label style="display: block; color: var(--text-muted); margin-bottom: 0.3rem;">Most inflatables spotted in one yard:</label>
+              <input type="text" id="bonusInflatables" class="form-control" placeholder="e.g. 14 inflatables at Cedarwood" oninput="saveScavengerBonus()" style="font-size: 0.82rem; padding: 0.4rem 0.6rem;" />
+            </div>
+            <div>
+              <label style="display: block; color: var(--text-muted); margin-bottom: 0.3rem;">Favorite song heard in car radio sync:</label>
+              <input type="text" id="bonusSong" class="form-control" placeholder="e.g. Carol of the Bells / Trans-Siberian" oninput="saveScavengerBonus()" style="font-size: 0.82rem; padding: 0.4rem 0.6rem;" />
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -5508,6 +5735,140 @@
 
     // Run on load
     window.addEventListener('DOMContentLoaded', init);
+
+    // ==========================================
+    // KIDS' BACKSEAT HOLIDAY SCAVENGER HUNT
+    // ==========================================
+    const SCAVENGER_ITEMS = [
+      { id: 'scav-radio', num: '#1', title: 'Car Radio Sync', icon: '📻', hint: 'Tuned to FM station playing synchronized songs' },
+      { id: 'scav-flamingo', num: '#2', title: 'Florida Flamingo', icon: '🦩', hint: 'Pink flamingo wearing a Santa hat or scarf' },
+      { id: 'scav-inflatable', num: '#3', title: 'Giant Inflatable', icon: '🎅', hint: 'Blow-up character taller than mom or dad!' },
+      { id: 'scav-snow', num: '#4', title: 'Real Snow Machine', icon: '❄️', hint: 'Faux flurry bubbles blowing across the yard' },
+      { id: 'scav-tree', num: '#5', title: 'Animated Pixel Tree', icon: '🎄', hint: 'Light tree with dancing computerized patterns' },
+      { id: 'scav-reindeer', num: '#6', title: 'Rooftop Reindeer', icon: '🦌', hint: 'Prancing reindeer glowing atop the shingles' },
+      { id: 'scav-cane', num: '#7', title: 'Candy Cane Lane', icon: '🍬', hint: 'Row of glowing candy canes lining driveway' },
+      { id: 'scav-boat', num: '#8', title: 'Lighted Boat / Anchor', icon: '⛵', hint: 'Nautical or boat display with twinkle lights' },
+      { id: 'scav-singing', num: '#9', title: 'Singing Characters', icon: '🎶', hint: 'Animated trees or bulbs with moving mouths' },
+      { id: 'scav-nativity', num: '#10', title: 'Nativity Manger', icon: '🌟', hint: 'Glowing manger scene or holy family display' },
+      { id: 'scav-grinch', num: '#11', title: 'Sneaky Grinch', icon: '🧌', hint: 'Green holiday grinch sneaking with a gift' },
+      { id: 'scav-arch', num: '#12', title: 'Walk-Through Arch', icon: '🏰', hint: 'Lighted tunnel or walk-under glowing arch' },
+      { id: 'scav-train', num: '#13', title: 'Holiday Train Express', icon: '🚂', hint: 'Illuminated train engine puffing lights' },
+      { id: 'scav-nutcracker', num: '#14', title: 'Nutcracker Guard', icon: '💂', hint: 'Tall wooden soldier guarding front walkway' },
+      { id: 'scav-lasers', num: '#15', title: 'Laser Snowflake Stars', icon: '✨', hint: 'Twinkling lasers dancing on home wall' },
+      { id: 'scav-santa', num: '#16', title: 'Santa & Sleigh', icon: '🛷', hint: 'Saint Nick with glowing reindeer in the yard' }
+    ];
+
+    function getScavengerChecked() {
+      try {
+        return JSON.parse(localStorage.getItem('swfl_scavenger_checked') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function openScavengerHuntModal() {
+      document.getElementById('scavengerHuntModal').classList.add('open');
+      renderScavengerHunt();
+      loadScavengerBonus();
+    }
+
+    function closeScavengerHuntModal() {
+      document.getElementById('scavengerHuntModal').classList.remove('open');
+    }
+
+    function toggleScavengerItem(itemId) {
+      let checked = getScavengerChecked();
+      const idx = checked.indexOf(itemId);
+      if (idx > -1) {
+        checked.splice(idx, 1);
+      } else {
+        checked.push(itemId);
+      }
+      localStorage.setItem('swfl_scavenger_checked', JSON.stringify(checked));
+      renderScavengerHunt();
+    }
+
+    function renderScavengerHunt() {
+      const container = document.getElementById('scavengerGridContainer');
+      if (!container) return;
+
+      const checked = getScavengerChecked();
+      const count = checked.length;
+      const total = SCAVENGER_ITEMS.length;
+      const pct = Math.round((count / total) * 100);
+
+      const progressLabel = document.getElementById('scavengerProgressLabel');
+      if (progressLabel) {
+        progressLabel.textContent = `Sights Spotted: ${count} of ${total} (${pct}%)`;
+      }
+
+      const progressBar = document.getElementById('scavengerProgressBar');
+      if (progressBar) {
+        progressBar.style.width = `${pct}%`;
+      }
+
+      const badgeLabel = document.getElementById('scavengerBadgeLabel');
+      if (badgeLabel) {
+        if (count === total) {
+          badgeLabel.innerHTML = '🏆 BINGO CHAMPION! You found all 16! 🌟';
+          badgeLabel.style.color = '#f59e0b';
+        } else if (count >= 12) {
+          badgeLabel.innerHTML = '🔥 Almost a Master Explorer! Keep going!';
+          badgeLabel.style.color = '#10b981';
+        } else if (count >= 8) {
+          badgeLabel.innerHTML = '🎉 Halfway Hero! (8+ found!)';
+          badgeLabel.style.color = '#38bdf8';
+        } else if (count >= 1) {
+          badgeLabel.innerHTML = '👀 Great eye! Keep spotting!';
+          badgeLabel.style.color = '#34d399';
+        } else {
+          badgeLabel.innerHTML = 'Looking for #1... 🔍';
+          badgeLabel.style.color = '#10b981';
+        }
+      }
+
+      container.innerHTML = SCAVENGER_ITEMS.map(item => {
+        const isFound = checked.includes(item.id);
+        return `
+          <div class="scavenger-item-card ${isFound ? 'found' : ''}" onclick="toggleScavengerItem('${item.id}')">
+            <span class="scav-num">${item.num}</span>
+            <div class="scav-check">${isFound ? '✓' : ''}</div>
+            <div class="scav-icon">${item.icon}</div>
+            <div class="scav-title">${escapeHtml(item.title)}</div>
+            <div class="scav-hint">${escapeHtml(item.hint)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function resetScavengerProgress() {
+      if (!confirm('Clear all your checked scavenger hunt squares?')) return;
+      localStorage.removeItem('swfl_scavenger_checked');
+      localStorage.removeItem('swfl_scavenger_bonus');
+      const infInput = document.getElementById('bonusInflatables');
+      if (infInput) infInput.value = '';
+      const songInput = document.getElementById('bonusSong');
+      if (songInput) songInput.value = '';
+      renderScavengerHunt();
+    }
+
+    function saveScavengerBonus() {
+      const data = {
+        inflatables: document.getElementById('bonusInflatables') ? document.getElementById('bonusInflatables').value : '',
+        song: document.getElementById('bonusSong') ? document.getElementById('bonusSong').value : ''
+      };
+      localStorage.setItem('swfl_scavenger_bonus', JSON.stringify(data));
+    }
+
+    function loadScavengerBonus() {
+      try {
+        const data = JSON.parse(localStorage.getItem('swfl_scavenger_bonus') || '{}');
+        const infInput = document.getElementById('bonusInflatables');
+        if (infInput && data.inflatables) infInput.value = data.inflatables;
+        const songInput = document.getElementById('bonusSong');
+        if (songInput && data.song) songInput.value = data.song;
+      } catch (e) {}
+    }
 
     // Progressive Web App (PWA): Service Worker Registration
     if ('serviceWorker' in navigator) {
